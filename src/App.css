@@ -454,3 +454,25 @@ body {
   font-family: sans-serif;
   font-size: 15px;
 }
+/* AVATAR PLACEHOLDER */
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2a2419, #1a1611);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+
+.avatar-placeholder span {
+  font-family: 'Georgia', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: #c9a84c;
+  letter-spacing: 2px;
+}
+
+.modal-avatar {
+  height: 320px;
+}

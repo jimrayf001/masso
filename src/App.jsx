@@ -11,6 +11,15 @@ const masajistas = [
   { id: 6, nombre: "Fernanda L.", comuna: "Maipú", disponible: false, servicio: "Relajación · Deportivo", precio: 35000 },
 ]
 
+function iniciales(nombre) {
+  return nombre
+    .split(" ")
+    .map(p => p[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase()
+}
+
 function App() {
   const [entro, setEntro] = useState(false)
   const [comuna, setComuna] = useState("Santiago")
@@ -155,7 +164,9 @@ function App() {
                   whileHover={{ y: -6 }}
                 >
                   <div className="card-img">
-                    <img src={`https://randomuser.me/api/portraits/women/${m.id + 10}.jpg`} alt={m.nombre} />
+                    <div className="avatar-placeholder">
+                      <span>{iniciales(m.nombre)}</span>
+                    </div>
                     <span className={`badge ${m.disponible ? "badge-on" : "badge-off"}`}>
                       {m.disponible ? "● En línea" : "● Ocupada"}
                     </span>
@@ -194,11 +205,9 @@ function App() {
               onClick={(e) => e.stopPropagation()}
             >
               <button className="modal-cerrar" onClick={() => setPerfilAbierto(null)}>✕</button>
-              <img
-                className="modal-img"
-                src={`https://randomuser.me/api/portraits/women/${perfilAbierto.id + 10}.jpg`}
-                alt={perfilAbierto.nombre}
-              />
+              <div className="avatar-placeholder modal-avatar">
+                <span>{iniciales(perfilAbierto.nombre)}</span>
+              </div>
               <div className="modal-info">
                 <span className={`badge ${perfilAbierto.disponible ? "badge-on" : "badge-off"}`}>
                   {perfilAbierto.disponible ? "● En línea" : "● Ocupada"}

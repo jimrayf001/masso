@@ -25,7 +25,6 @@ body {
   z-index: 1;
 }
 
-/* ENTRADA */
 .entrada {
   position: fixed;
   top: 0; left: 0;
@@ -191,6 +190,7 @@ body {
   opacity: 0.8;
   transition: opacity 0.3s;
   font-family: sans-serif;
+  cursor: pointer;
 }
 
 .nav-links a:hover { opacity: 1; color: #c9a84c; }
@@ -209,6 +209,8 @@ body {
 }
 
 .btn-primary:hover { background: #e0bf6a; }
+.btn-primary.large { padding: 16px 32px; font-size: 14px; }
+.btn-primary.full { width: 100%; }
 
 .seccion-masajistas { padding: 120px 60px 80px; position: relative; z-index: 2; }
 
@@ -323,3 +325,133 @@ body {
 }
 
 .btn-card:hover { border-color: #c9a84c; color: #c9a84c; }
+
+/* MODALES */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.75);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-perfil, .modal-registro {
+  background: #131110;
+  border: 1px solid rgba(201,168,76,0.3);
+  max-width: 380px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-registro { padding: 32px 28px; }
+
+.modal-cerrar {
+  position: absolute;
+  top: 12px; right: 12px;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: #f0ebe3;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 2;
+}
+
+.modal-img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+}
+
+.modal-info { padding: 24px; }
+
+.modal-info h3 {
+  font-size: 22px;
+  font-weight: 400;
+  margin: 10px 0 6px;
+}
+
+.modal-comuna {
+  font-size: 13px;
+  color: #c9a84c;
+  font-family: sans-serif;
+  margin-bottom: 8px;
+}
+
+.modal-servicio {
+  font-size: 13px;
+  opacity: 0.6;
+  font-family: sans-serif;
+  margin-bottom: 16px;
+}
+
+.modal-precio {
+  font-size: 22px;
+  color: #c9a84c;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.modal-precio span {
+  font-size: 12px;
+  opacity: 0.5;
+  font-weight: 400;
+}
+
+.modal-titulo { font-size: 24px; font-weight: 400; margin-bottom: 6px; }
+
+.modal-sub {
+  font-size: 13px;
+  opacity: 0.6;
+  font-family: sans-serif;
+  margin-bottom: 24px;
+}
+
+.form-registro {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-registro input,
+.form-registro select {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 12px 14px;
+  color: #f0ebe3;
+  font-size: 14px;
+  font-family: sans-serif;
+  outline: none;
+}
+
+.form-registro select option { background: #1a1a1a; }
+
+.form-registro input::placeholder { color: rgba(240,235,227,0.4); }
+
+.registro-exito {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.check-icon {
+  display: inline-block;
+  width: 50px; height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  background: rgba(74,222,128,0.15);
+  color: #4ade80;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.registro-exito p {
+  font-family: sans-serif;
+  font-size: 15px;
+}

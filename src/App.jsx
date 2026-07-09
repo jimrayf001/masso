@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import "./App.css"
 
 const masajistas = [
@@ -14,6 +14,26 @@ const masajistas = [
 function App() {
   const [entro, setEntro] = useState(false)
   const [comuna, setComuna] = useState("Santiago")
+  const [perfilAbierto, setPerfilAbierto] = useState(null)
+  const [registroAbierto, setRegistroAbierto] = useState(false)
+  const [registroEnviado, setRegistroEnviado] = useState(false)
+  const masajistasRef = useRef(null)
+
+  const irAMasajistas = () => {
+    setEntro(true)
+    setTimeout(() => {
+      masajistasRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, 100)
+  }
+
+  const enviarRegistro = (e) => {
+    e.preventDefault()
+    setRegistroEnviado(true)
+    setTimeout(() => {
+      setRegistroAbierto(false)
+      setRegistroEnviado(false)
+    }, 2000)
+  }
 
   return (
     <div className="app">
@@ -65,13 +85,25 @@ function App() {
               </button>
 
               <div className="entrada-bloques">
-                <div className="bloque" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400')" }}>
+                <div
+                  className="bloque"
+                  onClick={irAMasajistas}
+                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400')" }}
+                >
                   <span>MASAJISTAS</span>
                 </div>
-                <div className="bloque" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1591343395082-e120087004b4?w=400')" }}>
+                <div
+                  className="bloque"
+                  onClick={irAMasajistas}
+                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1591343395082-e120087004b4?w=400')" }}
+                >
                   <span>NOVEDADES</span>
                 </div>
-                <div className="bloque" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=400')" }}>
+                <div
+                  className="bloque"
+                  onClick={() => { setEntro(true); setRegistroAbierto(true) }}
+                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=400')" }}
+                >
                   <span>PUBLÍCATE</span>
                 </div>
               </div>
@@ -96,13 +128,13 @@ function App() {
               </div>
             </div>
             <div className="nav-links">
-              <a href="#">Masajistas</a>
-              <a href="#">Ubica tu servicio ideal</a>
-              <button className="btn-primary">Registrarse</button>
+              <a href="#" onClick={(e) => { e.preventDefault(); masajistasRef.current?.scrollIntoView({ behavior: "smooth" }) }}>Masajistas</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); masajistasRef.current?.scrollIntoView({ behavior: "smooth" }) }}>Ubica tu servicio ideal</a>
+              <button className="btn-primary" onClick={() => setRegistroAbierto(true)}>Registrarse</button>
             </div>
           </nav>
 
-          <section className="seccion-masajistas">
+          <section className="seccion-masajistas" ref={masajistasRef}>
             <motion.div className="seccion-header"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -134,7 +166,7 @@ function App() {
                     <p className="card-servicio">{m.servicio}</p>
                     <div className="card-footer">
                       <span className="card-precio">$ {m.precio.toLocaleString("es-CL")}</span>
-                      <button className="btn-card">Ver perfil</button>
+                      <button className="btn-card" onClick={() => setPerfilAbierto(m)}>Ver perfil</button>
                     </div>
                   </div>
                 </motion.div>
@@ -143,6 +175,90 @@ function App() {
           </section>
         </motion.div>
       )}
+
+      {/* MODAL: VER PERFIL */}
+      <AnimatePresence>
+        {perfilAbierto && (
+          <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setPerfilAbierto(null)}
+          >
+            <motion.div
+              className="modal-perfil"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="modal-cerrar" onClick={() => setPerfilAbierto(null)}>✕</button>
+              <img
+                className="modal-img"
+                src={`https://randomuser.me/api/portraits/women/${perfilAbierto.id + 10}.jpg`}
+                alt={perfilAbierto.nombre}
+              />
+              <div className="modal-info">
+                <span className={`badge ${perfilAbierto.disponible ? "badge-on" : "badge-off"}`}>
+                  {perfilAbierto.disponible ? "● En línea" : "● Ocupada"}
+                </span>
+                <h3>{perfilAbierto.nombre}</h3>
+                <p className="modal-comuna">📍 {perfilAbierto.comuna}</p>
+                <p className="modal-servicio">{perfilAbierto.servicio}</p>
+                <p className="modal-precio">$ {perfilAbierto.precio.toLocaleString("es-CL")} <span>/ 60 min</span></p>
+                <button className="btn-primary large full">Contactar por WhatsApp</button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* MODAL: REGISTRO */}
+      <AnimatePresence>
+        {registroAbierto && (
+          <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setRegistroAbierto(false)}
+          >
+            <motion.div
+              className="modal-registro"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="modal-cerrar" onClick={() => setRegistroAbierto(false)}>✕</button>
+
+              {!registroEnviado ? (
+                <>
+                  <h3 className="modal-titulo">Únete a <span className="gold italic">Masso</span></h3>
+                  <p className="modal-sub">Completa tus datos y te contactaremos</p>
+                  <form onSubmit={enviarRegistro} className="form-registro">
+                    <input type="text" placeholder="Nombre completo" required />
+                    <input type="email" placeholder="Correo electrónico" required />
+                    <input type="tel" placeholder="Teléfono" required />
+                    <select required defaultValue="">
+                      <option value="" disabled>¿Cómo quieres unirte?</option>
+                      <option value="cliente">Como cliente</option>
+                      <option value="masajista">Como masajista</option>
+                    </select>
+                    <button type="submit" className="btn-primary large full">Enviar</button>
+                  </form>
+                </>
+              ) : (
+                <div className="registro-exito">
+                  <span className="check-icon">✓</span>
+                  <p>¡Listo! Te contactaremos pronto.</p>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

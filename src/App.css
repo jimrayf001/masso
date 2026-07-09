@@ -326,7 +326,6 @@ body {
 
 .btn-card:hover { border-color: #c9a84c; color: #c9a84c; }
 
-/* MODALES */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0;

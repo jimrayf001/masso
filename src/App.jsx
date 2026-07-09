@@ -3,6 +3,21 @@ import { useState, useRef, useEffect } from "react"
 import { supabase } from "./supabaseClient"
 import "./App.css"
 
+const demoMasajistas = [
+  { id: "d1", nombre: "Demo Uno", comuna: "Providencia", disponible: true, servicio: "Relajación", precio: 40000 },
+  { id: "d2", nombre: "Demo Dos", comuna: "Las Condes", disponible: false, servicio: "Descontracturante", precio: 45000 },
+  { id: "d3", nombre: "Demo Tres", comuna: "Ñuñoa", disponible: true, servicio: "Piedras calientes", precio: 50000 },
+  { id: "d4", nombre: "Demo Cuatro", comuna: "Santiago Centro", disponible: true, servicio: "Relajación", precio: 38000 },
+  { id: "d5", nombre: "Demo Cinco", comuna: "Vitacura", disponible: false, servicio: "Facial", precio: 55000 },
+  { id: "d6", nombre: "Demo Seis", comuna: "Maipú", disponible: true, servicio: "Deportivo", precio: 35000 },
+  { id: "d7", nombre: "Demo Siete", comuna: "La Florida", disponible: true, servicio: "Relajación", precio: 42000 },
+  { id: "d8", nombre: "Demo Ocho", comuna: "Providencia", disponible: false, servicio: "Aromática", precio: 47000 },
+  { id: "d9", nombre: "Demo Nueve", comuna: "Las Condes", disponible: true, servicio: "Descontracturante", precio: 48000 },
+  { id: "d10", nombre: "Demo Diez", comuna: "Ñuñoa", disponible: true, servicio: "Piedras calientes", precio: 52000 },
+  { id: "d11", nombre: "Demo Once", comuna: "Vitacura", disponible: false, servicio: "Relajación", precio: 41000 },
+  { id: "d12", nombre: "Demo Doce", comuna: "Maipú", disponible: true, servicio: "Facial", precio: 46000 },
+]
+
 function iniciales(nombre) {
   return nombre
     .split(" ")
@@ -32,8 +47,12 @@ function App() {
       .select("*")
       .order("created_at", { ascending: false })
 
+    // NOTA: se agregan 12 tarjetas demo al final solo para pruebas visuales de layout.
+    // Quitar "demoMasajistas" del arreglo cuando ya no se necesiten.
     if (!error && data) {
-      setMasajistas(data)
+      setMasajistas([...data, ...demoMasajistas])
+    } else {
+      setMasajistas(demoMasajistas)
     }
     setCargandoMasajistas(false)
   }
@@ -175,7 +194,7 @@ function App() {
                     className="card"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    transition={{ duration: 0.4, delay: Math.min(i, 8) * 0.05 }}
                     whileHover={{ y: -6 }}
                   >
                     <div className="card-img">

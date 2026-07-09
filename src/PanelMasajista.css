@@ -1,0 +1,238 @@
+.panel-page {
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #f0ebe3;
+  font-family: 'Georgia', serif;
+}
+
+.panel-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+  color: #c9a84c;
+  font-family: sans-serif;
+}
+
+.panel-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+
+.panel-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.panel-nombre {
+  font-family: sans-serif;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.btn-salir {
+  background: transparent;
+  border: 1px solid rgba(240,235,227,0.25);
+  color: #f0ebe3;
+  padding: 8px 18px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: sans-serif;
+}
+
+.btn-salir:hover { border-color: #c9a84c; color: #c9a84c; }
+
+.panel-content {
+  padding: 50px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.panel-titulo {
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.panel-sub {
+  font-size: 14px;
+  opacity: 0.6;
+  font-family: sans-serif;
+  margin-bottom: 40px;
+}
+
+.gold { color: #c9a84c; }
+.italic { font-style: italic; }
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 30px;
+}
+
+.panel-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,168,76,0.15);
+  padding: 30px;
+}
+
+.panel-card-titulo {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 24px;
+  color: #c9a84c;
+  font-family: sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.panel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.panel-form label {
+  font-size: 12px;
+  font-family: sans-serif;
+  opacity: 0.6;
+  margin-top: 12px;
+  letter-spacing: 0.5px;
+}
+
+.panel-form input,
+.panel-form select {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 12px 14px;
+  color: #f0ebe3;
+  font-size: 14px;
+  font-family: sans-serif;
+  outline: none;
+}
+
+.panel-form select option { background: #1a1a1a; }
+
+.panel-switch { margin-top: 20px; }
+
+.switch-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.switch-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #c9a84c;
+  cursor: pointer;
+}
+
+.panel-error {
+  color: #f87171;
+  font-size: 13px;
+  font-family: sans-serif;
+  margin-top: 10px;
+}
+
+.panel-exito {
+  color: #4ade80;
+  font-size: 13px;
+  font-family: sans-serif;
+  margin-top: 10px;
+}
+
+.panel-form button {
+  margin-top: 20px;
+}
+
+.panel-preview {
+  align-self: start;
+}
+
+.preview-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,168,76,0.15);
+  overflow: hidden;
+}
+
+.preview-img {
+  position: relative;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2a2419, #1a1611);
+}
+
+.preview-img span:first-child {
+  font-size: 36px;
+  color: #c9a84c;
+  font-family: 'Georgia', serif;
+}
+
+.preview-img .badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  font-size: 10px;
+  font-family: sans-serif;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.badge-on {
+  background: rgba(0,200,100,0.15);
+  color: #4ade80;
+  border: 1px solid rgba(74,222,128,0.3);
+}
+
+.badge-off {
+  background: rgba(255,255,255,0.08);
+  color: rgba(240,235,227,0.5);
+  border: 1px solid rgba(240,235,227,0.15);
+}
+
+.preview-body { padding: 16px; }
+
+.preview-body h4 {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.preview-comuna {
+  font-size: 11px;
+  color: #c9a84c;
+  font-family: sans-serif;
+  margin-bottom: 6px;
+}
+
+.preview-servicio {
+  font-size: 11px;
+  opacity: 0.5;
+  font-family: sans-serif;
+  margin-bottom: 10px;
+}
+
+.preview-precio {
+  font-size: 16px;
+  color: #c9a84c;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  .panel-grid { grid-template-columns: 1fr; }
+  .panel-content { padding: 30px 20px; }
+  .panel-navbar { padding: 16px 20px; }
+}

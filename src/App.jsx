@@ -1,15 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
+import { supabase } from "./supabaseClient"
 import "./App.css"
-
-const masajistas = [
-  { id: 1, nombre: "Valentina R.", comuna: "Providencia", disponible: true, servicio: "Relajación · Descontracturante", precio: 45000 },
-  { id: 2, nombre: "Camila S.", comuna: "Las Condes", disponible: true, servicio: "Piedras calientes · Relajación", precio: 55000 },
-  { id: 3, nombre: "Daniela M.", comuna: "Ñuñoa", disponible: false, servicio: "Descontracturante · Deportivo", precio: 40000 },
-  { id: 4, nombre: "Sofía P.", comuna: "Santiago Centro", disponible: true, servicio: "Relajación · Aromática", precio: 38000 },
-  { id: 5, nombre: "Isabella T.", comuna: "Vitacura", disponible: true, servicio: "Piedras calientes · Facial", precio: 65000 },
-  { id: 6, nombre: "Fernanda L.", comuna: "Maipú", disponible: false, servicio: "Relajación · Deportivo", precio: 35000 },
-]
 
 function iniciales(nombre) {
   return nombre
@@ -26,7 +18,25 @@ function App() {
   const [perfilAbierto, setPerfilAbierto] = useState(null)
   const [registroAbierto, setRegistroAbierto] = useState(false)
   const [registroEnviado, setRegistroEnviado] = useState(false)
+  const [masajistas, setMasajistas] = useState([])
+  const [cargandoMasajistas, setCargandoMasajistas] = useState(true)
   const masajistasRef = useRef(null)
+
+  useEffect(() => {
+    cargarMasajistas()
+  }, [])
+
+  const cargarMasajistas = async () => {
+    const { data, error } = await supabase
+      .from("masajistas")
+      .select("*")
+      .order("created_at", { ascending: false })
+
+    if (!error && data) {
+      setMasajistas(data)
+    }
+    setCargandoMasajistas(false)
+  }
 
   const irAMasajistas = () => {
     setEntro(true)
@@ -110,7 +120,7 @@ function App() {
                 </div>
                 <div
                   className="bloque"
-                  onClick={() => { setEntro(true); setRegistroAbierto(true) }}
+                  onClick={() => window.location.href = "/login"}
                   style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=400')" }}
                 >
                   <span>PUBLÍCATE</span>
@@ -139,7 +149,7 @@ function App() {
             <div className="nav-links">
               <a href="#" onClick={(e) => { e.preventDefault(); masajistasRef.current?.scrollIntoView({ behavior: "smooth" }) }}>Masajistas</a>
               <a href="#" onClick={(e) => { e.preventDefault(); masajistasRef.current?.scrollIntoView({ behavior: "smooth" }) }}>Ubica tu servicio ideal</a>
-              <button className="btn-primary" onClick={() => setRegistroAbierto(true)}>Registrarse</button>
+              <button className="btn-primary" onClick={() => window.location.href = "/login"}>Registrarse</button>
             </div>
           </nav>
 
@@ -153,36 +163,42 @@ function App() {
               <h2 className="seccion-titulo">Conoce a nuestras <span className="gold italic">masajistas</span></h2>
             </motion.div>
 
-            <div className="cards-grid">
-              {masajistas.map((m, i) => (
-                <motion.div
-                  key={m.id}
-                  className="card"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  whileHover={{ y: -6 }}
-                >
-                  <div className="card-img">
-                    <div className="avatar-placeholder">
-                      <span>{iniciales(m.nombre)}</span>
+            {cargandoMasajistas ? (
+              <p className="cargando-texto">Cargando masajistas...</p>
+            ) : masajistas.length === 0 ? (
+              <p className="cargando-texto">Aún no hay masajistas registradas. ¡Sé la primera!</p>
+            ) : (
+              <div className="cards-grid">
+                {masajistas.map((m, i) => (
+                  <motion.div
+                    key={m.id}
+                    className="card"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    whileHover={{ y: -6 }}
+                  >
+                    <div className="card-img">
+                      <div className="avatar-placeholder">
+                        <span>{iniciales(m.nombre)}</span>
+                      </div>
+                      <span className={`badge ${m.disponible ? "badge-on" : "badge-off"}`}>
+                        {m.disponible ? "● En línea" : "● Ocupada"}
+                      </span>
                     </div>
-                    <span className={`badge ${m.disponible ? "badge-on" : "badge-off"}`}>
-                      {m.disponible ? "● En línea" : "● Ocupada"}
-                    </span>
-                  </div>
-                  <div className="card-body">
-                    <h3 className="card-nombre">{m.nombre}</h3>
-                    <p className="card-comuna">📍 {m.comuna}</p>
-                    <p className="card-servicio">{m.servicio}</p>
-                    <div className="card-footer">
-                      <span className="card-precio">$ {m.precio.toLocaleString("es-CL")}</span>
-                      <button className="btn-card" onClick={() => setPerfilAbierto(m)}>Ver perfil</button>
+                    <div className="card-body">
+                      <h3 className="card-nombre">{m.nombre}</h3>
+                      <p className="card-comuna">📍 {m.comuna}</p>
+                      <p className="card-servicio">{m.servicio}</p>
+                      <div className="card-footer">
+                        <span className="card-precio">$ {m.precio?.toLocaleString("es-CL")}</span>
+                        <button className="btn-card" onClick={() => setPerfilAbierto(m)}>Ver perfil</button>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </section>
         </motion.div>
       )}
@@ -215,7 +231,7 @@ function App() {
                 <h3>{perfilAbierto.nombre}</h3>
                 <p className="modal-comuna">📍 {perfilAbierto.comuna}</p>
                 <p className="modal-servicio">{perfilAbierto.servicio}</p>
-                <p className="modal-precio">$ {perfilAbierto.precio.toLocaleString("es-CL")} <span>/ 60 min</span></p>
+                <p className="modal-precio">$ {perfilAbierto.precio?.toLocaleString("es-CL")} <span>/ 60 min</span></p>
                 <button className="btn-primary large full">Contactar por WhatsApp</button>
               </div>
             </motion.div>
@@ -223,7 +239,7 @@ function App() {
         )}
       </AnimatePresence>
 
-      {/* MODAL: REGISTRO */}
+      {/* MODAL: REGISTRO (rápido, opcional — el registro real está en /login) */}
       <AnimatePresence>
         {registroAbierto && (
           <motion.div

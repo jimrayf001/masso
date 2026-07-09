@@ -476,3 +476,10 @@ body {
 .modal-avatar {
   height: 320px;
 }
+.cargando-texto {
+  text-align: center;
+  font-family: sans-serif;
+  opacity: 0.5;
+  font-size: 14px;
+  padding: 40px 0;
+}

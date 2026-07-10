@@ -41,50 +41,51 @@ body {
   align-items: center;
   gap: 20px;
   width: 100%;
-  max-width: 420px;
+  max-width: 460px;
   padding: 20px;
 }
 
-.logo-entrada { text-align: center; margin-bottom: 10px; }
+.logo-entrada { text-align: center; margin-bottom: 14px; }
 
 .logo-lineas {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 18px;
 }
 
 .linea-logo {
   flex: 1;
   height: 1px;
-  background: #c9a84c;
-  opacity: 0.7;
+  background: #e8c876;
+  opacity: 0.8;
 }
 
 .linea-logo.small { opacity: 0.5; }
 
 .logo-texto {
   font-family: 'Georgia', serif;
-  font-size: 42px;
-  letter-spacing: 12px;
-  color: #f0ebe3;
-  font-weight: 400;
+  font-size: 58px;
+  letter-spacing: 16px;
+  color: #ffffff;
+  font-weight: 700;
   white-space: nowrap;
+  text-shadow: 0 0 30px rgba(232,200,118,0.35);
 }
 
-.logo-texto.small { font-size: 22px; letter-spacing: 8px; }
+.logo-texto.small { font-size: 22px; letter-spacing: 8px; font-weight: 400; }
 
 .logo-sub {
-  font-size: 10px;
-  letter-spacing: 5px;
-  color: #c9a84c;
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: #e8c876;
   text-align: center;
-  margin-top: 6px;
+  margin-top: 10px;
   font-family: sans-serif;
 }
 
 .entrada-aviso {
   font-size: 14px;
-  color: #c9a84c;
+  color: #e8c876;
   letter-spacing: 1px;
   font-family: sans-serif;
   text-align: center;
@@ -94,7 +95,7 @@ body {
   display: flex;
   align-items: center;
   width: 100%;
-  border: 1px solid rgba(201,168,76,0.4);
+  border: 1px solid rgba(232,200,118,0.4);
   padding: 14px 20px;
   gap: 12px;
   background: rgba(0,0,0,0.3);
@@ -115,7 +116,7 @@ body {
 
 .btn-entrar {
   width: 100%;
-  background: #c9a84c;
+  background: linear-gradient(135deg, #f5d585, #d4a93a);
   color: #0a0a0a;
   border: none;
   padding: 18px;
@@ -123,10 +124,14 @@ body {
   font-weight: 700;
   letter-spacing: 4px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(212,169,58,0.3);
 }
 
-.btn-entrar:hover { background: #e0bf6a; }
+.btn-entrar:hover {
+  background: linear-gradient(135deg, #ffe8a3, #e8c04a);
+  box-shadow: 0 6px 26px rgba(212,169,58,0.5);
+}
 
 .entrada-bloques {
   display: flex;
@@ -179,6 +184,7 @@ body {
   background: linear-gradient(to bottom, rgba(5,3,2,0.9), transparent);
 }
 
+.logo-nav .logo-texto.small { color: #ffffff; }
 .logo-nav .logo-lineas { gap: 10px; }
 
 .nav-links { display: flex; align-items: center; gap: 36px; }
@@ -194,10 +200,10 @@ body {
   cursor: pointer;
 }
 
-.nav-links a:hover { opacity: 1; color: #c9a84c; }
+.nav-links a:hover { opacity: 1; color: #e8c876; }
 
 .btn-primary {
-  background: #c9a84c;
+  background: linear-gradient(135deg, #f5d585, #d4a93a);
   color: #0a0a0a;
   border: none;
   padding: 12px 28px;
@@ -205,11 +211,11 @@ body {
   font-weight: 700;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
   font-family: sans-serif;
 }
 
-.btn-primary:hover { background: #e0bf6a; }
+.btn-primary:hover { background: linear-gradient(135deg, #ffe8a3, #e8c04a); }
 .btn-primary.large { padding: 16px 32px; font-size: 14px; }
 .btn-primary.full { width: 100%; }
 
@@ -220,7 +226,7 @@ body {
 .seccion-tag {
   font-size: 11px;
   letter-spacing: 4px;
-  color: #c9a84c;
+  color: #e8c876;
   text-transform: uppercase;
   font-family: sans-serif;
   display: block;
@@ -229,7 +235,7 @@ body {
 
 .seccion-titulo { font-size: 36px; font-weight: 400; }
 
-.gold { color: #c9a84c; }
+.gold { color: #e8c876; }
 .italic { font-style: italic; }
 
 .cards-grid {
@@ -242,13 +248,13 @@ body {
 
 .card {
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,168,76,0.15);
+  border: 1px solid rgba(232,200,118,0.15);
   overflow: hidden;
   cursor: pointer;
   transition: border-color 0.3s;
 }
 
-.card:hover { border-color: rgba(201,168,76,0.4); }
+.card:hover { border-color: rgba(232,200,118,0.4); }
 
 .card-img { position: relative; height: 220px; overflow: hidden; }
 
@@ -288,7 +294,7 @@ body {
 
 .card-comuna {
   font-size: 12px;
-  color: #c9a84c;
+  color: #e8c876;
   font-family: sans-serif;
   margin-bottom: 8px;
 }
@@ -308,7 +314,7 @@ body {
 
 .card-precio {
   font-size: 18px;
-  color: #c9a84c;
+  color: #e8c876;
   font-family: sans-serif;
   font-weight: 600;
 }
@@ -325,7 +331,7 @@ body {
   font-family: sans-serif;
 }
 
-.btn-card:hover { border-color: #c9a84c; color: #c9a84c; }
+.btn-card:hover { border-color: #e8c876; color: #e8c876; }
 
 .modal-overlay {
   position: fixed;
@@ -341,7 +347,7 @@ body {
 
 .modal-perfil, .modal-registro {
   background: #131110;
-  border: 1px solid rgba(201,168,76,0.3);
+  border: 1px solid rgba(232,200,118,0.3);
   max-width: 380px;
   width: 100%;
   position: relative;
@@ -381,7 +387,7 @@ body {
 
 .modal-comuna {
   font-size: 13px;
-  color: #c9a84c;
+  color: #e8c876;
   font-family: sans-serif;
   margin-bottom: 8px;
 }
@@ -395,7 +401,7 @@ body {
 
 .modal-precio {
   font-size: 22px;
-  color: #c9a84c;
+  color: #e8c876;
   font-family: sans-serif;
   font-weight: 600;
   margin-bottom: 20px;
@@ -425,7 +431,7 @@ body {
 .form-registro input,
 .form-registro select {
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,168,76,0.3);
+  border: 1px solid rgba(232,200,118,0.3);
   padding: 12px 14px;
   color: #f0ebe3;
   font-size: 14px;
@@ -465,14 +471,14 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #2a2419, #1a1611);
-  border-bottom: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(232,200,118,0.15);
 }
 
 .avatar-placeholder span {
   font-family: 'Georgia', serif;
   font-size: 42px;
   font-weight: 400;
-  color: #c9a84c;
+  color: #e8c876;
   letter-spacing: 2px;
 }
 
@@ -523,8 +529,8 @@ body {
   }
 
   .logo-texto {
-    font-size: 26px;
-    letter-spacing: 6px;
+    font-size: 38px;
+    letter-spacing: 8px;
   }
 
   .entrada-bloques {
@@ -629,8 +635,8 @@ body {
   }
 
   .logo-texto {
-    font-size: 22px;
-    letter-spacing: 4px;
+    font-size: 30px;
+    letter-spacing: 5px;
   }
 
   .seccion-titulo {

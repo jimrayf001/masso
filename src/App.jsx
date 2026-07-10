@@ -18,6 +18,14 @@ const demoMasajistas = [
   { id: "d12", nombre: "Demo Doce", comuna: "Maipú", disponible: true, servicio: "Facial", precio: 46000 },
 ]
 
+const promosDemo = [
+  "20% de descuento esta semana",
+  "Nuevo horario disponible",
+  "Promoción 2x1 en sesiones dobles",
+  "Recién agregué nuevas fotos",
+  "Disponible todo el finde",
+]
+
 function iniciales(nombre) {
   return nombre
     .split(" ")
@@ -62,6 +70,7 @@ function App() {
   const [registroEnviado, setRegistroEnviado] = useState(false)
   const [masajistas, setMasajistas] = useState([])
   const [cargandoMasajistas, setCargandoMasajistas] = useState(true)
+  const [historiaAbierta, setHistoriaAbierta] = useState(null)
   const masajistasRef = useRef(null)
 
   useEffect(() => {
@@ -200,13 +209,33 @@ function App() {
           </nav>
 
           <section className="seccion-masajistas" ref={masajistasRef}>
+
+            {!cargandoMasajistas && masajistas.length > 0 && (
+              <div className="stories-wrapper">
+                <div className="stories-track">
+                  {masajistas.map((m, i) => (
+                    <button
+                      key={m.id}
+                      className="story-item"
+                      onClick={() => setHistoriaAbierta({ ...m, promo: promosDemo[i % promosDemo.length] })}
+                    >
+                      <span className="story-ring">
+                        <span className="story-avatar">{iniciales(m.nombre)}</span>
+                      </span>
+                      <span className="story-nombre">{m.nombre.split(" ")[0]}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <motion.div className="seccion-header"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="seccion-tag">Disponibles ahora · {comuna}</span>
-              <h2 className="seccion-titulo">Conoce a nuestras <span className="gold italic">masajistas</span></h2>
+              <span className="seccion-tag gold">Disponibles ahora · {comuna}</span>
+              <h2 className="seccion-titulo gold-solido">Conoce a nuestras masajistas</h2>
             </motion.div>
 
             {cargandoMasajistas ? (
@@ -253,6 +282,50 @@ function App() {
           </footer>
         </motion.div>
       )}
+
+      {/* HISTORIA A PANTALLA COMPLETA */}
+      <AnimatePresence>
+        {historiaAbierta && (
+          <motion.div
+            className="historia-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setHistoriaAbierta(null)}
+          >
+            <motion.div
+              className="historia-card"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="historia-barra-progreso">
+                <span className="historia-barra-fill" />
+              </div>
+              <button className="modal-cerrar" onClick={() => setHistoriaAbierta(null)}>✕</button>
+              <div className="historia-header">
+                <span className="historia-avatar">{iniciales(historiaAbierta.nombre)}</span>
+                <div>
+                  <p className="historia-nombre">{historiaAbierta.nombre}</p>
+                  <p className="historia-comuna">📍 {historiaAbierta.comuna}</p>
+                </div>
+              </div>
+              <div className="historia-body">
+                <p className="historia-promo">{historiaAbierta.promo}</p>
+                <p className="historia-servicio">{historiaAbierta.servicio}</p>
+                <p className="historia-precio">$ {historiaAbierta.precio?.toLocaleString("es-CL")}</p>
+              </div>
+              <button
+                className="btn-primary large full historia-cta"
+                onClick={() => { setPerfilAbierto(historiaAbierta); setHistoriaAbierta(null) }}
+              >
+                Ver perfil completo
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* MODAL: VER PERFIL */}
       <AnimatePresence>

@@ -63,16 +63,16 @@ body {
 .linea-logo.small { opacity: 0.5; }
 
 .logo-texto {
-  font-family: 'Georgia', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 58px;
   letter-spacing: 16px;
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 900;
   white-space: nowrap;
   text-shadow: 0 0 30px rgba(232,200,118,0.35);
 }
 
-.logo-texto.small { font-size: 22px; letter-spacing: 8px; font-weight: 400; }
+.logo-texto.small { font-family: 'Playfair Display', serif; font-size: 22px; letter-spacing: 8px; font-weight: 700; }
 
 .logo-sub {
   font-size: 11px;

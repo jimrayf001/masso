@@ -47,6 +47,8 @@ function App() {
       .select("*")
       .order("created_at", { ascending: false })
 
+    // NOTA: se agregan 12 tarjetas demo al final solo para pruebas visuales de layout.
+    // Quitar "demoMasajistas" del arreglo cuando ya no se necesiten.
     if (!error && data) {
       setMasajistas([...data, ...demoMasajistas])
     } else {
@@ -143,29 +145,6 @@ function App() {
                   <span>PUBLÍCATE</span>
                 </div>
               </div>
-
-              <div className="redes-sociales">
-                <a href="#" className="red-icon" aria-label="Instagram">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="5" />
-                    <circle cx="12" cy="12" r="4" />
-                    <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
-                  </svg>
-                </a>
-                <a href="#" className="red-icon" aria-label="TikTok">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M16 3v10.5a3.5 3.5 0 1 1-3.5-3.5" />
-                    <path d="M16 3c0 2.5 2 4.5 4.5 4.5" />
-                  </svg>
-                </a>
-                <a href="#" className="red-icon" aria-label="WhatsApp">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M20 12a8 8 0 1 1-3.5-6.6" />
-                    <path d="M20 12a8 8 0 0 1-11.5 7.2L4 20l1-4.2A8 8 0 0 1 20 12Z" />
-                    <path d="M9 9.5c0 3.5 2.5 5.5 5.5 5.5" />
-                  </svg>
-                </a>
-              </div>
             </motion.div>
           </motion.div>
         )}
@@ -240,37 +219,6 @@ function App() {
               </div>
             )}
           </section>
-
-          <footer className="footer">
-            <div className="logo-lineas footer-logo">
-              <span className="linea-logo small" />
-              <span className="logo-texto small">MASSO</span>
-              <span className="linea-logo small" />
-            </div>
-            <div className="redes-sociales">
-              <a href="#" className="red-icon" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
-                </svg>
-              </a>
-              <a href="#" className="red-icon" aria-label="TikTok">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M16 3v10.5a3.5 3.5 0 1 1-3.5-3.5" />
-                  <path d="M16 3c0 2.5 2 4.5 4.5 4.5" />
-                </svg>
-              </a>
-              <a href="#" className="red-icon" aria-label="WhatsApp">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M20 12a8 8 0 1 1-3.5-6.6" />
-                  <path d="M20 12a8 8 0 0 1-11.5 7.2L4 20l1-4.2A8 8 0 0 1 20 12Z" />
-                  <path d="M9 9.5c0 3.5 2.5 5.5 5.5 5.5" />
-                </svg>
-              </a>
-            </div>
-            <p className="footer-texto">© 2026 Masso · Santiago, Chile</p>
-          </footer>
         </motion.div>
       )}
 

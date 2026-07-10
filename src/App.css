@@ -643,3 +643,51 @@ body {
     font-size: 19px;
   }
 }
+
+/* FOOTER CON REDES SOCIALES */
+.footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 50px 20px 40px;
+  border-top: 1px solid rgba(232,200,118,0.1);
+}
+
+.redes-sociales {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.red-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(232,200,118,0.3);
+  border-radius: 50%;
+  color: #e8c876;
+  transition: all 0.3s;
+}
+
+.red-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.red-icon:hover {
+  background: rgba(232,200,118,0.1);
+  border-color: #e8c876;
+  transform: translateY(-2px);
+}
+
+.footer-texto {
+  font-size: 12px;
+  opacity: 0.4;
+  font-family: sans-serif;
+  letter-spacing: 0.5px;
+}

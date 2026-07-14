@@ -235,4 +235,123 @@
   .panel-grid { grid-template-columns: 1fr; }
   .panel-content { padding: 30px 20px; }
   .panel-navbar { padding: 16px 20px; }
+}.panel-card-full {
+  margin-top: 30px;
+}
+
+.panel-card-desc {
+  font-size: 12px;
+  opacity: 0.5;
+  font-family: sans-serif;
+  margin-bottom: 20px;
+  margin-top: -14px;
+}
+
+.btn-upload {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid rgba(232,200,118,0.4);
+  color: #e8c876;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-family: sans-serif;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-upload:hover {
+  background: rgba(232,200,118,0.1);
+}
+
+.upload-foto-perfil {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.preview-foto-perfil {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(232,200,118,0.3);
+}
+
+.preview-img-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-historia {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.preview-historia {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  border: 1px solid rgba(232,200,118,0.3);
+}
+
+.fotos-local-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.foto-local-item {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid rgba(232,200,118,0.2);
+  overflow: hidden;
+}
+
+.foto-local-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-quitar-foto {
+  position: absolute;
+  top: 4px; right: 4px;
+  background: rgba(0,0,0,0.7);
+  color: #f0ebe3;
+  border: none;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.panel-nota {
+  font-size: 11px;
+  opacity: 0.4;
+  font-family: sans-serif;
+  margin-top: 16px;
+}.fotos-historia-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+  max-width: 400px;
+}
+
+.foto-historia-item {
+  position: relative;
+  aspect-ratio: 9/16;
+  border: 1px solid rgba(232,200,118,0.2);
+  overflow: hidden;
+}
+
+.foto-historia-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

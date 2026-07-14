@@ -12,6 +12,9 @@ function PanelMasajista() {
   const [cargando, setCargando] = useState(true)
   const [guardando, setGuardando] = useState(false)
   const [mensaje, setMensaje] = useState("")
+  const [subiendoFoto, setSubiendoFoto] = useState(false)
+  const [subiendoLocal, setSubiendoLocal] = useState(false)
+  const [subiendoHistoria, setSubiendoHistoria] = useState(false)
 
   const [form, setForm] = useState({
     nombre: "",
@@ -19,6 +22,9 @@ function PanelMasajista() {
     servicio: "",
     precio: "",
     disponible: true,
+    foto_perfil: "",
+    foto_historia: [],
+    fotos_local: [],
   })
 
   useEffect(() => {
@@ -57,6 +63,9 @@ function PanelMasajista() {
         servicio: masajistaData.servicio || "",
         precio: masajistaData.precio || "",
         disponible: masajistaData.disponible,
+        foto_perfil: masajistaData.foto_perfil || "",
+        foto_historia: masajistaData.foto_historia || [],
+        fotos_local: masajistaData.fotos_local || [],
       })
     } else if (perfilData) {
       setForm(f => ({ ...f, nombre: perfilData.nombre || "" }))
@@ -68,6 +77,95 @@ function PanelMasajista() {
   const manejarCambio = (e) => {
     const { name, value, type, checked } = e.target
     setForm(f => ({ ...f, [name]: type === "checkbox" ? checked : value }))
+  }
+
+  const subirArchivo = async (file, carpeta) => {
+    const nombreArchivo = `${usuario.id}/${carpeta}/${Date.now()}-${file.name}`
+    const { error } = await supabase.storage
+      .from("fotos-masajistas")
+      .upload(nombreArchivo, file)
+
+    if (error) throw error
+
+    const { data } = supabase.storage
+      .from("fotos-masajistas")
+      .getPublicUrl(nombreArchivo)
+
+    return data.publicUrl
+  }
+
+  const manejarFotoPerfil = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    setSubiendoFoto(true)
+    try {
+      const url = await subirArchivo(file, "perfil")
+      setForm(f => ({ ...f, foto_perfil: url }))
+    } catch (err) {
+      alert("Error al subir la foto: " + err.message)
+    }
+    setSubiendoFoto(false)
+  }
+
+  const manejarFotosHistoria = async (e) => {
+    const files = Array.from(e.target.files)
+    if (files.length === 0) return
+
+    if (form.foto_historia.length + files.length > 3) {
+      alert("Máximo 3 imágenes de historia. Elimina alguna antes de subir más.")
+      return
+    }
+
+    setSubiendoHistoria(true)
+    try {
+      const nuevasUrls = []
+      for (const file of files) {
+        const url = await subirArchivo(file, "historia")
+        nuevasUrls.push(url)
+      }
+      setForm(f => ({ ...f, foto_historia: [...f.foto_historia, ...nuevasUrls] }))
+    } catch (err) {
+      alert("Error al subir imágenes: " + err.message)
+    }
+    setSubiendoHistoria(false)
+  }
+
+  const quitarFotoHistoria = (index) => {
+    setForm(f => ({
+      ...f,
+      foto_historia: f.foto_historia.filter((_, i) => i !== index)
+    }))
+  }
+
+  const manejarFotosLocal = async (e) => {
+    const files = Array.from(e.target.files)
+    if (files.length === 0) return
+
+    if (form.fotos_local.length + files.length > 10) {
+      alert("Máximo 10 fotos del local. Elimina alguna antes de subir más.")
+      return
+    }
+
+    setSubiendoLocal(true)
+    try {
+      const nuevasUrls = []
+      for (const file of files) {
+        const url = await subirArchivo(file, "local")
+        nuevasUrls.push(url)
+      }
+      setForm(f => ({ ...f, fotos_local: [...f.fotos_local, ...nuevasUrls] }))
+    } catch (err) {
+      alert("Error al subir fotos: " + err.message)
+    }
+    setSubiendoLocal(false)
+  }
+
+  const quitarFotoLocal = (index) => {
+    setForm(f => ({
+      ...f,
+      fotos_local: f.fotos_local.filter((_, i) => i !== index)
+    }))
   }
 
   const guardarPerfil = async (e) => {
@@ -82,6 +180,9 @@ function PanelMasajista() {
       servicio: form.servicio,
       precio: parseInt(form.precio),
       disponible: form.disponible,
+      foto_perfil: form.foto_perfil,
+      foto_historia: form.foto_historia,
+      fotos_local: form.fotos_local,
     }
 
     let error
@@ -148,6 +249,17 @@ function PanelMasajista() {
               <h3 className="panel-card-titulo">Información pública</h3>
 
               <form onSubmit={guardarPerfil} className="panel-form">
+                <label>Foto de perfil</label>
+                <div className="upload-foto-perfil">
+                  {form.foto_perfil && (
+                    <img src={form.foto_perfil} alt="Perfil" className="preview-foto-perfil" />
+                  )}
+                  <label className="btn-upload">
+                    {subiendoFoto ? "Subiendo..." : form.foto_perfil ? "Cambiar foto" : "Subir foto"}
+                    <input type="file" accept="image/*" onChange={manejarFotoPerfil} hidden disabled={subiendoFoto} />
+                  </label>
+                </div>
+
                 <label>Nombre a mostrar</label>
                 <input
                   type="text"
@@ -218,7 +330,11 @@ function PanelMasajista() {
               <h3 className="panel-card-titulo">Así te ven los clientes</h3>
               <div className="preview-card">
                 <div className="preview-img">
-                  <span>{form.nombre.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase()}</span>
+                  {form.foto_perfil ? (
+                    <img src={form.foto_perfil} alt="preview" className="preview-img-real" />
+                  ) : (
+                    <span>{form.nombre.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase()}</span>
+                  )}
                   <span className={`badge ${form.disponible ? "badge-on" : "badge-off"}`}>
                     {form.disponible ? "● En línea" : "● Ocupada"}
                   </span>
@@ -233,6 +349,64 @@ function PanelMasajista() {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="panel-card panel-card-full">
+            <h3 className="panel-card-titulo">Imágenes para historias ({form.foto_historia.length}/3)</h3>
+            <p className="panel-card-desc">Estas imágenes aparecen cuando alguien hace clic en tu círculo en el carrusel de historias. Puedes subir hasta 3.</p>
+
+            <div className="fotos-historia-grid">
+              {form.foto_historia.map((url, i) => (
+                <div key={i} className="foto-historia-item">
+                  <img src={url} alt={`Historia ${i + 1}`} />
+                  <button type="button" className="btn-quitar-foto" onClick={() => quitarFotoHistoria(i)}>✕</button>
+                </div>
+              ))}
+            </div>
+
+            {form.foto_historia.length < 3 && (
+              <label className="btn-upload">
+                {subiendoHistoria ? "Subiendo..." : "Agregar imagen de historia"}
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={manejarFotosHistoria}
+                  hidden
+                  disabled={subiendoHistoria}
+                />
+              </label>
+            )}
+          </div>
+
+          <div className="panel-card panel-card-full">
+            <h3 className="panel-card-titulo">Fotos del local ({form.fotos_local.length}/10)</h3>
+            <p className="panel-card-desc">Muestra el espacio donde atiendes para dar más confianza a tus clientes.</p>
+
+            <div className="fotos-local-grid">
+              {form.fotos_local.map((url, i) => (
+                <div key={i} className="foto-local-item">
+                  <img src={url} alt={`Local ${i + 1}`} />
+                  <button type="button" className="btn-quitar-foto" onClick={() => quitarFotoLocal(i)}>✕</button>
+                </div>
+              ))}
+            </div>
+
+            {form.fotos_local.length < 10 && (
+              <label className="btn-upload">
+                {subiendoLocal ? "Subiendo..." : "Agregar fotos del local"}
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={manejarFotosLocal}
+                  hidden
+                  disabled={subiendoLocal}
+                />
+              </label>
+            )}
+
+            <p className="panel-nota">Recuerda hacer clic en "Guardar cambios" arriba después de subir tus fotos.</p>
           </div>
         </motion.div>
       </div>

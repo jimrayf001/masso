@@ -34,15 +34,23 @@ function Login() {
 
     const { data: perfil } = await supabase
       .from("perfiles")
-      .select("rol")
+      .select("rol, estado_verificacion")
       .eq("user_id", data.user.id)
       .single()
 
     setCargando(false)
 
-    if (perfil?.rol === "admin") navigate("/admin")
-    else if (perfil?.rol === "masajista") navigate("/panel-masajista")
-    else navigate("/")
+    if (perfil?.rol === "admin") {
+      navigate("/admin")
+    } else if (perfil?.rol === "masajista") {
+      if (perfil.estado_verificacion === "aprobado") {
+        navigate("/panel-masajista")
+      } else {
+        navigate("/verificacion")
+      }
+    } else {
+      navigate("/")
+    }
   }
 
   const manejarRegistro = async (e) => {

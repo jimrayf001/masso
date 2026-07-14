@@ -47,6 +47,11 @@ function PanelMasajista() {
       .eq("user_id", user.id)
       .single()
 
+    if (!perfilData || perfilData.estado_verificacion !== "aprobado") {
+      navigate("/verificacion")
+      return
+    }
+
     setPerfil(perfilData)
 
     const { data: masajistaData } = await supabase

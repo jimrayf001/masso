@@ -266,4 +266,135 @@
   .admin-navbar { padding: 16px 20px; }
   .admin-stats { flex-direction: column; }
   .admin-titulo { font-size: 26px; }
+}.stat-numero.stat-amarillo { color: #e8c876; }
+
+.admin-tabs-vista {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(232,200,118,0.15);
 }
+
+.admin-tabs-vista button {
+  background: transparent;
+  border: none;
+  color: rgba(240,235,227,0.5);
+  padding: 12px 20px;
+  font-size: 13px;
+  font-family: sans-serif;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.admin-tabs-vista button.tab-vista-activo {
+  color: #e8c876;
+  border-bottom-color: #e8c876;
+}
+
+.verif-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.verif-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(232,200,118,0.15);
+  padding: 18px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.verif-item-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.verif-item-nombre {
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #f0ebe3;
+}
+
+.verif-item-tel {
+  font-size: 12px;
+  font-family: sans-serif;
+  opacity: 0.5;
+}
+
+.estado-pill {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+.estado-pendiente {
+  background: rgba(240,235,227,0.08);
+  color: rgba(240,235,227,0.5);
+}
+
+.estado-revision {
+  background: rgba(232,200,118,0.15);
+  color: #e8c876;
+}
+
+.estado-rechazado {
+  background: rgba(248,113,113,0.1);
+  color: #f87171;
+}
+
+.verif-item-docs {
+  display: flex;
+  gap: 12px;
+}
+
+.link-doc {
+  font-size: 12px;
+  color: #e8c876;
+  font-family: sans-serif;
+  text-decoration: underline;
+}
+
+.link-doc-vacio {
+  font-size: 12px;
+  opacity: 0.3;
+  font-family: sans-serif;
+}
+
+.verif-item-acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-aprobar {
+  background: rgba(74,222,128,0.15);
+  border: 1px solid rgba(74,222,128,0.4);
+  color: #4ade80;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-aprobar:hover { background: rgba(74,222,128,0.25); }
+
+.btn-rechazar {
+  background: transparent;
+  border: 1px solid rgba(248,113,113,0.4);
+  color: #f87171;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-rechazar:hover { background: rgba(248,113,113,0.1); }

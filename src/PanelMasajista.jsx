@@ -15,6 +15,7 @@ function PanelMasajista() {
   const [subiendoFoto, setSubiendoFoto] = useState(false)
   const [subiendoLocal, setSubiendoLocal] = useState(false)
   const [subiendoHistoria, setSubiendoHistoria] = useState(false)
+  const [tienePromo, setTienePromo] = useState(false)
 
   const [form, setForm] = useState({
     nombre: "",
@@ -25,6 +26,7 @@ function PanelMasajista() {
     foto_perfil: "",
     foto_historia: [],
     fotos_local: [],
+    promocion_activa: "",
   })
 
   useEffect(() => {
@@ -71,7 +73,9 @@ function PanelMasajista() {
         foto_perfil: masajistaData.foto_perfil || "",
         foto_historia: masajistaData.foto_historia || [],
         fotos_local: masajistaData.fotos_local || [],
+        promocion_activa: masajistaData.promocion_activa || "",
       })
+      setTienePromo(!!masajistaData.promocion_activa)
     } else if (perfilData) {
       setForm(f => ({ ...f, nombre: perfilData.nombre || "" }))
     }
@@ -188,6 +192,7 @@ function PanelMasajista() {
       foto_perfil: form.foto_perfil,
       foto_historia: form.foto_historia,
       fotos_local: form.fotos_local,
+      promocion_activa: tienePromo ? form.promocion_activa : null,
     }
 
     let error
@@ -319,6 +324,32 @@ function PanelMasajista() {
                   </label>
                 </div>
 
+                <div className="panel-switch">
+                  <label className="switch-label">
+                    <input
+                      type="checkbox"
+                      checked={tienePromo}
+                      onChange={(e) => setTienePromo(e.target.checked)}
+                    />
+                    <span className="switch-slider"></span>
+                    Tengo una promoción activa
+                  </label>
+                </div>
+
+                {tienePromo && (
+                  <>
+                    <label>Describe tu promoción</label>
+                    <input
+                      type="text"
+                      name="promocion_activa"
+                      value={form.promocion_activa}
+                      onChange={manejarCambio}
+                      placeholder="Ej: 20% dcto esta semana"
+                      maxLength={60}
+                    />
+                  </>
+                )}
+
                 {mensaje && (
                   <p className={mensaje.includes("Error") ? "panel-error" : "panel-exito"}>
                     {mensaje}
@@ -343,6 +374,9 @@ function PanelMasajista() {
                   <span className={`badge ${form.disponible ? "badge-on" : "badge-off"}`}>
                     {form.disponible ? "● En línea" : "● Ocupada"}
                   </span>
+                  {tienePromo && form.promocion_activa && (
+                    <span className="badge-promo">🔥 Promo</span>
+                  )}
                 </div>
                 <div className="preview-body">
                   <h4>{form.nombre || "Tu nombre"}</h4>
@@ -351,6 +385,9 @@ function PanelMasajista() {
                   <p className="preview-precio">
                     $ {form.precio ? parseInt(form.precio).toLocaleString("es-CL") : "0"}
                   </p>
+                  {tienePromo && form.promocion_activa && (
+                    <p className="preview-promo-texto">{form.promocion_activa}</p>
+                  )}
                 </div>
               </div>
             </div>

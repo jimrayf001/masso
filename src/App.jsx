@@ -4,10 +4,10 @@ import { supabase } from "./supabaseClient"
 import "./App.css"
 
 const demoMasajistas = [
-  { id: "d1", nombre: "Demo Uno", comuna: "Providencia", disponible: true, servicio: "Relajación", precio: 40000 },
+  { id: "d1", nombre: "Demo Uno", comuna: "Providencia", disponible: true, servicio: "Relajación", precio: 40000, promocion_activa: "20% dcto esta semana" },
   { id: "d2", nombre: "Demo Dos", comuna: "Las Condes", disponible: false, servicio: "Descontracturante", precio: 45000 },
   { id: "d3", nombre: "Demo Tres", comuna: "Ñuñoa", disponible: true, servicio: "Piedras calientes", precio: 50000 },
-  { id: "d4", nombre: "Demo Cuatro", comuna: "Santiago Centro", disponible: true, servicio: "Relajación", precio: 38000 },
+  { id: "d4", nombre: "Demo Cuatro", comuna: "Santiago Centro", disponible: true, servicio: "Relajación", precio: 38000, promocion_activa: "2x1 sesiones dobles" },
   { id: "d5", nombre: "Demo Cinco", comuna: "Vitacura", disponible: false, servicio: "Facial", precio: 55000 },
   { id: "d6", nombre: "Demo Seis", comuna: "Maipú", disponible: true, servicio: "Deportivo", precio: 35000 },
   { id: "d7", nombre: "Demo Siete", comuna: "La Florida", disponible: true, servicio: "Relajación", precio: 42000 },
@@ -71,6 +71,7 @@ function App() {
   const [masajistas, setMasajistas] = useState([])
   const [cargandoMasajistas, setCargandoMasajistas] = useState(true)
   const [historiaAbierta, setHistoriaAbierta] = useState(null)
+  const [soloOportunidades, setSoloOportunidades] = useState(false)
   const masajistasRef = useRef(null)
 
   useEffect(() => {
@@ -92,6 +93,15 @@ function App() {
   }
 
   const irAMasajistas = () => {
+    setSoloOportunidades(false)
+    setEntro(true)
+    setTimeout(() => {
+      masajistasRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, 100)
+  }
+
+  const irAOportunidades = () => {
+    setSoloOportunidades(true)
     setEntro(true)
     setTimeout(() => {
       masajistasRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -106,6 +116,10 @@ function App() {
       setRegistroEnviado(false)
     }, 2000)
   }
+
+  const masajistasMostradas = soloOportunidades
+    ? masajistas.filter(m => m.promocion_activa)
+    : masajistas
 
   return (
     <div className="app">
@@ -159,10 +173,10 @@ function App() {
               <div className="entrada-bloques">
                 <div
                   className="bloque"
-                  onClick={irAMasajistas}
+                  onClick={irAOportunidades}
                   style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400')" }}
                 >
-                  <span>MASAJISTAS</span>
+                  <span>OPORTUNIDADES</span>
                 </div>
                 <div
                   className="bloque"
@@ -202,7 +216,7 @@ function App() {
               </div>
             </div>
             <div className="nav-links">
-              <a href="#" onClick={(e) => { e.preventDefault(); masajistasRef.current?.scrollIntoView({ behavior: "smooth" }) }}>Masajistas</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); irAOportunidades() }}>Oportunidades</a>
               <a href="#" onClick={(e) => { e.preventDefault(); masajistasRef.current?.scrollIntoView({ behavior: "smooth" }) }}>Ubica tu servicio ideal</a>
               <button className="btn-primary" onClick={() => window.location.href = "/login"}>Registrarse</button>
             </div>
@@ -217,9 +231,9 @@ function App() {
                     <button
                       key={m.id}
                       className="story-item"
-                      onClick={() => setHistoriaAbierta({ ...m, promo: promosDemo[i % promosDemo.length] })}
+                      onClick={() => setHistoriaAbierta({ ...m, promo: m.promocion_activa || promosDemo[i % promosDemo.length] })}
                     >
-                      <span className="story-ring">
+                      <span className={`story-ring ${m.promocion_activa ? "story-ring-promo" : ""}`}>
                         <span className="story-avatar">{iniciales(m.nombre)}</span>
                       </span>
                       <span className="story-nombre">{m.nombre.split(" ")[0]}</span>
@@ -234,17 +248,26 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="seccion-tag gold">Disponibles ahora · {comuna}</span>
-              <h2 className="seccion-titulo gold-solido">Conoce a nuestras masajistas</h2>
+              <span className="seccion-tag gold">
+                {soloOportunidades ? "Ofertas activas ahora" : `Disponibles ahora · ${comuna}`}
+              </span>
+              <h2 className="seccion-titulo gold-solido">
+                {soloOportunidades ? "Oportunidades del momento" : "Conoce a nuestras masajistas"}
+              </h2>
+              {soloOportunidades && (
+                <button className="btn-ver-todas" onClick={irAMasajistas}>Ver todas las masajistas</button>
+              )}
             </motion.div>
 
             {cargandoMasajistas ? (
               <p className="cargando-texto">Cargando masajistas...</p>
-            ) : masajistas.length === 0 ? (
-              <p className="cargando-texto">Aún no hay masajistas registradas. ¡Sé la primera!</p>
+            ) : masajistasMostradas.length === 0 ? (
+              <p className="cargando-texto">
+                {soloOportunidades ? "No hay promociones activas por el momento." : "Aún no hay masajistas registradas. ¡Sé la primera!"}
+              </p>
             ) : (
               <div className="cards-grid">
-                {masajistas.map((m, i) => (
+                {masajistasMostradas.map((m, i) => (
                   <motion.div
                     key={m.id}
                     className="card"
@@ -260,11 +283,17 @@ function App() {
                       <span className={`badge ${m.disponible ? "badge-on" : "badge-off"}`}>
                         {m.disponible ? "● En línea" : "● Ocupada"}
                       </span>
+                      {m.promocion_activa && (
+                        <span className="badge-promo-card">🔥 Promo</span>
+                      )}
                     </div>
                     <div className="card-body">
                       <h3 className="card-nombre">{m.nombre}</h3>
                       <p className="card-comuna">📍 {m.comuna}</p>
                       <p className="card-servicio">{m.servicio}</p>
+                      {m.promocion_activa && (
+                        <p className="card-promo-texto">{m.promocion_activa}</p>
+                      )}
                       <div className="card-footer">
                         <span className="card-precio">$ {m.precio?.toLocaleString("es-CL")}</span>
                         <button className="btn-card" onClick={() => setPerfilAbierto(m)}>Ver perfil</button>
@@ -355,6 +384,9 @@ function App() {
                 <h3>{perfilAbierto.nombre}</h3>
                 <p className="modal-comuna">📍 {perfilAbierto.comuna}</p>
                 <p className="modal-servicio">{perfilAbierto.servicio}</p>
+                {perfilAbierto.promocion_activa && (
+                  <p className="modal-promo">🔥 {perfilAbierto.promocion_activa}</p>
+                )}
                 <p className="modal-precio">$ {perfilAbierto.precio?.toLocaleString("es-CL")} <span>/ 60 min</span></p>
                 <button className="btn-primary large full">Contactar por WhatsApp</button>
               </div>

@@ -26,6 +26,8 @@ const promosDemo = [
   "Disponible todo el finde",
 ]
 
+const comunasDisponibles = ["Todas", "Santiago Centro", "Providencia", "Las Condes", "Ñuñoa", "Vitacura", "Maipú", "La Florida"]
+
 function iniciales(nombre) {
   return nombre
     .split(" ")
@@ -72,6 +74,8 @@ function App() {
   const [cargandoMasajistas, setCargandoMasajistas] = useState(true)
   const [historiaAbierta, setHistoriaAbierta] = useState(null)
   const [soloOportunidades, setSoloOportunidades] = useState(false)
+  const [filtroDisponible, setFiltroDisponible] = useState("todas")
+  const [filtroComuna, setFiltroComuna] = useState("Todas")
   const masajistasRef = useRef(null)
 
   useEffect(() => {
@@ -117,9 +121,10 @@ function App() {
     }, 2000)
   }
 
-  const masajistasMostradas = soloOportunidades
-    ? masajistas.filter(m => m.promocion_activa)
-    : masajistas
+  const masajistasMostradas = masajistas
+    .filter(m => soloOportunidades ? m.promocion_activa : true)
+    .filter(m => filtroDisponible === "en-linea" ? m.disponible : filtroDisponible === "ocupadas" ? !m.disponible : true)
+    .filter(m => filtroComuna === "Todas" ? true : m.comuna === filtroComuna)
 
   return (
     <div className="app">
@@ -259,11 +264,50 @@ function App() {
               )}
             </motion.div>
 
+            <div className="filtros-wrapper">
+              <div className="filtro-grupo">
+                <span className="filtro-label">Disponibilidad</span>
+                <div className="filtro-botones">
+                  <button
+                    className={filtroDisponible === "todas" ? "filtro-btn-activo" : "filtro-btn"}
+                    onClick={() => setFiltroDisponible("todas")}
+                  >
+                    Todas
+                  </button>
+                  <button
+                    className={filtroDisponible === "en-linea" ? "filtro-btn-activo" : "filtro-btn"}
+                    onClick={() => setFiltroDisponible("en-linea")}
+                  >
+                    ● En línea
+                  </button>
+                  <button
+                    className={filtroDisponible === "ocupadas" ? "filtro-btn-activo" : "filtro-btn"}
+                    onClick={() => setFiltroDisponible("ocupadas")}
+                  >
+                    Ocupadas
+                  </button>
+                </div>
+              </div>
+
+              <div className="filtro-grupo">
+                <span className="filtro-label">Comuna</span>
+                <select
+                  className="filtro-select"
+                  value={filtroComuna}
+                  onChange={(e) => setFiltroComuna(e.target.value)}
+                >
+                  {comunasDisponibles.map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             {cargandoMasajistas ? (
               <p className="cargando-texto">Cargando masajistas...</p>
             ) : masajistasMostradas.length === 0 ? (
               <p className="cargando-texto">
-                {soloOportunidades ? "No hay promociones activas por el momento." : "Aún no hay masajistas registradas. ¡Sé la primera!"}
+                No hay masajistas que coincidan con estos filtros.
               </p>
             ) : (
               <div className="cards-grid">

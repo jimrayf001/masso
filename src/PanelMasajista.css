@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   background: #0a0a0a;
-  color: #c9a84c;
+  color: #e8c876;
   font-family: sans-serif;
 }
 
@@ -20,7 +20,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 60px;
-  border-bottom: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(232,200,118,0.15);
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .panel-nav-right {
@@ -47,7 +49,7 @@
   font-family: sans-serif;
 }
 
-.btn-salir:hover { border-color: #c9a84c; color: #c9a84c; }
+.btn-salir:hover { border-color: #e8c876; color: #e8c876; }
 
 .panel-content {
   padding: 50px 60px;
@@ -68,7 +70,7 @@
   margin-bottom: 40px;
 }
 
-.gold { color: #c9a84c; }
+.gold { color: #e8c876; }
 .italic { font-style: italic; }
 
 .panel-grid {
@@ -79,7 +81,7 @@
 
 .panel-card {
   background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(201,168,76,0.15);
+  border: 1px solid rgba(232,200,118,0.15);
   padding: 30px;
 }
 
@@ -87,7 +89,7 @@
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 24px;
-  color: #c9a84c;
+  color: #e8c876;
   font-family: sans-serif;
   letter-spacing: 0.5px;
 }
@@ -109,7 +111,7 @@
 .panel-form input,
 .panel-form select {
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,168,76,0.3);
+  border: 1px solid rgba(232,200,118,0.3);
   padding: 12px 14px;
   color: #f0ebe3;
   font-size: 14px;
@@ -133,7 +135,7 @@
 .switch-label input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: #c9a84c;
+  accent-color: #e8c876;
   cursor: pointer;
 }
 
@@ -161,7 +163,7 @@
 
 .preview-card {
   background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(201,168,76,0.15);
+  border: 1px solid rgba(232,200,118,0.15);
   overflow: hidden;
 }
 
@@ -176,7 +178,7 @@
 
 .preview-img span:first-child {
   font-size: 36px;
-  color: #c9a84c;
+  color: #e8c876;
   font-family: 'Georgia', serif;
 }
 
@@ -212,7 +214,7 @@
 
 .preview-comuna {
   font-size: 11px;
-  color: #c9a84c;
+  color: #e8c876;
   font-family: sans-serif;
   margin-bottom: 6px;
 }
@@ -226,16 +228,33 @@
 
 .preview-precio {
   font-size: 16px;
-  color: #c9a84c;
+  color: #e8c876;
   font-family: sans-serif;
   font-weight: 600;
+}
+
+.preview-img-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 @media (max-width: 800px) {
   .panel-grid { grid-template-columns: 1fr; }
   .panel-content { padding: 30px 20px; }
   .panel-navbar { padding: 16px 20px; }
-}.panel-card-full {
+}
+
+@media (max-width: 480px) {
+  .panel-titulo { font-size: 26px; }
+  .panel-card { padding: 20px; }
+  .panel-form input,
+  .panel-form select { font-size: 16px; }
+  .panel-nombre { font-size: 12px; }
+  .btn-salir { padding: 7px 14px; font-size: 11px; }
+}
+
+.panel-card-full {
   margin-top: 30px;
 }
 
@@ -279,12 +298,6 @@
   border: 1px solid rgba(232,200,118,0.3);
 }
 
-.preview-img-real {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .upload-historia {
   display: flex;
   align-items: center;
@@ -296,6 +309,27 @@
   height: 140px;
   object-fit: cover;
   border: 1px solid rgba(232,200,118,0.3);
+}
+
+.fotos-historia-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+  max-width: 400px;
+}
+
+.foto-historia-item {
+  position: relative;
+  aspect-ratio: 9/16;
+  border: 1px solid rgba(232,200,118,0.2);
+  overflow: hidden;
+}
+
+.foto-historia-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .fotos-local-grid {
@@ -335,36 +369,8 @@
   opacity: 0.4;
   font-family: sans-serif;
   margin-top: 16px;
-}.fotos-historia-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
-  max-width: 400px;
 }
 
-.foto-historia-item {
-  position: relative;
-  aspect-ratio: 9/16;
-  border: 1px solid rgba(232,200,118,0.2);
-  overflow: hidden;
-}
-
-.foto-historia-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-button.link-doc {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-button.link-doc:disabled {
-  opacity: 0.5;
-  cursor: wait;
-}
 .badge-promo {
   position: absolute;
   top: 10px;

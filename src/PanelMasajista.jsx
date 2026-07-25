@@ -426,8 +426,8 @@ function PanelMasajista() {
             )}
           </div>
 
-          <div className="panel-card panel-card-full">
-            <h3 className="panel-card-titulo">Fotos del local ({form.fotos_local.length}/10)</h3>
+<div className="panel-card panel-card-full">
+            <h3 className="panel-card-titulo">Fotos de la ficha ({form.fotos_local.length}/10)</h3>
             <p className="panel-card-desc">Muestra el espacio donde atiendes para dar más confianza a tus clientes.</p>
 
             <div className="fotos-local-grid">

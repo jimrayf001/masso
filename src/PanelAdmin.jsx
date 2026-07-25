@@ -205,11 +205,11 @@ const extraerRutaArchivo = (url) => {
           </div>
 
           <div className="admin-tabs-vista">
-            <button
+<button
               className={vista === "verificaciones" ? "tab-vista-activo" : ""}
               onClick={() => setVista("verificaciones")}
             >
-              Solicitudes de verificación {pendientes.length > 0 && `(${pendientes.length})`}
+              🕵️ Solicitudes de verificación {pendientes.length > 0 && `(${pendientes.length})`}
             </button>
 <button
               className={vista === "masajistas" ? "tab-vista-activo" : ""}

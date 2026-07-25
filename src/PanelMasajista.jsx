@@ -247,9 +247,7 @@ function PanelMasajista() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="panel-titulo">
-            Mi <span className="gold italic">perfil</span>
-          </h1>
+<h1 className="panel-titulo-dorado">💆 Mi perfil</h1>
           <p className="panel-sub">
             {masajista ? "Edita la información que ven los clientes" : "Completa tu perfil para empezar a recibir clientes"}
           </p>

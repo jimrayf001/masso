@@ -275,21 +275,17 @@ function App() {
               </div>
             )}
 
-            <motion.div className="seccion-header"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="seccion-tag gold">
-                {soloOportunidades ? "Ofertas activas ahora" : `Disponibles ahora · ${comuna}`}
-              </span>
-              <h2 className="seccion-titulo gold-solido">
-                {soloOportunidades ? "Oportunidades del momento" : "Conoce a nuestras masajistas"}
-              </h2>
-              {soloOportunidades && (
+{soloOportunidades && (
+              <motion.div className="seccion-header"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <span className="seccion-tag gold">Ofertas activas ahora</span>
+                <h2 className="seccion-titulo gold-solido">Oportunidades del momento</h2>
                 <button className="btn-ver-todas" onClick={irAMasajistas}>Ver todas las masajistas</button>
-              )}
-            </motion.div>
+              </motion.div>
+            )}
 
             <div className="filtros-wrapper">
               <div className="filtro-grupo">

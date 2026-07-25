@@ -309,16 +309,23 @@ function PanelMasajista() {
                   required
                 />
 
-                <div className="panel-switch">
-                  <label className="switch-label">
+<div className={`panel-switch-destacado ${form.disponible ? "switch-on" : "switch-off"}`}>
+                  <label className="switch-label-destacado">
                     <input
                       type="checkbox"
                       name="disponible"
                       checked={form.disponible}
                       onChange={manejarCambio}
                     />
-                    <span className="switch-slider"></span>
-                    Disponible ahora (visible como "En línea")
+                    <span className="switch-slider-grande"></span>
+                    <div className="switch-texto">
+                      <span className="switch-titulo">
+                        {form.disponible ? "🟢 Estás en línea" : "⚪ Estás ocupada"}
+                      </span>
+                      <span className="switch-sub">
+                        {form.disponible ? "Los clientes te ven disponible ahora" : "No apareces como disponible"}
+                      </span>
+                    </div>
                   </label>
                 </div>
 

@@ -391,3 +391,82 @@
   margin-top: 6px;
   font-weight: 600;
 }
+.panel-titulo-dorado {
+  font-size: 32px;
+  font-weight: 700;
+  color: #e8c876;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 8px;
+}
+
+.panel-switch-destacado {
+  margin-top: 20px;
+  padding: 16px 20px;
+  border: 1px solid rgba(232,200,118,0.25);
+  background: rgba(255,255,255,0.03);
+  transition: all 0.3s;
+}
+
+.panel-switch-destacado.switch-on {
+  border-color: rgba(74,222,128,0.4);
+  background: rgba(74,222,128,0.06);
+}
+
+.switch-label-destacado {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.switch-label-destacado input[type="checkbox"] {
+  width: 42px;
+  height: 24px;
+  appearance: none;
+  background: rgba(240,235,227,0.15);
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+
+.switch-label-destacado input[type="checkbox"]::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f0ebe3;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s;
+}
+
+.switch-label-destacado input[type="checkbox"]:checked {
+  background: #4ade80;
+}
+
+.switch-label-destacado input[type="checkbox"]:checked::before {
+  transform: translateX(18px);
+  background: #0a0a0a;
+}
+
+.switch-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.switch-titulo {
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: #f0ebe3;
+}
+
+.switch-sub {
+  font-size: 12px;
+  font-family: sans-serif;
+  opacity: 0.5;
+}

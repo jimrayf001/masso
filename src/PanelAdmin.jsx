@@ -211,11 +211,11 @@ const extraerRutaArchivo = (url) => {
             >
               Solicitudes de verificación {pendientes.length > 0 && `(${pendientes.length})`}
             </button>
-            <button
+<button
               className={vista === "masajistas" ? "tab-vista-activo" : ""}
               onClick={() => setVista("masajistas")}
             >
-              Masajistas activas
+              📋 Fichas activas
             </button>
           </div>
 

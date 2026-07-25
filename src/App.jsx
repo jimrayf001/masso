@@ -27,6 +27,7 @@ const promosDemo = [
 ]
 
 const comunasDisponibles = ["Todas", "Santiago Centro", "Providencia", "Las Condes", "Ñuñoa", "Vitacura", "Maipú", "La Florida"]
+const serviciosDisponibles = ["Cualquiera", "Relajación", "Descontracturante", "Piedras calientes", "Facial", "Deportivo", "Aromática"]
 
 function iniciales(nombre) {
   return nombre
@@ -76,6 +77,9 @@ function App() {
   const [soloOportunidades, setSoloOportunidades] = useState(false)
   const [filtroDisponible, setFiltroDisponible] = useState("todas")
   const [filtroComuna, setFiltroComuna] = useState("Todas")
+  const [quizAbierto, setQuizAbierto] = useState(false)
+  const [quizPaso, setQuizPaso] = useState(0)
+  const [quizRespuestas, setQuizRespuestas] = useState({ servicio: "Cualquiera", comuna: "Todas", promo: "no-importa" })
   const masajistasRef = useRef(null)
 
   useEffect(() => {
@@ -112,6 +116,22 @@ function App() {
     }, 100)
   }
 
+  const abrirQuiz = () => {
+    setQuizPaso(0)
+    setQuizRespuestas({ servicio: "Cualquiera", comuna: "Todas", promo: "no-importa" })
+    setQuizAbierto(true)
+  }
+
+  const aplicarQuiz = () => {
+    setEntro(true)
+    setSoloOportunidades(quizRespuestas.promo === "si")
+    setFiltroComuna(quizRespuestas.comuna)
+    setQuizAbierto(false)
+    setTimeout(() => {
+      masajistasRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, 150)
+  }
+
   const enviarRegistro = (e) => {
     e.preventDefault()
     setRegistroEnviado(true)
@@ -125,6 +145,7 @@ function App() {
     .filter(m => soloOportunidades ? m.promocion_activa : true)
     .filter(m => filtroDisponible === "en-linea" ? m.disponible : filtroDisponible === "ocupadas" ? !m.disponible : true)
     .filter(m => filtroComuna === "Todas" ? true : m.comuna === filtroComuna)
+    .filter(m => quizRespuestas.servicio === "Cualquiera" ? true : m.servicio?.toLowerCase().includes(quizRespuestas.servicio.toLowerCase()))
 
   return (
     <div className="app">
@@ -222,7 +243,7 @@ function App() {
             </div>
             <div className="nav-links">
               <a href="#" onClick={(e) => { e.preventDefault(); irAOportunidades() }}>Oportunidades</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); masajistasRef.current?.scrollIntoView({ behavior: "smooth" }) }}>Ubica tu servicio ideal</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); abrirQuiz() }}>Ubica tu servicio ideal</a>
               <button className="btn-primary" onClick={() => window.location.href = "/login"}>Registrarse</button>
             </div>
           </nav>
@@ -301,6 +322,10 @@ function App() {
                   ))}
                 </select>
               </div>
+
+              <button className="btn-quiz" onClick={abrirQuiz}>
+                ✨ Ubica tu servicio ideal
+              </button>
             </div>
 
             {cargandoMasajistas ? (
@@ -355,6 +380,104 @@ function App() {
           </footer>
         </motion.div>
       )}
+
+      {/* QUIZ: UBICA TU SERVICIO IDEAL */}
+      <AnimatePresence>
+        {quizAbierto && (
+          <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setQuizAbierto(false)}
+          >
+            <motion.div
+              className="quiz-card"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="modal-cerrar" onClick={() => setQuizAbierto(false)}>✕</button>
+
+              <div className="quiz-progreso">
+                {[0, 1, 2].map(p => (
+                  <span key={p} className={`quiz-punto ${p <= quizPaso ? "quiz-punto-activo" : ""}`} />
+                ))}
+              </div>
+
+              {quizPaso === 0 && (
+                <div className="quiz-paso">
+                  <h3 className="quiz-titulo">¿Qué tipo de servicio buscas?</h3>
+                  <div className="quiz-opciones">
+                    {serviciosDisponibles.map(s => (
+                      <button
+                        key={s}
+                        className={quizRespuestas.servicio === s ? "quiz-opcion-activa" : "quiz-opcion"}
+                        onClick={() => setQuizRespuestas(r => ({ ...r, servicio: s }))}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                  <button className="btn-primary large full quiz-siguiente" onClick={() => setQuizPaso(1)}>
+                    Siguiente
+                  </button>
+                </div>
+              )}
+
+              {quizPaso === 1 && (
+                <div className="quiz-paso">
+                  <h3 className="quiz-titulo">¿En qué comuna?</h3>
+                  <div className="quiz-opciones">
+                    {comunasDisponibles.map(c => (
+                      <button
+                        key={c}
+                        className={quizRespuestas.comuna === c ? "quiz-opcion-activa" : "quiz-opcion"}
+                        onClick={() => setQuizRespuestas(r => ({ ...r, comuna: c }))}
+                      >
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="quiz-nav">
+                    <button className="btn-quiz-atras" onClick={() => setQuizPaso(0)}>← Atrás</button>
+                    <button className="btn-primary large quiz-siguiente" onClick={() => setQuizPaso(2)}>
+                      Siguiente
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {quizPaso === 2 && (
+                <div className="quiz-paso">
+                  <h3 className="quiz-titulo">¿Buscas algo con promoción?</h3>
+                  <div className="quiz-opciones">
+                    <button
+                      className={quizRespuestas.promo === "si" ? "quiz-opcion-activa" : "quiz-opcion"}
+                      onClick={() => setQuizRespuestas(r => ({ ...r, promo: "si" }))}
+                    >
+                      Sí, con descuento
+                    </button>
+                    <button
+                      className={quizRespuestas.promo === "no-importa" ? "quiz-opcion-activa" : "quiz-opcion"}
+                      onClick={() => setQuizRespuestas(r => ({ ...r, promo: "no-importa" }))}
+                    >
+                      No importa
+                    </button>
+                  </div>
+                  <div className="quiz-nav">
+                    <button className="btn-quiz-atras" onClick={() => setQuizPaso(1)}>← Atrás</button>
+                    <button className="btn-primary large quiz-siguiente" onClick={aplicarQuiz}>
+                      Ver resultados
+                    </button>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* HISTORIA A PANTALLA COMPLETA */}
       <AnimatePresence>

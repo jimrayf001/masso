@@ -1175,3 +1175,46 @@ body {
     align-self: stretch;
   }
 }
+.logo-nav-clicable {
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.logo-nav-clicable:hover {
+  opacity: 0.75;
+}
+
+.nav-link-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #f0ebe3;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  opacity: 0.85;
+  transition: all 0.3s;
+  font-family: sans-serif;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link-btn:hover {
+  opacity: 1;
+  color: #e8c876;
+  border-color: rgba(232,200,118,0.3);
+  background: rgba(232,200,118,0.06);
+}
+
+.nav-link-icon {
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .nav-link-btn {
+    display: none;
+  }
+}

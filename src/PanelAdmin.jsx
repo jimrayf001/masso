@@ -181,10 +181,9 @@ const extraerRutaArchivo = (url) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="admin-titulo">
-            Panel de <span className="gold italic">administración</span>
+<h1 className="admin-titulo">
+            🛡️ <span className="gold italic">Administración</span> de la web
           </h1>
-          <p className="admin-sub">Gestiona todas las masajistas de la plataforma</p>
 
           <div className="admin-stats">
             <div className="stat-card">

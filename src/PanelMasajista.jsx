@@ -4,6 +4,11 @@ import { motion } from "framer-motion"
 import { supabase } from "./supabaseClient"
 import "./PanelMasajista.css"
 
+const serviciosDisponibles = [
+  "Relajación", "Descontracturante", "Piedras calientes", "Deportivo",
+  "Facial", "Aromática", "Reductivo", "Circulatorio", "Prenatal", "Sueco"
+]
+
 function PanelMasajista() {
   const navigate = useNavigate()
   const [usuario, setUsuario] = useState(null)
@@ -21,6 +26,7 @@ function PanelMasajista() {
     nombre: "",
     comuna: "Santiago",
     servicio: "",
+    servicios: [],
     precio: "",
     disponible: true,
     foto_perfil: "",
@@ -68,6 +74,7 @@ function PanelMasajista() {
         nombre: masajistaData.nombre || "",
         comuna: masajistaData.comuna || "Santiago",
         servicio: masajistaData.servicio || "",
+        servicios: masajistaData.servicios || [],
         precio: masajistaData.precio || "",
         disponible: masajistaData.disponible,
         foto_perfil: masajistaData.foto_perfil || "",
@@ -86,6 +93,16 @@ function PanelMasajista() {
   const manejarCambio = (e) => {
     const { name, value, type, checked } = e.target
     setForm(f => ({ ...f, [name]: type === "checkbox" ? checked : value }))
+  }
+
+  const toggleServicio = (servicio) => {
+    setForm(f => {
+      const yaEsta = f.servicios.includes(servicio)
+      const nuevos = yaEsta
+        ? f.servicios.filter(s => s !== servicio)
+        : [...f.servicios, servicio]
+      return { ...f, servicios: nuevos, servicio: nuevos.join(" · ") }
+    })
   }
 
   const subirArchivo = async (file, carpeta) => {
@@ -152,7 +169,7 @@ function PanelMasajista() {
     if (files.length === 0) return
 
     if (form.fotos_local.length + files.length > 10) {
-      alert("Máximo 10 fotos del local. Elimina alguna antes de subir más.")
+      alert("Máximo 10 fotos de la ficha. Elimina alguna antes de subir más.")
       return
     }
 
@@ -187,6 +204,7 @@ function PanelMasajista() {
       nombre: form.nombre,
       comuna: form.comuna,
       servicio: form.servicio,
+      servicios: form.servicios,
       precio: parseInt(form.precio),
       disponible: form.disponible,
       foto_perfil: form.foto_perfil,
@@ -247,7 +265,7 @@ function PanelMasajista() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-<h1 className="panel-titulo-dorado">💆 Mi perfil</h1>
+          <h1 className="panel-titulo-dorado">💆 Mi perfil</h1>
           <p className="panel-sub">
             {masajista ? "Edita la información que ven los clientes" : "Completa tu perfil para empezar a recibir clientes"}
           </p>
@@ -289,15 +307,19 @@ function PanelMasajista() {
                   <option>La Florida</option>
                 </select>
 
-                <label>Servicios que ofreces</label>
-                <input
-                  type="text"
-                  name="servicio"
-                  value={form.servicio}
-                  onChange={manejarCambio}
-                  placeholder="Ej: Relajación · Descontracturante"
-                  required
-                />
+                <label>Servicios que ofreces (elige los que apliquen)</label>
+                <div className="servicios-checkboxes">
+                  {serviciosDisponibles.map(s => (
+                    <label key={s} className="servicio-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={form.servicios.includes(s)}
+                        onChange={() => toggleServicio(s)}
+                      />
+                      {s}
+                    </label>
+                  ))}
+                </div>
 
                 <label>Precio por sesión (CLP)</label>
                 <input
@@ -309,7 +331,7 @@ function PanelMasajista() {
                   required
                 />
 
-<div className={`panel-switch-destacado ${form.disponible ? "switch-on" : "switch-off"}`}>
+                <div className={`panel-switch-destacado ${form.disponible ? "switch-on" : "switch-off"}`}>
                   <label className="switch-label-destacado">
                     <input
                       type="checkbox"
@@ -426,7 +448,7 @@ function PanelMasajista() {
             )}
           </div>
 
-<div className="panel-card panel-card-full">
+          <div className="panel-card panel-card-full">
             <h3 className="panel-card-titulo">Fotos de la ficha ({form.fotos_local.length}/10)</h3>
             <p className="panel-card-desc">Muestra el espacio donde atiendes para dar más confianza a tus clientes.</p>
 
@@ -441,7 +463,7 @@ function PanelMasajista() {
 
             {form.fotos_local.length < 10 && (
               <label className="btn-upload">
-                {subiendoLocal ? "Subiendo..." : "Agregar fotos del local"}
+                {subiendoLocal ? "Subiendo..." : "Agregar fotos"}
                 <input
                   type="file"
                   accept="image/*"

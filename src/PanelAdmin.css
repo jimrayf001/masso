@@ -398,3 +398,45 @@
 }
 
 .btn-rechazar:hover { background: rgba(248,113,113,0.1); }
+.admin-titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-tabs-vista {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 28px;
+  border-bottom: none;
+  background: rgba(255,255,255,0.03);
+  padding: 6px;
+  border: 1px solid rgba(232,200,118,0.15);
+  width: fit-content;
+}
+
+.admin-tabs-vista button {
+  background: transparent;
+  border: none;
+  color: rgba(240,235,227,0.6);
+  padding: 10px 22px;
+  font-size: 13px;
+  font-family: sans-serif;
+  cursor: pointer;
+  border-bottom: none;
+  border-radius: 2px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admin-tabs-vista button:hover {
+  color: #f0ebe3;
+}
+
+.admin-tabs-vista button.tab-vista-activo {
+  color: #0a0a0a;
+  background: #e8c876;
+  font-weight: 700;
+}

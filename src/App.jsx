@@ -233,8 +233,11 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <nav className="navbar">
-            <div className="logo-nav">
+<nav className="navbar">
+            <div
+              className="logo-nav logo-nav-clicable"
+              onClick={() => { setEntro(false); setSoloOportunidades(false) }}
+            >
               <div className="logo-lineas">
                 <span className="linea-logo small" />
                 <span className="logo-texto small">MASSO</span>
@@ -242,8 +245,12 @@ function App() {
               </div>
             </div>
             <div className="nav-links">
-              <a href="#" onClick={(e) => { e.preventDefault(); irAOportunidades() }}>Oportunidades</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); abrirQuiz() }}>Ubica tu servicio ideal</a>
+              <button className="nav-link-btn" onClick={irAOportunidades}>
+                <span className="nav-link-icon">🔥</span> Oportunidades
+              </button>
+              <button className="nav-link-btn" onClick={abrirQuiz}>
+                <span className="nav-link-icon">✨</span> Ubica tu servicio ideal
+              </button>
               <button className="btn-primary" onClick={() => window.location.href = "/login"}>Registrarse</button>
             </div>
           </nav>

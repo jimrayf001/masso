@@ -145,8 +145,7 @@ function App() {
     .filter(m => soloOportunidades ? m.promocion_activa : true)
     .filter(m => filtroDisponible === "en-linea" ? m.disponible : filtroDisponible === "ocupadas" ? !m.disponible : true)
     .filter(m => filtroComuna === "Todas" ? true : m.comuna === filtroComuna)
-    .filter(m => quizRespuestas.servicio === "Cualquiera" ? true : m.servicio?.toLowerCase().includes(quizRespuestas.servicio.toLowerCase()))
-
+ .filter(m => quizRespuestas.servicio === "Cualquiera" ? true : (m.servicios?.includes(quizRespuestas.servicio) || m.servicio?.toLowerCase().includes(quizRespuestas.servicio.toLowerCase())))
   return (
     <div className="app">
       <video className="video-bg" autoPlay muted loop playsInline>

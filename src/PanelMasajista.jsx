@@ -8,12 +8,14 @@ const serviciosDisponibles = [
   "Relajación", "Descontracturante", "Piedras calientes", "Deportivo",
   "Facial", "Aromática", "Reductivo", "Circulatorio", "Prenatal", "Sueco"
 ]
+
 const limitesPorCategoria = {
   basica: { fotos: 5, historias: 1 },
   premium: { fotos: 10, historias: 3 },
   "super-premium": { fotos: 15, historias: 5 },
   vip: { fotos: 20, historias: 8 },
 }
+
 function PanelMasajista() {
   const navigate = useNavigate()
   const [usuario, setUsuario] = useState(null)
@@ -142,30 +144,11 @@ function PanelMasajista() {
   const manejarFotosHistoria = async (e) => {
     const files = Array.from(e.target.files)
     if (files.length === 0) return
+
     if (form.foto_historia.length + files.length > 3) {
       alert("Máximo 3 imágenes de historia. Elimina alguna antes de subir más.")
       return
     }
-    setSubiendoHistoria(true)
-    try {
-      const nuevasUrls = []
-      for (const file of files) {
-        const url = await subirArchivo(file, "historia")
-        nuevasUrls.push(url)
-        console.log("URL SUBIDA:", url)
-      }
-      console.log("TOTAL URLS NUEVAS:", JSON.stringify(nuevasUrls))
-      console.log("FOTO_HISTORIA ANTES:", JSON.stringify(form.foto_historia))
-      setForm(f => {
-        const resultado = [...f.foto_historia, ...nuevasUrls]
-        console.log("FOTO_HISTORIA DESPUES:", JSON.stringify(resultado))
-        return { ...f, foto_historia: resultado }
-      })
-    } catch (err) {
-      alert("Error al subir imágenes: " + err.message)
-    }
-    setSubiendoHistoria(false)
-  }
 
     setSubiendoHistoria(true)
     try {
@@ -174,6 +157,7 @@ function PanelMasajista() {
         const url = await subirArchivo(file, "historia")
         nuevasUrls.push(url)
       }
+      alert("DIAGNOSTICO: se subieron " + nuevasUrls.length + " imagenes nuevas. Antes habia: " + form.foto_historia.length + " imagenes.")
       setForm(f => ({ ...f, foto_historia: [...f.foto_historia, ...nuevasUrls] }))
     } catch (err) {
       alert("Error al subir imágenes: " + err.message)
@@ -223,7 +207,7 @@ function PanelMasajista() {
     setGuardando(true)
     setMensaje("")
 
-const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(masajista?.foto_historia || [])
+    const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(masajista?.foto_historia || [])
 
     const datos = {
       user_id: usuario.id,
@@ -234,24 +218,18 @@ const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(mas
       precio: parseInt(form.precio),
       disponible: form.disponible,
       foto_perfil: form.foto_perfil,
-     foto_historia: form.foto_historia.length > 0 ? form.foto_historia : null,
+      foto_historia: form.foto_historia.length > 0 ? form.foto_historia : null,
       fotos_local: form.fotos_local,
       promocion_activa: tienePromo ? form.promocion_activa : null,
       ...(historiaCambio && form.foto_historia.length > 0 ? { historia_actualizada_en: new Date().toISOString() } : {}),
     }
 
-let error
-    console.log("EXISTE MASAJISTA:", JSON.stringify(masajista))
-
+    let error
     if (masajista) {
       const res = await supabase.from("masajistas").update(datos).eq("user_id", usuario.id).select()
-      console.log("UPDATE ERROR:", JSON.stringify(res.error))
-      console.log("UPDATE DATA:", JSON.stringify(res.data))
       error = res.error
     } else {
       const res = await supabase.from("masajistas").insert(datos).select()
-      console.log("INSERT ERROR:", JSON.stringify(res.error))
-      console.log("INSERT DATA:", JSON.stringify(res.data))
       error = res.error
     }
 
@@ -298,7 +276,7 @@ let error
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
- <h1 className="panel-titulo-dorado">💆 Mi perfil</h1>
+          <h1 className="panel-titulo-dorado">💆 Mi perfil</h1>
           <p className="panel-sub">
             {masajista ? "Edita la información que ven los clientes" : "Completa tu perfil para empezar a recibir clientes"}
           </p>

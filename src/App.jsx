@@ -33,7 +33,7 @@ const categoriasInfo = {
   vip: { titulo: "👑 VIP", clase: "seccion-vip" },
   "super-premium": { titulo: "✨ Súper Premium", clase: "seccion-super" },
   premium: { titulo: "⭐ Premium", clase: "seccion-premium" },
-basica: { titulo: "Perfiles disponibles", clase: "seccion-basica" },
+  basica: { titulo: "Perfiles disponibles", clase: "seccion-basica" },
 }
 
 function iniciales(nombre) {
@@ -82,9 +82,13 @@ function TarjetaMasajista({ m, i, setPerfilAbierto }) {
       whileHover={{ y: -6 }}
     >
       <div className="card-img">
-        <div className="avatar-placeholder">
-          <span>{iniciales(m.nombre)}</span>
-        </div>
+        {m.foto_perfil ? (
+          <img src={m.foto_perfil} alt={m.nombre} className="card-img-real" />
+        ) : (
+          <div className="avatar-placeholder">
+            <span>{iniciales(m.nombre)}</span>
+          </div>
+        )}
         <span className={`badge ${m.disponible ? "badge-on" : "badge-off"}`}>
           {m.disponible ? "● En línea" : "● Ocupada"}
         </span>
@@ -134,6 +138,7 @@ function App() {
   const [masajistas, setMasajistas] = useState([])
   const [cargandoMasajistas, setCargandoMasajistas] = useState(true)
   const [historiaAbierta, setHistoriaAbierta] = useState(null)
+  const [historiaIndice, setHistoriaIndice] = useState(0)
   const [soloOportunidades, setSoloOportunidades] = useState(false)
   const [filtroDisponible, setFiltroDisponible] = useState("todas")
   const [filtroComuna, setFiltroComuna] = useState("Todas")
@@ -201,13 +206,35 @@ function App() {
     }, 2000)
   }
 
+  const abrirHistoria = (m, i) => {
+    setHistoriaIndice(0)
+    setHistoriaAbierta({ ...m, promo: m.promocion_activa || promosDemo[i % promosDemo.length] })
+  }
+
+  const siguienteImagenHistoria = () => {
+    if (!historiaAbierta?.foto_historia) return
+    setHistoriaIndice(idx => (idx + 1) % historiaAbierta.foto_historia.length)
+  }
+
+  const anteriorImagenHistoria = () => {
+    if (!historiaAbierta?.foto_historia) return
+    setHistoriaIndice(idx => (idx - 1 + historiaAbierta.foto_historia.length) % historiaAbierta.foto_historia.length)
+  }
+
+  const historiasVisibles = masajistas.filter(m => {
+    if (!m.historia_actualizada_en) return true
+    const horasTranscurridas = (Date.now() - new Date(m.historia_actualizada_en).getTime()) / (1000 * 60 * 60)
+    return horasTranscurridas < 24
+  })
+
+  const ordenCategorias = ["vip", "super-premium", "premium", "basica"]
+
   const masajistasFiltradas = masajistas
     .filter(m => soloOportunidades ? m.promocion_activa : true)
     .filter(m => filtroDisponible === "en-linea" ? m.disponible : filtroDisponible === "ocupadas" ? !m.disponible : true)
     .filter(m => filtroComuna === "Todas" ? true : m.comuna === filtroComuna)
     .filter(m => quizRespuestas.servicio === "Cualquiera" ? true : (m.servicios?.includes(quizRespuestas.servicio) || m.servicio?.toLowerCase().includes(quizRespuestas.servicio.toLowerCase())))
 
-  const ordenCategorias = ["vip", "super-premium", "premium", "basica"]
   const gruposPorCategoria = ordenCategorias
     .map(cat => ({
       categoria: cat,
@@ -325,21 +352,21 @@ function App() {
 
           <section className="seccion-masajistas" ref={masajistasRef}>
 
-            {!cargandoMasajistas && masajistas.length > 0 && (
+            {!cargandoMasajistas && historiasVisibles.length > 0 && (
               <div className="stories-wrapper">
-<div className="stories-track">
-                  {masajistas.filter(m => {
-                    if (!m.historia_actualizada_en) return true
-                    const horasTranscurridas = (Date.now() - new Date(m.historia_actualizada_en).getTime()) / (1000 * 60 * 60)
-                    return horasTranscurridas < 24
-                  }).map((m, i) => (
+                <div className="stories-track">
+                  {historiasVisibles.map((m, i) => (
                     <button
                       key={m.id}
                       className="story-item"
-                      onClick={() => setHistoriaAbierta({ ...m, promo: m.promocion_activa || promosDemo[i % promosDemo.length] })}
+                      onClick={() => abrirHistoria(m, i)}
                     >
                       <span className={`story-ring ${m.promocion_activa ? "story-ring-promo" : ""}`}>
-                        <span className="story-avatar">{iniciales(m.nombre)}</span>
+                        {m.foto_perfil ? (
+                          <img src={m.foto_perfil} alt={m.nombre} className="story-avatar-img" />
+                        ) : (
+                          <span className="story-avatar">{iniciales(m.nombre)}</span>
+                        )}
                       </span>
                       <span className="story-nombre">{m.nombre.split(" ")[0]}</span>
                     </button>
@@ -411,7 +438,7 @@ function App() {
               </p>
             ) : (
               gruposPorCategoria.map((grupo) => (
-<div key={grupo.categoria} className={`grupo-categoria ${categoriasInfo[grupo.categoria].clase}`}>
+                <div key={grupo.categoria} className={`grupo-categoria ${categoriasInfo[grupo.categoria].clase}`}>
                   {categoriasInfo[grupo.categoria].titulo && (
                     <h3 className="titulo-grupo-categoria">
                       {categoriasInfo[grupo.categoria].titulo}
@@ -550,7 +577,16 @@ function App() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="historia-barra-progreso">
-                <span className="historia-barra-fill" />
+                {historiaAbierta.foto_historia && historiaAbierta.foto_historia.length > 0 ? (
+                  historiaAbierta.foto_historia.map((_, idx) => (
+                    <span
+                      key={idx}
+                      className={`historia-barra-fill ${idx < historiaIndice ? "barra-completa" : idx === historiaIndice ? "barra-activa" : "barra-pendiente"}`}
+                    />
+                  ))
+                ) : (
+                  <span className="historia-barra-fill barra-activa" />
+                )}
               </div>
               <button className="modal-cerrar" onClick={() => setHistoriaAbierta(null)}>✕</button>
               <div className="historia-header">
@@ -560,11 +596,29 @@ function App() {
                   <p className="historia-comuna">📍 {historiaAbierta.comuna}</p>
                 </div>
               </div>
-              <div className="historia-body">
-                <p className="historia-promo">{historiaAbierta.promo}</p>
-                <p className="historia-servicio">{historiaAbierta.servicio}</p>
-                <p className="historia-precio">$ {historiaAbierta.precio?.toLocaleString("es-CL")}</p>
-              </div>
+
+              {historiaAbierta.foto_historia && historiaAbierta.foto_historia.length > 0 ? (
+                <div className="historia-imagen-wrapper">
+                  {historiaAbierta.foto_historia.length > 1 && (
+                    <button className="historia-flecha historia-flecha-izq" onClick={anteriorImagenHistoria}>‹</button>
+                  )}
+                  <img
+                    src={historiaAbierta.foto_historia[historiaIndice]}
+                    alt="Historia"
+                    className="historia-imagen-real"
+                  />
+                  {historiaAbierta.foto_historia.length > 1 && (
+                    <button className="historia-flecha historia-flecha-der" onClick={siguienteImagenHistoria}>›</button>
+                  )}
+                </div>
+              ) : (
+                <div className="historia-body">
+                  <p className="historia-promo">{historiaAbierta.promo}</p>
+                  <p className="historia-servicio">{historiaAbierta.servicio}</p>
+                  <p className="historia-precio">$ {historiaAbierta.precio?.toLocaleString("es-CL")}</p>
+                </div>
+              )}
+
               <button
                 className="btn-primary large full historia-cta"
                 onClick={() => { setPerfilAbierto(historiaAbierta); setHistoriaAbierta(null) }}
@@ -594,9 +648,13 @@ function App() {
               onClick={(e) => e.stopPropagation()}
             >
               <button className="modal-cerrar" onClick={() => setPerfilAbierto(null)}>✕</button>
-              <div className="avatar-placeholder modal-avatar">
-                <span>{iniciales(perfilAbierto.nombre)}</span>
-              </div>
+              {perfilAbierto.foto_perfil ? (
+                <img src={perfilAbierto.foto_perfil} alt={perfilAbierto.nombre} className="modal-img" />
+              ) : (
+                <div className="avatar-placeholder modal-avatar">
+                  <span>{iniciales(perfilAbierto.nombre)}</span>
+                </div>
+              )}
               <div className="modal-info">
                 <span className={`badge ${perfilAbierto.disponible ? "badge-on" : "badge-off"}`}>
                   {perfilAbierto.disponible ? "● En línea" : "● Ocupada"}
@@ -608,6 +666,15 @@ function App() {
                   <p className="modal-promo">🔥 {perfilAbierto.promocion_activa}</p>
                 )}
                 <p className="modal-precio">$ {perfilAbierto.precio?.toLocaleString("es-CL")} <span>/ 60 min</span></p>
+
+                {perfilAbierto.fotos_local && perfilAbierto.fotos_local.length > 0 && (
+                  <div className="modal-fotos-local">
+                    {perfilAbierto.fotos_local.map((url, i) => (
+                      <img key={i} src={url} alt={`Local ${i + 1}`} className="modal-foto-local-item" />
+                    ))}
+                  </div>
+                )}
+
                 <button className="btn-primary large full">Contactar por WhatsApp</button>
               </div>
             </motion.div>

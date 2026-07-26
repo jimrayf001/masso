@@ -440,3 +440,17 @@
   background: #e8c876;
   font-weight: 700;
 }
+.select-categoria {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(232,200,118,0.3);
+  color: #f0ebe3;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-family: sans-serif;
+  outline: none;
+  cursor: pointer;
+}
+
+.select-categoria option {
+  background: #1a1a1a;
+}

@@ -343,9 +343,9 @@ function App() {
             ) : (
               <div className="cards-grid">
                 {masajistasMostradas.map((m, i) => (
-                  <motion.div
+<motion.div
                     key={m.id}
-                    className="card"
+                    className={`card card-${m.categoria || "basica"}`}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: Math.min(i, 8) * 0.05 }}

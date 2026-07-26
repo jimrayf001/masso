@@ -4,18 +4,18 @@ import { supabase } from "./supabaseClient"
 import "./App.css"
 
 const demoMasajistas = [
-  { id: "d1", nombre: "Demo Uno", comuna: "Providencia", disponible: true, servicio: "Relajación", precio: 40000, promocion_activa: "20% dcto esta semana" },
-  { id: "d2", nombre: "Demo Dos", comuna: "Las Condes", disponible: false, servicio: "Descontracturante", precio: 45000 },
-  { id: "d3", nombre: "Demo Tres", comuna: "Ñuñoa", disponible: true, servicio: "Piedras calientes", precio: 50000 },
-  { id: "d4", nombre: "Demo Cuatro", comuna: "Santiago Centro", disponible: true, servicio: "Relajación", precio: 38000, promocion_activa: "2x1 sesiones dobles" },
-  { id: "d5", nombre: "Demo Cinco", comuna: "Vitacura", disponible: false, servicio: "Facial", precio: 55000 },
-  { id: "d6", nombre: "Demo Seis", comuna: "Maipú", disponible: true, servicio: "Deportivo", precio: 35000 },
-  { id: "d7", nombre: "Demo Siete", comuna: "La Florida", disponible: true, servicio: "Relajación", precio: 42000 },
-  { id: "d8", nombre: "Demo Ocho", comuna: "Providencia", disponible: false, servicio: "Aromática", precio: 47000 },
-  { id: "d9", nombre: "Demo Nueve", comuna: "Las Condes", disponible: true, servicio: "Descontracturante", precio: 48000 },
-  { id: "d10", nombre: "Demo Diez", comuna: "Ñuñoa", disponible: true, servicio: "Piedras calientes", precio: 52000 },
-  { id: "d11", nombre: "Demo Once", comuna: "Vitacura", disponible: false, servicio: "Relajación", precio: 41000 },
-  { id: "d12", nombre: "Demo Doce", comuna: "Maipú", disponible: true, servicio: "Facial", precio: 46000 },
+  { id: "d1", nombre: "Demo Uno", comuna: "Providencia", disponible: true, servicio: "Relajación", precio: 40000, promocion_activa: "20% dcto esta semana", categoria: "basica" },
+  { id: "d2", nombre: "Demo Dos", comuna: "Las Condes", disponible: false, servicio: "Descontracturante", precio: 45000, categoria: "basica" },
+  { id: "d3", nombre: "Demo Tres", comuna: "Ñuñoa", disponible: true, servicio: "Piedras calientes", precio: 50000, categoria: "basica" },
+  { id: "d4", nombre: "Demo Cuatro", comuna: "Santiago Centro", disponible: true, servicio: "Relajación", precio: 38000, promocion_activa: "2x1 sesiones dobles", categoria: "basica" },
+  { id: "d5", nombre: "Demo Cinco", comuna: "Vitacura", disponible: false, servicio: "Facial", precio: 55000, categoria: "basica" },
+  { id: "d6", nombre: "Demo Seis", comuna: "Maipú", disponible: true, servicio: "Deportivo", precio: 35000, categoria: "basica" },
+  { id: "d7", nombre: "Demo Siete", comuna: "La Florida", disponible: true, servicio: "Relajación", precio: 42000, categoria: "basica" },
+  { id: "d8", nombre: "Demo Ocho", comuna: "Providencia", disponible: false, servicio: "Aromática", precio: 47000, categoria: "basica" },
+  { id: "d9", nombre: "Demo Nueve", comuna: "Las Condes", disponible: true, servicio: "Descontracturante", precio: 48000, categoria: "basica" },
+  { id: "d10", nombre: "Demo Diez", comuna: "Ñuñoa", disponible: true, servicio: "Piedras calientes", precio: 52000, categoria: "basica" },
+  { id: "d11", nombre: "Demo Once", comuna: "Vitacura", disponible: false, servicio: "Relajación", precio: 41000, categoria: "basica" },
+  { id: "d12", nombre: "Demo Doce", comuna: "Maipú", disponible: true, servicio: "Facial", precio: 46000, categoria: "basica" },
 ]
 
 const promosDemo = [
@@ -141,11 +141,15 @@ function App() {
     }, 2000)
   }
 
+  const ordenCategoria = { vip: 0, "super-premium": 1, premium: 2, basica: 3 }
+
   const masajistasMostradas = masajistas
     .filter(m => soloOportunidades ? m.promocion_activa : true)
     .filter(m => filtroDisponible === "en-linea" ? m.disponible : filtroDisponible === "ocupadas" ? !m.disponible : true)
     .filter(m => filtroComuna === "Todas" ? true : m.comuna === filtroComuna)
- .filter(m => quizRespuestas.servicio === "Cualquiera" ? true : (m.servicios?.includes(quizRespuestas.servicio) || m.servicio?.toLowerCase().includes(quizRespuestas.servicio.toLowerCase())))
+    .filter(m => quizRespuestas.servicio === "Cualquiera" ? true : (m.servicios?.includes(quizRespuestas.servicio) || m.servicio?.toLowerCase().includes(quizRespuestas.servicio.toLowerCase())))
+    .sort((a, b) => (ordenCategoria[a.categoria] ?? 3) - (ordenCategoria[b.categoria] ?? 3))
+
   return (
     <div className="app">
       <video className="video-bg" autoPlay muted loop playsInline>
@@ -232,7 +236,7 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-<nav className="navbar">
+          <nav className="navbar">
             <div
               className="logo-nav logo-nav-clicable"
               onClick={() => { setEntro(false); setSoloOportunidades(false) }}
@@ -275,7 +279,7 @@ function App() {
               </div>
             )}
 
-{soloOportunidades && (
+            {soloOportunidades && (
               <motion.div className="seccion-header"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -356,6 +360,15 @@ function App() {
                       </span>
                       {m.promocion_activa && (
                         <span className="badge-promo-card">🔥 Promo</span>
+                      )}
+                      {m.categoria === "vip" && (
+                        <span className="badge-categoria badge-vip">👑 VIP</span>
+                      )}
+                      {m.categoria === "super-premium" && (
+                        <span className="badge-categoria badge-super">✨ Súper Premium</span>
+                      )}
+                      {m.categoria === "premium" && (
+                        <span className="badge-categoria badge-premium-tag">⭐ Premium</span>
                       )}
                     </div>
                     <div className="card-body">

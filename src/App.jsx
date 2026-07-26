@@ -29,6 +29,13 @@ const promosDemo = [
 const comunasDisponibles = ["Todas", "Santiago Centro", "Providencia", "Las Condes", "Ñuñoa", "Vitacura", "Maipú", "La Florida"]
 const serviciosDisponibles = ["Cualquiera", "Relajación", "Descontracturante", "Piedras calientes", "Deportivo", "Facial", "Aromática", "Reductivo", "Circulatorio", "Prenatal", "Sueco"]
 
+const categoriasInfo = {
+  vip: { titulo: "👑 VIP", clase: "seccion-vip" },
+  "super-premium": { titulo: "✨ Súper Premium", clase: "seccion-super" },
+  premium: { titulo: "⭐ Premium", clase: "seccion-premium" },
+  basica: { titulo: "Masajistas", clase: "seccion-basica" },
+}
+
 function iniciales(nombre) {
   return nombre
     .split(" ")
@@ -62,6 +69,59 @@ function RedesSociales() {
         </svg>
       </a>
     </div>
+  )
+}
+
+function TarjetaMasajista({ m, i, setPerfilAbierto }) {
+  return (
+    <motion.div
+      className={`card card-${m.categoria || "basica"}`}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: Math.min(i, 8) * 0.05 }}
+      whileHover={{ y: -6 }}
+    >
+      <div className="card-img">
+        <div className="avatar-placeholder">
+          <span>{iniciales(m.nombre)}</span>
+        </div>
+        <span className={`badge ${m.disponible ? "badge-on" : "badge-off"}`}>
+          {m.disponible ? "● En línea" : "● Ocupada"}
+        </span>
+        {m.promocion_activa && (
+          <span className="badge-promo-card">🔥 Promo</span>
+        )}
+        {m.categoria === "vip" && (
+          <span className="badge-categoria badge-vip">
+            <svg className="corona-icono" viewBox="0 0 24 24" fill="none">
+              <path d="M3 8L7 11L12 4L17 11L21 8L19 18H5L3 8Z" fill="#0a0a0a"/>
+              <circle cx="12" cy="4" r="1.4" fill="#0a0a0a"/>
+              <circle cx="3" cy="8" r="1.2" fill="#0a0a0a"/>
+              <circle cx="21" cy="8" r="1.2" fill="#0a0a0a"/>
+            </svg>
+            VIP
+          </span>
+        )}
+        {m.categoria === "super-premium" && (
+          <span className="badge-categoria badge-super">✨ SÚPER PREMIUM</span>
+        )}
+        {m.categoria === "premium" && (
+          <span className="badge-categoria badge-premium-tag">⭐ PREMIUM</span>
+        )}
+      </div>
+      <div className="card-body">
+        <h3 className="card-nombre">{m.nombre}</h3>
+        <p className="card-comuna">📍 {m.comuna}</p>
+        <p className="card-servicio">{m.servicio}</p>
+        {m.promocion_activa && (
+          <p className="card-promo-texto">{m.promocion_activa}</p>
+        )}
+        <div className="card-footer">
+          <span className="card-precio">$ {m.precio?.toLocaleString("es-CL")}</span>
+          <button className="btn-card" onClick={() => setPerfilAbierto(m)}>Ver perfil</button>
+        </div>
+      </div>
+    </motion.div>
   )
 }
 
@@ -141,14 +201,19 @@ function App() {
     }, 2000)
   }
 
-  const ordenCategoria = { vip: 0, "super-premium": 1, premium: 2, basica: 3 }
-
-  const masajistasMostradas = masajistas
+  const masajistasFiltradas = masajistas
     .filter(m => soloOportunidades ? m.promocion_activa : true)
     .filter(m => filtroDisponible === "en-linea" ? m.disponible : filtroDisponible === "ocupadas" ? !m.disponible : true)
     .filter(m => filtroComuna === "Todas" ? true : m.comuna === filtroComuna)
     .filter(m => quizRespuestas.servicio === "Cualquiera" ? true : (m.servicios?.includes(quizRespuestas.servicio) || m.servicio?.toLowerCase().includes(quizRespuestas.servicio.toLowerCase())))
-    .sort((a, b) => (ordenCategoria[a.categoria] ?? 3) - (ordenCategoria[b.categoria] ?? 3))
+
+  const ordenCategorias = ["vip", "super-premium", "premium", "basica"]
+  const gruposPorCategoria = ordenCategorias
+    .map(cat => ({
+      categoria: cat,
+      items: masajistasFiltradas.filter(m => (m.categoria || "basica") === cat)
+    }))
+    .filter(grupo => grupo.items.length > 0)
 
   return (
     <div className="app">
@@ -336,64 +401,23 @@ function App() {
 
             {cargandoMasajistas ? (
               <p className="cargando-texto">Cargando masajistas...</p>
-            ) : masajistasMostradas.length === 0 ? (
+            ) : masajistasFiltradas.length === 0 ? (
               <p className="cargando-texto">
                 No hay masajistas que coincidan con estos filtros.
               </p>
             ) : (
-              <div className="cards-grid">
-                {masajistasMostradas.map((m, i) => (
-<motion.div
-                    key={m.id}
-                    className={`card card-${m.categoria || "basica"}`}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: Math.min(i, 8) * 0.05 }}
-                    whileHover={{ y: -6 }}
-                  >
-                    <div className="card-img">
-                      <div className="avatar-placeholder">
-                        <span>{iniciales(m.nombre)}</span>
-                      </div>
-                      <span className={`badge ${m.disponible ? "badge-on" : "badge-off"}`}>
-                        {m.disponible ? "● En línea" : "● Ocupada"}
-                      </span>
-                      {m.promocion_activa && (
-                        <span className="badge-promo-card">🔥 Promo</span>
-                      )}
-{m.categoria === "vip" && (
-                        <span className="badge-categoria badge-vip">
-                          <svg className="corona-icono" viewBox="0 0 24 24" fill="none">
-                            <path d="M3 8L7 11L12 4L17 11L21 8L19 18H5L3 8Z" fill="#0a0a0a"/>
-                            <circle cx="12" cy="4" r="1.4" fill="#0a0a0a"/>
-                            <circle cx="3" cy="8" r="1.2" fill="#0a0a0a"/>
-                            <circle cx="21" cy="8" r="1.2" fill="#0a0a0a"/>
-                          </svg>
-                          VIP
-                        </span>
-                      )}
-                      {m.categoria === "super-premium" && (
-                        <span className="badge-categoria badge-super">✨ SÚPER PREMIUM</span>
-                      )}
-                      {m.categoria === "premium" && (
-                        <span className="badge-categoria badge-premium-tag">⭐ PREMIUM</span>
-                      )}
-                    </div>
-                    <div className="card-body">
-                      <h3 className="card-nombre">{m.nombre}</h3>
-                      <p className="card-comuna">📍 {m.comuna}</p>
-                      <p className="card-servicio">{m.servicio}</p>
-                      {m.promocion_activa && (
-                        <p className="card-promo-texto">{m.promocion_activa}</p>
-                      )}
-                      <div className="card-footer">
-                        <span className="card-precio">$ {m.precio?.toLocaleString("es-CL")}</span>
-                        <button className="btn-card" onClick={() => setPerfilAbierto(m)}>Ver perfil</button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+              gruposPorCategoria.map((grupo) => (
+                <div key={grupo.categoria} className={`grupo-categoria ${categoriasInfo[grupo.categoria].clase}`}>
+                  <h3 className="titulo-grupo-categoria">
+                    {categoriasInfo[grupo.categoria].titulo}
+                  </h3>
+                  <div className="cards-grid">
+                    {grupo.items.map((m, i) => (
+                      <TarjetaMasajista key={m.id} m={m} i={i} setPerfilAbierto={setPerfilAbierto} />
+                    ))}
+                  </div>
+                </div>
+              ))
             )}
           </section>
 

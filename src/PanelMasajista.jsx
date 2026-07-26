@@ -142,11 +142,30 @@ function PanelMasajista() {
   const manejarFotosHistoria = async (e) => {
     const files = Array.from(e.target.files)
     if (files.length === 0) return
-
     if (form.foto_historia.length + files.length > 3) {
       alert("Máximo 3 imágenes de historia. Elimina alguna antes de subir más.")
       return
     }
+    setSubiendoHistoria(true)
+    try {
+      const nuevasUrls = []
+      for (const file of files) {
+        const url = await subirArchivo(file, "historia")
+        nuevasUrls.push(url)
+        console.log("URL SUBIDA:", url)
+      }
+      console.log("TOTAL URLS NUEVAS:", JSON.stringify(nuevasUrls))
+      console.log("FOTO_HISTORIA ANTES:", JSON.stringify(form.foto_historia))
+      setForm(f => {
+        const resultado = [...f.foto_historia, ...nuevasUrls]
+        console.log("FOTO_HISTORIA DESPUES:", JSON.stringify(resultado))
+        return { ...f, foto_historia: resultado }
+      })
+    } catch (err) {
+      alert("Error al subir imágenes: " + err.message)
+    }
+    setSubiendoHistoria(false)
+  }
 
     setSubiendoHistoria(true)
     try {

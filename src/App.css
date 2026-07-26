@@ -1288,6 +1288,15 @@ body {
   font-weight: 900;
   font-size: 11px;
   letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.corona-icono {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 
 .badge-super {

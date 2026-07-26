@@ -1218,3 +1218,34 @@ body {
     display: none;
   }
 }
+.badge-categoria {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-family: sans-serif;
+}
+
+.badge-vip {
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  color: #0a0a0a;
+  animation: brilloVip 2s ease-in-out infinite;
+}
+
+@keyframes brilloVip {
+  0%, 100% { box-shadow: 0 0 4px rgba(255,215,0,0.4); }
+  50% { box-shadow: 0 0 12px rgba(255,215,0,0.8); }
+}
+
+.badge-super {
+  background: rgba(232,200,118,0.9);
+  color: #0a0a0a;
+}
+
+.badge-premium-tag {
+  background: rgba(200,200,210,0.85);
+  color: #0a0a0a;
+}

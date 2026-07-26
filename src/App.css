@@ -1309,3 +1309,48 @@ body {
   background: linear-gradient(135deg, #e8e8ec, #b8b8c4);
   color: #0a0a0a;
 }
+.grupo-categoria {
+  margin-bottom: 50px;
+}
+
+.titulo-grupo-categoria {
+  font-size: 20px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  margin-bottom: 20px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(232,200,118,0.15);
+}
+
+.seccion-vip .titulo-grupo-categoria {
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255,180,0,0.4);
+}
+
+.seccion-super .titulo-grupo-categoria {
+  color: #e8c876;
+}
+
+.seccion-premium .titulo-grupo-categoria {
+  color: #c8c8d4;
+}
+
+.seccion-basica .titulo-grupo-categoria {
+  color: rgba(240,235,227,0.6);
+  font-weight: 400;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .titulo-grupo-categoria {
+    font-size: 16px;
+    padding: 0 12px 10px;
+  }
+
+  .seccion-basica .titulo-grupo-categoria {
+    font-size: 14px;
+  }
+}

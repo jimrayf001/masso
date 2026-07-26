@@ -265,10 +265,24 @@ function PanelMasajista() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="panel-titulo-dorado">💆 Mi perfil</h1>
+ <h1 className="panel-titulo-dorado">💆 Mi perfil</h1>
           <p className="panel-sub">
             {masajista ? "Edita la información que ven los clientes" : "Completa tu perfil para empezar a recibir clientes"}
           </p>
+
+          {masajista && (
+            <div className={`categoria-actual categoria-actual-${masajista.categoria || "basica"}`}>
+              <span className="categoria-actual-nombre">
+                {masajista.categoria === "vip" && "👑 Plan VIP"}
+                {masajista.categoria === "super-premium" && "✨ Plan Súper Premium"}
+                {masajista.categoria === "premium" && "⭐ Plan Premium"}
+                {(!masajista.categoria || masajista.categoria === "basica") && "Plan Básico"}
+              </span>
+              <span className="categoria-actual-limites">
+                {limitesPorCategoria[masajista.categoria || "basica"].fotos} fotos de ficha · {limitesPorCategoria[masajista.categoria || "basica"].historias} imágenes de historia
+              </span>
+            </div>
+          )}
 
           <div className="panel-grid">
             <div className="panel-card">

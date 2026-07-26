@@ -221,12 +221,17 @@ const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(mas
       ...(historiaCambio && form.foto_historia.length > 0 ? { historia_actualizada_en: new Date().toISOString() } : {}),
     }
 
-    let error
+let error
+    console.log("¿Existe masajista?", masajista)
+    console.log("Datos a guardar:", datos)
+
     if (masajista) {
-      const res = await supabase.from("masajistas").update(datos).eq("user_id", usuario.id)
+      const res = await supabase.from("masajistas").update(datos).eq("user_id", usuario.id).select()
+      console.log("Resultado UPDATE:", res)
       error = res.error
     } else {
-      const res = await supabase.from("masajistas").insert(datos)
+      const res = await supabase.from("masajistas").insert(datos).select()
+      console.log("Resultado INSERT:", res)
       error = res.error
     }
 

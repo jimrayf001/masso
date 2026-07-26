@@ -362,22 +362,15 @@ function App() {
                         <span className="badge-promo-card">🔥 Promo</span>
                       )}
 {m.categoria === "vip" && (
-                        <>
-                          <svg className="corona-vip" viewBox="0 0 24 24" fill="none">
-                            <path d="M3 8L7 11L12 4L17 11L21 8L19 18H5L3 8Z" fill="url(#coronaGradiente)" stroke="#0a0a0a" strokeWidth="0.5" strokeLinejoin="round"/>
-                            <circle cx="12" cy="4" r="1.5" fill="#fff3c4"/>
-                            <circle cx="3" cy="8" r="1.3" fill="#fff3c4"/>
-                            <circle cx="21" cy="8" r="1.3" fill="#fff3c4"/>
-                            <defs>
-                              <linearGradient id="coronaGradiente" x1="0" y1="0" x2="24" y2="18">
-                                <stop offset="0%" stopColor="#fff3c4"/>
-                                <stop offset="50%" stopColor="#ffd700"/>
-                                <stop offset="100%" stopColor="#ff8c00"/>
-                              </linearGradient>
-                            </defs>
+                        <span className="badge-categoria badge-vip">
+                          <svg className="corona-icono" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 8L7 11L12 4L17 11L21 8L19 18H5L3 8Z" fill="#0a0a0a"/>
+                            <circle cx="12" cy="4" r="1.4" fill="#0a0a0a"/>
+                            <circle cx="3" cy="8" r="1.2" fill="#0a0a0a"/>
+                            <circle cx="21" cy="8" r="1.2" fill="#0a0a0a"/>
                           </svg>
-                          <span className="badge-categoria badge-vip">VIP</span>
-                        </>
+                          VIP
+                        </span>
                       )}
                       {m.categoria === "super-premium" && (
                         <span className="badge-categoria badge-super">✨ SÚPER PREMIUM</span>

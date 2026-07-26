@@ -407,10 +407,12 @@ function App() {
               </p>
             ) : (
               gruposPorCategoria.map((grupo) => (
-                <div key={grupo.categoria} className={`grupo-categoria ${categoriasInfo[grupo.categoria].clase}`}>
-                  <h3 className="titulo-grupo-categoria">
-                    {categoriasInfo[grupo.categoria].titulo}
-                  </h3>
+<div key={grupo.categoria} className={`grupo-categoria ${categoriasInfo[grupo.categoria].clase}`}>
+                  {categoriasInfo[grupo.categoria].titulo && (
+                    <h3 className="titulo-grupo-categoria">
+                      {categoriasInfo[grupo.categoria].titulo}
+                    </h3>
+                  )}
                   <div className="cards-grid">
                     {grupo.items.map((m, i) => (
                       <TarjetaMasajista key={m.id} m={m} i={i} setPerfilAbierto={setPerfilAbierto} />

@@ -265,15 +265,22 @@ body {
 
 .card:hover { border-color: rgba(232,200,118,0.4); }
 
-.card-img { position: relative; height: 220px; overflow: hidden; }
+.card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #131110;
+}
 
 .card-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   transition: transform 0.4s;
 }
 
-.card:hover .card-img img { transform: scale(1.05); }
+.card:hover .card-img img { transform: scale(1.03); }
 
 .badge {
   position: absolute;

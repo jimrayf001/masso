@@ -69,7 +69,7 @@ function PanelAdmin() {
     setCargando(false)
   }
 
-const extraerRutaArchivo = (url) => {
+  const extraerRutaArchivo = (url) => {
     const partes = url.split("/documentos-verificacion/")
     return partes[1] ? decodeURIComponent(partes[1]) : null
   }
@@ -119,6 +119,14 @@ const extraerRutaArchivo = (url) => {
     await supabase
       .from("masajistas")
       .update({ disponible: !valorActual })
+      .eq("id", id)
+    cargarTodo()
+  }
+
+  const cambiarCategoria = async (id, nuevaCategoria) => {
+    await supabase
+      .from("masajistas")
+      .update({ categoria: nuevaCategoria })
       .eq("id", id)
     cargarTodo()
   }
@@ -181,7 +189,7 @@ const extraerRutaArchivo = (url) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-<h1 className="admin-titulo">
+          <h1 className="admin-titulo">
             🛡️ <span className="gold italic">Administración</span> de la web
           </h1>
 
@@ -205,13 +213,13 @@ const extraerRutaArchivo = (url) => {
           </div>
 
           <div className="admin-tabs-vista">
-<button
+            <button
               className={vista === "verificaciones" ? "tab-vista-activo" : ""}
               onClick={() => setVista("verificaciones")}
             >
               🕵️ Solicitudes de verificación {pendientes.length > 0 && `(${pendientes.length})`}
             </button>
-<button
+            <button
               className={vista === "masajistas" ? "tab-vista-activo" : ""}
               onClick={() => setVista("masajistas")}
             >
@@ -325,6 +333,7 @@ const extraerRutaArchivo = (url) => {
                         <th>Comuna</th>
                         <th>Servicio</th>
                         <th>Precio</th>
+                        <th>Categoría</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                       </tr>
@@ -339,6 +348,18 @@ const extraerRutaArchivo = (url) => {
                           <td>{m.comuna}</td>
                           <td className="tabla-servicio">{m.servicio}</td>
                           <td>$ {m.precio?.toLocaleString("es-CL")}</td>
+                          <td>
+                            <select
+                              className="select-categoria"
+                              value={m.categoria || "basica"}
+                              onChange={(e) => cambiarCategoria(m.id, e.target.value)}
+                            >
+                              <option value="basica">Básica</option>
+                              <option value="premium">⭐ Premium</option>
+                              <option value="super-premium">✨ Súper Premium</option>
+                              <option value="vip">👑 VIP</option>
+                            </select>
+                          </td>
                           <td>
                             <button
                               className={`estado-toggle ${m.disponible ? "estado-on" : "estado-off"}`}

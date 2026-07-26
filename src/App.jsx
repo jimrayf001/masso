@@ -361,14 +361,14 @@ function App() {
                       {m.promocion_activa && (
                         <span className="badge-promo-card">🔥 Promo</span>
                       )}
-                      {m.categoria === "vip" && (
+{m.categoria === "vip" && (
                         <span className="badge-categoria badge-vip">👑 VIP</span>
                       )}
                       {m.categoria === "super-premium" && (
-                        <span className="badge-categoria badge-super">✨ Súper Premium</span>
+                        <span className="badge-categoria badge-super">✨ SÚPER PREMIUM</span>
                       )}
                       {m.categoria === "premium" && (
-                        <span className="badge-categoria badge-premium-tag">⭐ Premium</span>
+                        <span className="badge-categoria badge-premium-tag">⭐ PREMIUM</span>
                       )}
                     </div>
                     <div className="card-body">

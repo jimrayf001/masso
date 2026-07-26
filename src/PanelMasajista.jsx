@@ -204,6 +204,8 @@ function PanelMasajista() {
     setGuardando(true)
     setMensaje("")
 
+const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(masajista?.foto_historia || [])
+
     const datos = {
       user_id: usuario.id,
       nombre: form.nombre,
@@ -216,6 +218,7 @@ function PanelMasajista() {
       foto_historia: form.foto_historia,
       fotos_local: form.fotos_local,
       promocion_activa: tienePromo ? form.promocion_activa : null,
+      ...(historiaCambio && form.foto_historia.length > 0 ? { historia_actualizada_en: new Date().toISOString() } : {}),
     }
 
     let error

@@ -502,3 +502,45 @@
     grid-template-columns: 1fr;
   }
 }
+.categoria-actual {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 20px;
+  border: 1px solid rgba(232,200,118,0.25);
+  margin-bottom: 30px;
+}
+
+.categoria-actual-nombre {
+  font-size: 15px;
+  font-weight: 700;
+  font-family: sans-serif;
+  color: #e8c876;
+}
+
+.categoria-actual-limites {
+  font-size: 11px;
+  opacity: 0.5;
+  font-family: sans-serif;
+}
+
+.categoria-actual-vip {
+  border-color: #ffd700;
+  box-shadow: 0 0 14px rgba(255,180,0,0.2);
+}
+
+.categoria-actual-vip .categoria-actual-nombre {
+  color: #ffd700;
+}
+
+.categoria-actual-super-premium {
+  border-color: rgba(232,200,118,0.5);
+}
+
+.categoria-actual-premium {
+  border-color: rgba(200,200,210,0.4);
+}
+
+.categoria-actual-premium .categoria-actual-nombre {
+  color: #c8c8d4;
+}

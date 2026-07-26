@@ -1354,3 +1354,94 @@ body {
     font-size: 14px;
   }
 }
+.card-img-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0a0a0a;
+}
+
+.historia-imagen-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+
+.historia-imagen-real {
+  width: 100%;
+  height: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.historia-flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.historia-flecha-izq { left: 10px; }
+.historia-flecha-der { right: 10px; }
+
+.historia-barra-fill {
+  flex: 1;
+  height: 100%;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.historia-barra-fill.barra-completa {
+  background: #e8c876;
+}
+
+.historia-barra-fill.barra-activa {
+  background: #e8c876;
+}
+
+.historia-barra-fill.barra-pendiente {
+  background: rgba(255,255,255,0.15);
+}
+
+.historia-barra-progreso {
+  display: flex;
+  gap: 4px;
+}
+
+.modal-fotos-local {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.modal-foto-local-item {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}

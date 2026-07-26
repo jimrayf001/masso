@@ -215,7 +215,7 @@ const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(mas
       precio: parseInt(form.precio),
       disponible: form.disponible,
       foto_perfil: form.foto_perfil,
-      foto_historia: form.foto_historia,
+     foto_historia: form.foto_historia.length > 0 ? form.foto_historia : null,
       fotos_local: form.fotos_local,
       promocion_activa: tienePromo ? form.promocion_activa : null,
       ...(historiaCambio && form.foto_historia.length > 0 ? { historia_actualizada_en: new Date().toISOString() } : {}),

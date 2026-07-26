@@ -8,7 +8,12 @@ const serviciosDisponibles = [
   "Relajación", "Descontracturante", "Piedras calientes", "Deportivo",
   "Facial", "Aromática", "Reductivo", "Circulatorio", "Prenatal", "Sueco"
 ]
-
+const limitesPorCategoria = {
+  basica: { fotos: 5, historias: 1 },
+  premium: { fotos: 10, historias: 3 },
+  "super-premium": { fotos: 15, historias: 5 },
+  vip: { fotos: 20, historias: 8 },
+}
 function PanelMasajista() {
   const navigate = useNavigate()
   const [usuario, setUsuario] = useState(null)

@@ -222,16 +222,17 @@ const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(mas
     }
 
 let error
-    console.log("¿Existe masajista?", masajista)
-    console.log("Datos a guardar:", datos)
+    console.log("EXISTE MASAJISTA:", JSON.stringify(masajista))
 
     if (masajista) {
       const res = await supabase.from("masajistas").update(datos).eq("user_id", usuario.id).select()
-      console.log("Resultado UPDATE:", res)
+      console.log("UPDATE ERROR:", JSON.stringify(res.error))
+      console.log("UPDATE DATA:", JSON.stringify(res.data))
       error = res.error
     } else {
       const res = await supabase.from("masajistas").insert(datos).select()
-      console.log("Resultado INSERT:", res)
+      console.log("INSERT ERROR:", JSON.stringify(res.error))
+      console.log("INSERT DATA:", JSON.stringify(res.data))
       error = res.error
     }
 

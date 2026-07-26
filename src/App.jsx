@@ -33,7 +33,7 @@ const categoriasInfo = {
   vip: { titulo: "👑 VIP", clase: "seccion-vip" },
   "super-premium": { titulo: "✨ Súper Premium", clase: "seccion-super" },
   premium: { titulo: "⭐ Premium", clase: "seccion-premium" },
-basica: { titulo: "", clase: "seccion-basica" },
+basica: { titulo: "Perfiles disponibles", clase: "seccion-basica" },
 }
 
 function iniciales(nombre) {

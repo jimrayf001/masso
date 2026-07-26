@@ -327,8 +327,12 @@ function App() {
 
             {!cargandoMasajistas && masajistas.length > 0 && (
               <div className="stories-wrapper">
-                <div className="stories-track">
-                  {masajistas.map((m, i) => (
+<div className="stories-track">
+                  {masajistas.filter(m => {
+                    if (!m.historia_actualizada_en) return true
+                    const horasTranscurridas = (Date.now() - new Date(m.historia_actualizada_en).getTime()) / (1000 * 60 * 60)
+                    return horasTranscurridas < 24
+                  }).map((m, i) => (
                     <button
                       key={m.id}
                       className="story-item"

@@ -1300,12 +1300,3 @@ body {
   background: linear-gradient(135deg, #e8e8ec, #b8b8c4);
   color: #0a0a0a;
 }
-.corona-vip {
-  position: absolute;
-  top: -18px;
-  right: 14px;
-  width: 34px;
-  height: 34px;
-  z-index: 2;
-  filter: drop-shadow(0 0 6px rgba(255,180,0,0.9));
-}

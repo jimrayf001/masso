@@ -304,7 +304,12 @@ body {
   border: 1px solid rgba(240,235,227,0.15);
 }
 
-.card-body { padding: 20px; }
+.card-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
 .card-nombre { font-size: 18px; font-weight: 400; margin-bottom: 6px; }
 

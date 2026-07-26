@@ -1292,9 +1292,12 @@ body {
 }
 
 .badge-vip {
-  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  background: linear-gradient(135deg, #fff3c4, #ffd700, #ff8c00);
   color: #0a0a0a;
-  box-shadow: 0 0 10px rgba(255,180,0,0.6);
+  box-shadow: 0 0 16px rgba(255,180,0,0.8);
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 1px;
 }
 
 .badge-super {

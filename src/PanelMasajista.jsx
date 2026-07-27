@@ -360,7 +360,14 @@ const datos = {
                   rows={4}
                   maxLength={500}
                 />
-
+<label>Número de WhatsApp</label>
+                <input
+                  type="tel"
+                  name="whatsapp"
+                  value={form.whatsapp}
+                  onChange={manejarCambio}
+                  placeholder="Ej: +56912345678"
+                />
                 <label>Precio por sesión (CLP)</label>
                 <input
                   type="number"

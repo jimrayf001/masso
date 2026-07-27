@@ -285,11 +285,11 @@ function PanelMasajista() {
 
           {masajista && (
             <div className={`categoria-actual categoria-actual-${masajista.categoria || "basica"}`}>
-              <span className="categoria-actual-nombre">
-                {masajista.categoria === "vip" && "👑 Plan VIP"}
-                {masajista.categoria === "super-premium" && "✨ Plan Súper Premium"}
-                {masajista.categoria === "premium" && "⭐ Plan Premium"}
-                {(!masajista.categoria || masajista.categoria === "basica") && "Plan Básico"}
+<span className="categoria-actual-nombre">
+                {masajista.categoria === "vip" && "👑 Plan Icónica"}
+                {masajista.categoria === "super-premium" && "✨ Plan Prestige"}
+                {masajista.categoria === "premium" && "⭐ Plan Signature"}
+                {(!masajista.categoria || masajista.categoria === "basica") && "Plan Clásica"}
               </span>
               <span className="categoria-actual-limites">
                 {limitesPorCategoria[masajista.categoria || "basica"].fotos} fotos de ficha · {limitesPorCategoria[masajista.categoria || "basica"].historias} imágenes de historia

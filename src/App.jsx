@@ -92,8 +92,13 @@ function TarjetaMasajista({ m, i, setPerfilAbierto }) {
 
       <div className="card-poster-overlay" />
 
-      {m.promocion_activa && (
-        <span className="dot-promo" title="Tiene promoción activa" />
+{m.promocion_activa && (
+        <span className="badge-promo-icono" title="Tiene promoción activa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20.59 13.41L11 3.83 3.83 11l9.58 9.59a2 2 0 0 0 2.83 0l4.35-4.35a2 2 0 0 0 0-2.83z"/>
+            <circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
       )}
 
       {m.categoria === "vip" && (

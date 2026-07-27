@@ -1580,16 +1580,25 @@ body {
   box-shadow: 0 0 0 2px #ef4444, 0 0 16px rgba(239,68,68,0.5);
 }
 
-.dot-promo {
+.badge-promo-icono {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 10px;
-  height: 10px;
+  width: 30px;
+  height: 30px;
+  background: rgba(232,200,118,0.95);
+  color: #0a0a0a;
   border-radius: 50%;
-  background: #e8c876;
-  box-shadow: 0 0 8px rgba(232,200,118,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 2;
+  box-shadow: 0 2px 10px rgba(232,200,118,0.6);
+}
+
+.badge-promo-icono svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* IMAGENES CLICABLES */

@@ -717,7 +717,7 @@ function App() {
 
 {perfilAbierto.whatsapp ? (
                   
-                    href={`https://wa.me/${perfilAbierto.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent("Hola! Vi tu perfil en Masso y me gustaría agendar una sesión 🙂")}`}
+                    href={generarLinkWhatsapp(perfilAbierto.whatsapp)}
                     target="_blank"
                     rel="noreferrer"
                     className="btn-primary large full btn-whatsapp"

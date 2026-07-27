@@ -79,7 +79,7 @@ const [form, setForm] = useState({
 
     if (masajistaData) {
       setMasajista(masajistaData)
-      setForm({
+setForm({
         nombre: masajistaData.nombre || "",
         comuna: masajistaData.comuna || "Santiago",
         servicio: masajistaData.servicio || "",
@@ -91,6 +91,7 @@ const [form, setForm] = useState({
         fotos_local: masajistaData.fotos_local || [],
         promocion_activa: masajistaData.promocion_activa || "",
         descripcion: masajistaData.descripcion || "",
+        whatsapp: masajistaData.whatsapp || "",
       })
       setTienePromo(!!masajistaData.promocion_activa)
     } else if (perfilData) {

@@ -141,6 +141,11 @@ function App() {
   const [historiaIndice, setHistoriaIndice] = useState(0)
   const [galeriaAbierta, setGaleriaAbierta] = useState(null)
   const [galeriaIndice, setGaleriaIndice] = useState(0)
+  const generarLinkWhatsapp = (numero) => {
+    const soloNumeros = numero.replace(/\D/g, "")
+    const mensaje = "Hola! Vi tu perfil en Masso y me gustaria agendar una sesion"
+    return "https://wa.me/" + soloNumeros + "?text=" + encodeURIComponent(mensaje)
+  }
   const [soloOportunidades, setSoloOportunidades] = useState(false)
   const [filtroDisponible, setFiltroDisponible] = useState("todas")
   const [filtroComuna, setFiltroComuna] = useState("Todas")

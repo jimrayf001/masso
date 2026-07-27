@@ -77,8 +77,7 @@ const [form, setForm] = useState({
       .single()
 
     if (masajistaData) {
-      setMasajista(masajistaData)
-      setForm({
+setForm({
         nombre: masajistaData.nombre || "",
         comuna: masajistaData.comuna || "Santiago",
         servicio: masajistaData.servicio || "",
@@ -89,6 +88,8 @@ const [form, setForm] = useState({
         foto_historia: masajistaData.foto_historia || [],
         fotos_local: masajistaData.fotos_local || [],
         promocion_activa: masajistaData.promocion_activa || "",
+        descripcion: masajistaData.descripcion || "",
+      })
       })
       setTienePromo(!!masajistaData.promocion_activa)
     } else if (perfilData) {

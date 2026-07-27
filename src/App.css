@@ -1347,8 +1347,8 @@ body {
     gap: 8px;
   }
 
-  .card-poster {
-    aspect-ratio: 3/4.6;
+.card-poster {
+    aspect-ratio: 3/5.2;
   }
 
   .card-poster-nombre {

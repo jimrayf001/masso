@@ -29,7 +29,7 @@ function PanelMasajista() {
   const [subiendoHistoria, setSubiendoHistoria] = useState(false)
   const [tienePromo, setTienePromo] = useState(false)
 
-  const [form, setForm] = useState({
+const [form, setForm] = useState({
     nombre: "",
     comuna: "Santiago",
     servicio: "",
@@ -40,6 +40,7 @@ function PanelMasajista() {
     foto_historia: [],
     fotos_local: [],
     promocion_activa: "",
+    descripcion: "",
   })
 
   useEffect(() => {

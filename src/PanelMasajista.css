@@ -544,3 +544,14 @@
 .categoria-actual-premium .categoria-actual-nombre {
   color: #c8c8d4;
 }
+.panel-form textarea {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(232,200,118,0.3);
+  padding: 12px 14px;
+  color: #f0ebe3;
+  font-size: 14px;
+  font-family: sans-serif;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+}

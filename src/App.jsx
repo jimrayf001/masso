@@ -75,54 +75,59 @@ function RedesSociales() {
 function TarjetaMasajista({ m, i, setPerfilAbierto }) {
   return (
     <motion.div
-      className={`card card-${m.categoria || "basica"}`}
+      className={`card card-poster card-${m.categoria || "basica"}`}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: Math.min(i, 8) * 0.05 }}
       whileHover={{ y: -6 }}
+      onClick={() => setPerfilAbierto(m)}
     >
-      <div className="card-img">
-        {m.foto_perfil ? (
-          <img src={m.foto_perfil} alt={m.nombre} className="card-img-real" />
-        ) : (
-          <div className="avatar-placeholder">
-            <span>{iniciales(m.nombre)}</span>
-          </div>
-        )}
+      {m.foto_perfil ? (
+        <img src={m.foto_perfil} alt={m.nombre} className="card-poster-img" />
+      ) : (
+        <div className="avatar-placeholder card-poster-img">
+          <span>{iniciales(m.nombre)}</span>
+        </div>
+      )}
+
+      <div className="card-poster-overlay" />
+
+      <div className="card-poster-top">
         <span className={`badge ${m.disponible ? "badge-on" : "badge-off"}`}>
           {m.disponible ? "● En línea" : "● Ocupada"}
         </span>
         {m.promocion_activa && (
           <span className="badge-promo-card">🔥 Promo</span>
         )}
-        {m.categoria === "vip" && (
-          <span className="badge-categoria badge-vip">
-            <svg className="corona-icono" viewBox="0 0 24 24" fill="none">
-              <path d="M3 8L7 11L12 4L17 11L21 8L19 18H5L3 8Z" fill="#0a0a0a"/>
-              <circle cx="12" cy="4" r="1.4" fill="#0a0a0a"/>
-              <circle cx="3" cy="8" r="1.2" fill="#0a0a0a"/>
-              <circle cx="21" cy="8" r="1.2" fill="#0a0a0a"/>
-            </svg>
-            VIP
-          </span>
-        )}
-        {m.categoria === "super-premium" && (
-          <span className="badge-categoria badge-super">✨ SÚPER PREMIUM</span>
-        )}
-        {m.categoria === "premium" && (
-          <span className="badge-categoria badge-premium-tag">⭐ PREMIUM</span>
-        )}
       </div>
-      <div className="card-body">
-        <h3 className="card-nombre">{m.nombre}</h3>
-        <p className="card-comuna">📍 {m.comuna}</p>
-        <p className="card-servicio">{m.servicio}</p>
+
+      {m.categoria === "vip" && (
+        <span className="badge-categoria badge-vip badge-categoria-poster">
+          <svg className="corona-icono" viewBox="0 0 24 24" fill="none">
+            <path d="M3 8L7 11L12 4L17 11L21 8L19 18H5L3 8Z" fill="#0a0a0a"/>
+            <circle cx="12" cy="4" r="1.4" fill="#0a0a0a"/>
+            <circle cx="3" cy="8" r="1.2" fill="#0a0a0a"/>
+            <circle cx="21" cy="8" r="1.2" fill="#0a0a0a"/>
+          </svg>
+          VIP
+        </span>
+      )}
+      {m.categoria === "super-premium" && (
+        <span className="badge-categoria badge-super badge-categoria-poster">✨ SÚPER PREMIUM</span>
+      )}
+      {m.categoria === "premium" && (
+        <span className="badge-categoria badge-premium-tag badge-categoria-poster">⭐ PREMIUM</span>
+      )}
+
+      <div className="card-poster-info">
+        <h3 className="card-poster-nombre">{m.nombre}</h3>
+        <p className="card-poster-comuna">📍 {m.comuna}</p>
         {m.promocion_activa && (
-          <p className="card-promo-texto">{m.promocion_activa}</p>
+          <p className="card-poster-promo">{m.promocion_activa}</p>
         )}
-        <div className="card-footer">
-          <span className="card-precio">$ {m.precio?.toLocaleString("es-CL")}</span>
-          <button className="btn-card" onClick={() => setPerfilAbierto(m)}>Ver perfil</button>
+        <div className="card-poster-footer">
+          <span className="card-poster-precio">$ {m.precio?.toLocaleString("es-CL")}</span>
+          <button className="btn-card" onClick={(e) => { e.stopPropagation(); setPerfilAbierto(m) }}>Ver perfil</button>
         </div>
       </div>
     </motion.div>

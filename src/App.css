@@ -276,11 +276,12 @@ body {
 .card-img img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: top;
   transition: transform 0.4s;
 }
 
-.card:hover .card-img img { transform: scale(1.03); }
+.card:hover .card-img img { transform: scale(1.05); }
 
 .badge {
   position: absolute;

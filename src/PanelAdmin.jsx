@@ -349,15 +349,15 @@ function PanelAdmin() {
                           <td className="tabla-servicio">{m.servicio}</td>
                           <td>$ {m.precio?.toLocaleString("es-CL")}</td>
                           <td>
-                            <select
+<select
                               className="select-categoria"
                               value={m.categoria || "basica"}
                               onChange={(e) => cambiarCategoria(m.id, e.target.value)}
                             >
-                              <option value="basica">Básica</option>
-                              <option value="premium">⭐ Premium</option>
-                              <option value="super-premium">✨ Súper Premium</option>
-                              <option value="vip">👑 VIP</option>
+                              <option value="basica">Clásica</option>
+                              <option value="premium">⭐ Signature</option>
+                              <option value="super-premium">✨ Prestige</option>
+                              <option value="vip">👑 Icónica</option>
                             </select>
                           </td>
                           <td>

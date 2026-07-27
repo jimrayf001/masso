@@ -29,7 +29,7 @@ function PanelMasajista() {
   const [subiendoHistoria, setSubiendoHistoria] = useState(false)
   const [tienePromo, setTienePromo] = useState(false)
 
-const [form, setForm] = useState({
+  const [form, setForm] = useState({
     nombre: "",
     comuna: "Santiago",
     servicio: "",
@@ -77,7 +77,8 @@ const [form, setForm] = useState({
       .single()
 
     if (masajistaData) {
-setForm({
+      setMasajista(masajistaData)
+      setForm({
         nombre: masajistaData.nombre || "",
         comuna: masajistaData.comuna || "Santiago",
         servicio: masajistaData.servicio || "",
@@ -89,7 +90,6 @@ setForm({
         fotos_local: masajistaData.fotos_local || [],
         promocion_activa: masajistaData.promocion_activa || "",
         descripcion: masajistaData.descripcion || "",
-      })
       })
       setTienePromo(!!masajistaData.promocion_activa)
     } else if (perfilData) {
@@ -159,7 +159,6 @@ setForm({
         const url = await subirArchivo(file, "historia")
         nuevasUrls.push(url)
       }
-      alert("DIAGNOSTICO: se subieron " + nuevasUrls.length + " imagenes nuevas. Antes habia: " + form.foto_historia.length + " imagenes.")
       setForm(f => ({ ...f, foto_historia: [...f.foto_historia, ...nuevasUrls] }))
     } catch (err) {
       alert("Error al subir imágenes: " + err.message)
@@ -211,7 +210,7 @@ setForm({
 
     const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(masajista?.foto_historia || [])
 
-  const datos = {
+    const datos = {
       user_id: usuario.id,
       nombre: form.nombre,
       comuna: form.comuna,
@@ -348,7 +347,8 @@ setForm({
                     </label>
                   ))}
                 </div>
-<label>Descripción de tu servicio</label>
+
+                <label>Descripción de tu servicio</label>
                 <textarea
                   name="descripcion"
                   value={form.descripcion}
@@ -357,6 +357,7 @@ setForm({
                   rows={4}
                   maxLength={500}
                 />
+
                 <label>Precio por sesión (CLP)</label>
                 <input
                   type="number"

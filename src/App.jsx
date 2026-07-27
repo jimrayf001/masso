@@ -716,9 +716,9 @@ function App() {
                   </div>
                 )}
 
-                {perfilAbierto.whatsapp ? (
-
-              href={generarLinkWhatsapp(perfilAbierto.whatsapp)}
+{perfilAbierto.whatsapp ? (
+                  
+                    href={generarLinkWhatsapp(perfilAbierto.whatsapp)}
                     target="_blank"
                     rel="noreferrer"
                     className="btn-primary large full btn-whatsapp"

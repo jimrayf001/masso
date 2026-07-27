@@ -92,7 +92,7 @@ function TarjetaMasajista({ m, i, setPerfilAbierto }) {
 
       <div className="card-poster-overlay" />
 
-{m.promocion_activa && (
+      {m.promocion_activa && (
         <span className="badge-promo-icono" title="Tiene promoción activa">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="8" width="18" height="4" rx="1"/>
@@ -139,7 +139,8 @@ function App() {
   const [cargandoMasajistas, setCargandoMasajistas] = useState(true)
   const [historiaAbierta, setHistoriaAbierta] = useState(null)
   const [historiaIndice, setHistoriaIndice] = useState(0)
-  const [imagenGrande, setImagenGrande] = useState(null)
+  const [galeriaAbierta, setGaleriaAbierta] = useState(null)
+  const [galeriaIndice, setGaleriaIndice] = useState(0)
   const [soloOportunidades, setSoloOportunidades] = useState(false)
   const [filtroDisponible, setFiltroDisponible] = useState("todas")
   const [filtroComuna, setFiltroComuna] = useState("Todas")
@@ -220,6 +221,25 @@ function App() {
   const anteriorImagenHistoria = () => {
     if (!historiaAbierta?.foto_historia) return
     setHistoriaIndice(idx => (idx - 1 + historiaAbierta.foto_historia.length) % historiaAbierta.foto_historia.length)
+  }
+
+  const abrirGaleria = (masajista, indiceInicial) => {
+    const fotos = [
+      ...(masajista.foto_perfil ? [masajista.foto_perfil] : []),
+      ...(masajista.fotos_local || [])
+    ]
+    setGaleriaAbierta(fotos)
+    setGaleriaIndice(indiceInicial)
+  }
+
+  const siguienteFotoGaleria = () => {
+    if (!galeriaAbierta) return
+    setGaleriaIndice(idx => (idx + 1) % galeriaAbierta.length)
+  }
+
+  const anteriorFotoGaleria = () => {
+    if (!galeriaAbierta) return
+    setGaleriaIndice(idx => (idx - 1 + galeriaAbierta.length) % galeriaAbierta.length)
   }
 
   const historiasVisibles = masajistas.filter(m => {
@@ -654,7 +674,7 @@ function App() {
                   src={perfilAbierto.foto_perfil}
                   alt={perfilAbierto.nombre}
                   className="modal-img"
-                  onClick={() => setImagenGrande(perfilAbierto.foto_perfil)}
+                  onClick={() => abrirGaleria(perfilAbierto, 0)}
                 />
               ) : (
                 <div className="avatar-placeholder modal-avatar">
@@ -681,7 +701,7 @@ function App() {
                         src={url}
                         alt={`Local ${i + 1}`}
                         className="modal-foto-local-item"
-                        onClick={() => setImagenGrande(url)}
+                        onClick={() => abrirGaleria(perfilAbierto, (perfilAbierto.foto_perfil ? 1 : 0) + i)}
                       />
                     ))}
                   </div>
@@ -694,26 +714,40 @@ function App() {
         )}
       </AnimatePresence>
 
-      {/* VISOR DE IMAGEN GRANDE */}
+      {/* VISOR DE GALERÍA CON NAVEGACIÓN */}
       <AnimatePresence>
-        {imagenGrande && (
+        {galeriaAbierta && (
           <motion.div
             className="visor-imagen-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setImagenGrande(null)}
+            onClick={() => setGaleriaAbierta(null)}
           >
-            <button className="modal-cerrar visor-cerrar" onClick={() => setImagenGrande(null)}>✕</button>
+            <button className="modal-cerrar visor-cerrar" onClick={() => setGaleriaAbierta(null)}>✕</button>
+
+            {galeriaAbierta.length > 1 && (
+              <button className="historia-flecha visor-flecha-izq" onClick={(e) => { e.stopPropagation(); anteriorFotoGaleria() }}>‹</button>
+            )}
+
             <motion.img
-              src={imagenGrande}
+              key={galeriaIndice}
+              src={galeriaAbierta[galeriaIndice]}
               alt="Vista ampliada"
               className="visor-imagen-real"
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             />
+
+            {galeriaAbierta.length > 1 && (
+              <button className="historia-flecha visor-flecha-der" onClick={(e) => { e.stopPropagation(); siguienteFotoGaleria() }}>›</button>
+            )}
+
+            {galeriaAbierta.length > 1 && (
+              <div className="visor-contador">{galeriaIndice + 1} / {galeriaAbierta.length}</div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

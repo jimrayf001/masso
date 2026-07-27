@@ -348,7 +348,15 @@ setForm({
                     </label>
                   ))}
                 </div>
-
+<label>Descripción de tu servicio</label>
+                <textarea
+                  name="descripcion"
+                  value={form.descripcion}
+                  onChange={manejarCambio}
+                  placeholder="Cuéntale a tus clientes sobre tu experiencia, técnica, ambiente del local, lo que los hace especiales..."
+                  rows={4}
+                  maxLength={500}
+                />
                 <label>Precio por sesión (CLP)</label>
                 <input
                   type="number"

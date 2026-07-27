@@ -45,6 +45,12 @@ function iniciales(nombre) {
     .toUpperCase()
 }
 
+function generarLinkWhatsapp(numero) {
+  const soloNumeros = numero.replace(/\D/g, "")
+  const mensaje = "Hola! Vi tu perfil en Masso y me gustaria agendar una sesion"
+  return "https://wa.me/" + soloNumeros + "?text=" + encodeURIComponent(mensaje)
+}
+
 function RedesSociales() {
   return (
     <div className="redes-sociales">
@@ -103,7 +109,7 @@ function TarjetaMasajista({ m, i, setPerfilAbierto }) {
         </span>
       )}
 
-{m.categoria === "vip" && (
+      {m.categoria === "vip" && (
         <span className="badge-categoria badge-vip badge-categoria-poster">
           <svg className="corona-icono" viewBox="0 0 24 24" fill="none">
             <path d="M3 8L7 11L12 4L17 11L21 8L19 18H5L3 8Z" fill="#0a0a0a"/>
@@ -141,11 +147,6 @@ function App() {
   const [historiaIndice, setHistoriaIndice] = useState(0)
   const [galeriaAbierta, setGaleriaAbierta] = useState(null)
   const [galeriaIndice, setGaleriaIndice] = useState(0)
-  const generarLinkWhatsapp = (numero) => {
-    const soloNumeros = numero.replace(/\D/g, "")
-    const mensaje = "Hola! Vi tu perfil en Masso y me gustaria agendar una sesion"
-    return "https://wa.me/" + soloNumeros + "?text=" + encodeURIComponent(mensaje)
-  }
   const [soloOportunidades, setSoloOportunidades] = useState(false)
   const [filtroDisponible, setFiltroDisponible] = useState("todas")
   const [filtroComuna, setFiltroComuna] = useState("Todas")
@@ -692,7 +693,7 @@ function App() {
                 </span>
                 <h3>{perfilAbierto.nombre}</h3>
                 <p className="modal-comuna">📍 {perfilAbierto.comuna}</p>
-<p className="modal-servicio">{perfilAbierto.servicio}</p>
+                <p className="modal-servicio">{perfilAbierto.servicio}</p>
                 {perfilAbierto.promocion_activa && (
                   <p className="modal-promo">🔥 {perfilAbierto.promocion_activa}</p>
                 )}
@@ -715,7 +716,7 @@ function App() {
                   </div>
                 )}
 
-{perfilAbierto.whatsapp ? (
+                {perfilAbierto.whatsapp ? (
                   
                     href={generarLinkWhatsapp(perfilAbierto.whatsapp)}
                     target="_blank"

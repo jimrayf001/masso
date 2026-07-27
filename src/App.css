@@ -1671,3 +1671,11 @@ body {
   .visor-flecha-izq { left: 8px; width: 38px; height: 38px; font-size: 22px; }
   .visor-flecha-der { right: 8px; width: 38px; height: 38px; font-size: 22px; }
 }
+.modal-descripcion {
+  font-size: 13px;
+  color: #f0ebe3;
+  opacity: 0.8;
+  font-family: sans-serif;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}

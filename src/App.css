@@ -1459,3 +1459,115 @@ body {
   aspect-ratio: 1;
   object-fit: cover;
 }
+.card-poster {
+  position: relative;
+  aspect-ratio: 3/4.2;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.card-poster-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.4s;
+}
+
+.card-poster:hover .card-poster-img {
+  transform: scale(1.05);
+}
+
+.card-poster-overlay {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 55%;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 40%, transparent 100%);
+  pointer-events: none;
+}
+
+.card-poster-top {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.badge-categoria-poster {
+  position: absolute;
+  bottom: auto;
+  left: auto;
+  top: 12px;
+  right: 12px;
+}
+
+.card-poster-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  z-index: 2;
+}
+
+.card-poster-nombre {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+  font-family: 'Playfair Display', serif;
+}
+
+.card-poster-comuna {
+  font-size: 12px;
+  color: #e8c876;
+  font-family: sans-serif;
+  margin-bottom: 6px;
+}
+
+.card-poster-promo {
+  font-size: 11px;
+  color: #ffd700;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card-poster-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-poster-precio {
+  font-size: 17px;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .card-poster-nombre {
+    font-size: 15px;
+  }
+
+  .card-poster-comuna {
+    font-size: 10px;
+  }
+
+  .card-poster-precio {
+    font-size: 14px;
+  }
+
+  .card-poster-info {
+    padding: 12px;
+  }
+}

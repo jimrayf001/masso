@@ -212,7 +212,7 @@ setForm({
 
     const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(masajista?.foto_historia || [])
 
-    const datos = {
+const datos = {
       user_id: usuario.id,
       nombre: form.nombre,
       comuna: form.comuna,
@@ -225,6 +225,7 @@ setForm({
       fotos_local: form.fotos_local,
       promocion_activa: tienePromo ? form.promocion_activa : null,
       descripcion: form.descripcion,
+      whatsapp: form.whatsapp,
       ...(historiaCambio && form.foto_historia.length > 0 ? { historia_actualizada_en: new Date().toISOString() } : {}),
     }
 

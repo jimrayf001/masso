@@ -103,7 +103,7 @@ function TarjetaMasajista({ m, i, setPerfilAbierto }) {
         </span>
       )}
 
-      {m.categoria === "vip" && (
+{m.categoria === "vip" && (
         <span className="badge-categoria badge-vip badge-categoria-poster">
           <svg className="corona-icono" viewBox="0 0 24 24" fill="none">
             <path d="M3 8L7 11L12 4L17 11L21 8L19 18H5L3 8Z" fill="#0a0a0a"/>
@@ -111,14 +111,14 @@ function TarjetaMasajista({ m, i, setPerfilAbierto }) {
             <circle cx="3" cy="8" r="1.2" fill="#0a0a0a"/>
             <circle cx="21" cy="8" r="1.2" fill="#0a0a0a"/>
           </svg>
-          VIP
+          ICÓNICA
         </span>
       )}
       {m.categoria === "super-premium" && (
-        <span className="badge-categoria badge-super badge-categoria-poster">✨ SÚPER PREMIUM</span>
+        <span className="badge-categoria badge-super badge-categoria-poster">✨ PRESTIGE</span>
       )}
       {m.categoria === "premium" && (
-        <span className="badge-categoria badge-premium-tag badge-categoria-poster">⭐ PREMIUM</span>
+        <span className="badge-categoria badge-premium-tag badge-categoria-poster">⭐ SIGNATURE</span>
       )}
 
       <div className="card-poster-info">

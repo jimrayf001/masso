@@ -75,7 +75,7 @@ function RedesSociales() {
 function TarjetaMasajista({ m, i, setPerfilAbierto }) {
   return (
     <motion.div
-      className={`card card-poster card-${m.categoria || "basica"}`}
+      className={`card card-poster card-${m.categoria || "basica"} ${m.disponible ? "neon-verde" : "neon-rojo"}`}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: Math.min(i, 8) * 0.05 }}
@@ -92,14 +92,9 @@ function TarjetaMasajista({ m, i, setPerfilAbierto }) {
 
       <div className="card-poster-overlay" />
 
-      <div className="card-poster-top">
-        <span className={`badge ${m.disponible ? "badge-on" : "badge-off"}`}>
-          {m.disponible ? "● En línea" : "● Ocupada"}
-        </span>
-        {m.promocion_activa && (
-          <span className="badge-promo-card">🔥 Promo</span>
-        )}
-      </div>
+      {m.promocion_activa && (
+        <span className="dot-promo" title="Tiene promoción activa" />
+      )}
 
       {m.categoria === "vip" && (
         <span className="badge-categoria badge-vip badge-categoria-poster">
@@ -122,13 +117,6 @@ function TarjetaMasajista({ m, i, setPerfilAbierto }) {
       <div className="card-poster-info">
         <h3 className="card-poster-nombre">{m.nombre}</h3>
         <p className="card-poster-comuna">📍 {m.comuna}</p>
-        {m.promocion_activa && (
-          <p className="card-poster-promo">{m.promocion_activa}</p>
-        )}
-        <div className="card-poster-footer">
-          <span className="card-poster-precio">$ {m.precio?.toLocaleString("es-CL")}</span>
-          <button className="btn-card" onClick={(e) => { e.stopPropagation(); setPerfilAbierto(m) }}>Ver perfil</button>
-        </div>
       </div>
     </motion.div>
   )
@@ -144,6 +132,7 @@ function App() {
   const [cargandoMasajistas, setCargandoMasajistas] = useState(true)
   const [historiaAbierta, setHistoriaAbierta] = useState(null)
   const [historiaIndice, setHistoriaIndice] = useState(0)
+  const [imagenGrande, setImagenGrande] = useState(null)
   const [soloOportunidades, setSoloOportunidades] = useState(false)
   const [filtroDisponible, setFiltroDisponible] = useState("todas")
   const [filtroComuna, setFiltroComuna] = useState("Todas")
@@ -654,7 +643,12 @@ function App() {
             >
               <button className="modal-cerrar" onClick={() => setPerfilAbierto(null)}>✕</button>
               {perfilAbierto.foto_perfil ? (
-                <img src={perfilAbierto.foto_perfil} alt={perfilAbierto.nombre} className="modal-img" />
+                <img
+                  src={perfilAbierto.foto_perfil}
+                  alt={perfilAbierto.nombre}
+                  className="modal-img"
+                  onClick={() => setImagenGrande(perfilAbierto.foto_perfil)}
+                />
               ) : (
                 <div className="avatar-placeholder modal-avatar">
                   <span>{iniciales(perfilAbierto.nombre)}</span>
@@ -675,7 +669,13 @@ function App() {
                 {perfilAbierto.fotos_local && perfilAbierto.fotos_local.length > 0 && (
                   <div className="modal-fotos-local">
                     {perfilAbierto.fotos_local.map((url, i) => (
-                      <img key={i} src={url} alt={`Local ${i + 1}`} className="modal-foto-local-item" />
+                      <img
+                        key={i}
+                        src={url}
+                        alt={`Local ${i + 1}`}
+                        className="modal-foto-local-item"
+                        onClick={() => setImagenGrande(url)}
+                      />
                     ))}
                   </div>
                 )}
@@ -683,6 +683,30 @@ function App() {
                 <button className="btn-primary large full">Contactar por WhatsApp</button>
               </div>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* VISOR DE IMAGEN GRANDE */}
+      <AnimatePresence>
+        {imagenGrande && (
+          <motion.div
+            className="visor-imagen-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setImagenGrande(null)}
+          >
+            <button className="modal-cerrar visor-cerrar" onClick={() => setImagenGrande(null)}>✕</button>
+            <motion.img
+              src={imagenGrande}
+              alt="Vista ampliada"
+              className="visor-imagen-real"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              onClick={(e) => e.stopPropagation()}
+            />
           </motion.div>
         )}
       </AnimatePresence>

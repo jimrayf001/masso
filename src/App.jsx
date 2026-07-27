@@ -687,9 +687,12 @@ function App() {
                 </span>
                 <h3>{perfilAbierto.nombre}</h3>
                 <p className="modal-comuna">📍 {perfilAbierto.comuna}</p>
-                <p className="modal-servicio">{perfilAbierto.servicio}</p>
+<p className="modal-servicio">{perfilAbierto.servicio}</p>
                 {perfilAbierto.promocion_activa && (
                   <p className="modal-promo">🔥 {perfilAbierto.promocion_activa}</p>
+                )}
+                {perfilAbierto.descripcion && (
+                  <p className="modal-descripcion">{perfilAbierto.descripcion}</p>
                 )}
                 <p className="modal-precio">$ {perfilAbierto.precio?.toLocaleString("es-CL")} <span>/ 60 min</span></p>
 

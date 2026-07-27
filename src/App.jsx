@@ -710,7 +710,18 @@ function App() {
                   </div>
                 )}
 
-                <button className="btn-primary large full">Contactar por WhatsApp</button>
+{perfilAbierto.whatsapp ? (
+                  
+                    href={`https://wa.me/${perfilAbierto.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent("Hola! Vi tu perfil en Masso y me gustaría agendar una sesión 🙂")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-primary large full btn-whatsapp"
+                  >
+                    Contactar por WhatsApp
+                  </a>
+                ) : (
+                  <button className="btn-primary large full" disabled>WhatsApp no disponible</button>
+                )}
               </div>
             </motion.div>
           </motion.div>

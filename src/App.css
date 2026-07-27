@@ -1679,3 +1679,8 @@ body {
   line-height: 1.6;
   margin-bottom: 16px;
 }
+.btn-whatsapp {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}

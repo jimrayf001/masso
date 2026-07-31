@@ -79,7 +79,7 @@ function RedesSociales() {
   )
 }
 
-function TarjetaMasajista({ m, i, setPerfilAbierto }) {
+function TarjetaMasajista({ m, i, navigate }) {
   return (
     <motion.div
       className={`card card-poster card-${m.categoria || "basica"} ${m.disponible ? "neon-verde" : "neon-rojo"}`}
@@ -87,7 +87,7 @@ function TarjetaMasajista({ m, i, setPerfilAbierto }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: Math.min(i, 8) * 0.05 }}
       whileHover={{ y: -6 }}
-      onClick={() => setPerfilAbierto(m)}
+      onClick={() => navigate(`/perfil/${m.id}`)}
     >
       {m.foto_perfil ? (
         <img src={m.foto_perfil} alt={m.nombre} className="card-poster-img" />

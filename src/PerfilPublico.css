@@ -200,6 +200,15 @@
   margin-bottom: 24px;
 }
 
+.btn-whatsapp {
+  background: linear-gradient(135deg, #25D366, #128C7E) !important;
+  color: #ffffff !important;
+}
+
+.btn-whatsapp:hover {
+  background: linear-gradient(135deg, #2ee673, #15a085) !important;
+}
+
 @media (max-width: 800px) {
   .perfil-contenido {
     grid-template-columns: 1fr;

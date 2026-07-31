@@ -7,6 +7,7 @@ import Login from './Login.jsx'
 import PanelMasajista from './PanelMasajista.jsx'
 import PanelAdmin from './PanelAdmin.jsx'
 import Verificacion from './Verificacion.jsx'
+import PerfilPublico from './PerfilPublico.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/panel-masajista" element={<PanelMasajista />} />
         <Route path="/admin" element={<PanelAdmin />} />
         <Route path="/verificacion" element={<Verificacion />} />
+        <Route path="/perfil/:id" element={<PerfilPublico />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

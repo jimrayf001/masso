@@ -1,1 +1,231 @@
+.perfil-publico-page {
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #f0ebe3;
+  font-family: 'Georgia', serif;
+}
 
+.perfil-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: #0a0a0a;
+  color: #e8c876;
+  font-family: sans-serif;
+}
+
+.perfil-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  position: fixed;
+  top: 0; width: 100%;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(5,3,2,0.9), transparent);
+}
+
+.perfil-navbar .logo-lineas {
+  cursor: pointer;
+}
+
+.btn-volver-perfil {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(232,200,118,0.3);
+  color: #f0ebe3;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-volver-perfil:hover {
+  border-color: #e8c876;
+  color: #e8c876;
+}
+
+.perfil-hero {
+  position: relative;
+  height: 55vh;
+  min-height: 400px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.perfil-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.perfil-hero-overlay {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.5) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.perfil-hero-info {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  right: 40px;
+}
+
+.perfil-hero-info .badge {
+  position: static;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.perfil-hero-nombre {
+  font-size: 42px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.perfil-hero-comuna {
+  font-size: 15px;
+  color: #e8c876;
+  font-family: sans-serif;
+}
+
+.perfil-contenido {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 50px 40px 80px;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 50px;
+}
+
+.perfil-promo-box {
+  background: rgba(232,200,118,0.1);
+  border: 1px solid rgba(232,200,118,0.3);
+  color: #e8c876;
+  padding: 16px 20px;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.perfil-seccion {
+  margin-bottom: 36px;
+}
+
+.perfil-seccion-titulo {
+  font-size: 20px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #e8c876;
+  margin-bottom: 14px;
+}
+
+.perfil-descripcion-texto {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #f0ebe3;
+  opacity: 0.85;
+  font-family: sans-serif;
+}
+
+.perfil-servicios-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.perfil-tag {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(232,200,118,0.25);
+  color: #f0ebe3;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-family: sans-serif;
+}
+
+.perfil-galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.perfil-galeria-item {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.perfil-galeria-item:hover {
+  opacity: 0.8;
+}
+
+.perfil-columna-lateral {
+  position: relative;
+}
+
+.perfil-card-precio {
+  position: sticky;
+  top: 100px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(232,200,118,0.2);
+  padding: 30px;
+  text-align: center;
+}
+
+.perfil-precio-numero {
+  font-size: 32px;
+  color: #e8c876;
+  font-family: sans-serif;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.perfil-precio-detalle {
+  font-size: 12px;
+  opacity: 0.5;
+  font-family: sans-serif;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 800px) {
+  .perfil-contenido {
+    grid-template-columns: 1fr;
+    padding: 30px 20px 60px;
+    gap: 30px;
+  }
+
+  .perfil-hero {
+    height: 45vh;
+    min-height: 320px;
+  }
+
+  .perfil-hero-info {
+    left: 20px;
+    right: 20px;
+  }
+
+  .perfil-hero-nombre {
+    font-size: 28px;
+  }
+
+  .perfil-navbar {
+    padding: 14px 20px;
+  }
+
+  .perfil-card-precio {
+    position: static;
+  }
+}

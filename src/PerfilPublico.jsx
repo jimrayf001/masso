@@ -158,7 +158,7 @@ function PerfilPublico() {
             <p className="perfil-precio-detalle">por sesión de 60 min</p>
 
             {masajista.whatsapp ? (
-              
+              <a
                 href={generarLinkWhatsapp(masajista.whatsapp)}
                 target="_blank"
                 rel="noreferrer"

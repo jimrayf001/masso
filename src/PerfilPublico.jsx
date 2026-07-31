@@ -304,9 +304,9 @@ function PerfilPublico() {
           <div className="perfil-card-precio">
             <p className="perfil-precio-numero">$ {masajista.precio?.toLocaleString("es-CL")}</p>
             <p className="perfil-precio-detalle">por sesión de 60 min</p>
-<a
+
             {masajista.whatsapp ? (
-   <a           
+              
                 href={generarLinkWhatsapp(masajista.whatsapp)}
                 target="_blank"
                 rel="noreferrer"

@@ -458,8 +458,8 @@ function App() {
                     </h3>
                   )}
                   <div className="cards-grid">
-                    {grupo.items.map((m, i) => (
-                      <TarjetaMasajista key={m.id} m={m} i={i} setPerfilAbierto={setPerfilAbierto} />
+{grupo.items.map((m, i) => (
+                      <TarjetaMasajista key={m.id} m={m} i={i} navigate={navigate} />
                     ))}
                   </div>
                 </div>

@@ -121,6 +121,7 @@ function TarjetaMasajista({ m, i, navigate }) {
 }
 
 function App() {
+  const navigate = useNavigate()
   const [entro, setEntro] = useState(false)
   const [comuna, setComuna] = useState("Santiago")
   const [perfilAbierto, setPerfilAbierto] = useState(null)

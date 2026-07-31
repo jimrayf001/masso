@@ -19,6 +19,16 @@ function generarLinkWhatsapp(numero) {
   return "https://wa.me/" + soloNumeros + "?text=" + encodeURIComponent(mensaje)
 }
 
+function Estrellas({ calificacion }) {
+  return (
+    <div className="estrellas-visual">
+      {[1, 2, 3, 4, 5].map(n => (
+        <span key={n} className={n <= calificacion ? "estrella-llena" : "estrella-vacia"}>★</span>
+      ))}
+    </div>
+  )
+}
+
 function PerfilPublico() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -26,9 +36,18 @@ function PerfilPublico() {
   const [cargando, setCargando] = useState(true)
   const [galeriaAbierta, setGaleriaAbierta] = useState(null)
   const [galeriaIndice, setGaleriaIndice] = useState(0)
+  const [resenas, setResenas] = useState([])
+  const [usuario, setUsuario] = useState(null)
+  const [perfilUsuario, setPerfilUsuario] = useState(null)
+  const [nuevaCalificacion, setNuevaCalificacion] = useState(0)
+  const [nuevoComentario, setNuevoComentario] = useState("")
+  const [enviandoResena, setEnviandoResena] = useState(false)
+  const [mensajeResena, setMensajeResena] = useState("")
 
   useEffect(() => {
     cargarMasajista()
+    cargarResenas()
+    cargarUsuario()
   }, [id])
 
   const cargarMasajista = async () => {
@@ -42,6 +61,60 @@ function PerfilPublico() {
       setMasajista(data)
     }
     setCargando(false)
+  }
+
+  const cargarResenas = async () => {
+    const { data } = await supabase
+      .from("resenas")
+      .select("*")
+      .eq("masajista_id", id)
+      .order("created_at", { ascending: false })
+
+    setResenas(data || [])
+  }
+
+  const cargarUsuario = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+    setUsuario(user)
+
+    const { data: perfilData } = await supabase
+      .from("perfiles")
+      .select("*")
+      .eq("user_id", user.id)
+      .single()
+
+    setPerfilUsuario(perfilData)
+  }
+
+  const enviarResena = async (e) => {
+    e.preventDefault()
+    if (nuevaCalificacion === 0) {
+      setMensajeResena("Selecciona una calificación de estrellas.")
+      return
+    }
+
+    setEnviandoResena(true)
+    setMensajeResena("")
+
+    const { error } = await supabase.from("resenas").insert({
+      masajista_id: parseInt(id),
+      cliente_id: usuario.id,
+      cliente_nombre: perfilUsuario?.nombre || "Cliente",
+      calificacion: nuevaCalificacion,
+      comentario: nuevoComentario,
+    })
+
+    setEnviandoResena(false)
+
+    if (error) {
+      setMensajeResena("Error al enviar: " + error.message)
+    } else {
+      setNuevaCalificacion(0)
+      setNuevoComentario("")
+      setMensajeResena("¡Gracias por tu reseña!")
+      cargarResenas()
+    }
   }
 
   const abrirGaleria = (indiceInicial) => {
@@ -61,6 +134,10 @@ function PerfilPublico() {
     setGaleriaIndice(idx => (idx - 1 + galeriaAbierta.length) % galeriaAbierta.length)
   }
 
+  const promedioEstrellas = resenas.length > 0
+    ? (resenas.reduce((sum, r) => sum + r.calificacion, 0) / resenas.length).toFixed(1)
+    : null
+
   if (cargando) {
     return <div className="perfil-loading">Cargando...</div>
   }
@@ -73,6 +150,8 @@ function PerfilPublico() {
       </div>
     )
   }
+
+  const puedeComentar = usuario && perfilUsuario?.rol === "cliente"
 
   return (
     <div className="perfil-publico-page">
@@ -105,6 +184,12 @@ function PerfilPublico() {
           </span>
           <h1 className="perfil-hero-nombre">{masajista.nombre}</h1>
           <p className="perfil-hero-comuna">📍 {masajista.comuna}</p>
+          {promedioEstrellas && (
+            <div className="perfil-hero-rating">
+              <Estrellas calificacion={Math.round(promedioEstrellas)} />
+              <span className="perfil-hero-rating-numero">{promedioEstrellas} ({resenas.length})</span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -150,6 +235,69 @@ function PerfilPublico() {
               </div>
             </div>
           )}
+
+          <div className="perfil-seccion">
+            <h3 className="perfil-seccion-titulo">
+              Reseñas {resenas.length > 0 && `(${resenas.length})`}
+            </h3>
+
+            {puedeComentar && (
+              <form onSubmit={enviarResena} className="resena-form">
+                <p className="resena-form-label">Tu calificación</p>
+                <div className="estrellas-input">
+                  {[1, 2, 3, 4, 5].map(n => (
+                    <button
+                      type="button"
+                      key={n}
+                      className={n <= nuevaCalificacion ? "estrella-btn-llena" : "estrella-btn-vacia"}
+                      onClick={() => setNuevaCalificacion(n)}
+                    >
+                      ★
+                    </button>
+                  ))}
+                </div>
+                <textarea
+                  value={nuevoComentario}
+                  onChange={(e) => setNuevoComentario(e.target.value)}
+                  placeholder="Cuéntale a otros cómo fue tu experiencia (opcional)"
+                  rows={3}
+                  maxLength={300}
+                />
+                {mensajeResena && <p className="resena-mensaje">{mensajeResena}</p>}
+                <button type="submit" className="btn-primary" disabled={enviandoResena}>
+                  {enviandoResena ? "Enviando..." : "Publicar reseña"}
+                </button>
+              </form>
+            )}
+
+            {!usuario && (
+              <p className="resena-aviso">
+                <span onClick={() => navigate("/login")} className="resena-link">Inicia sesión</span> como cliente para dejar una reseña.
+              </p>
+            )}
+
+            <div className="resenas-lista">
+              {resenas.length === 0 ? (
+                <p className="perfil-descripcion-texto">Aún no hay reseñas para este perfil.</p>
+              ) : (
+                resenas.map((r) => (
+                  <div key={r.id} className="resena-item">
+                    <div className="resena-item-header">
+                      <span className="resena-item-nombre">{r.cliente_nombre}</span>
+                      <Estrellas calificacion={r.calificacion} />
+                    </div>
+                    {r.comentario && <p className="resena-item-comentario">{r.comentario}</p>}
+                    {r.respuesta_masajista && (
+                      <div className="resena-respuesta">
+                        <span className="resena-respuesta-label">Respuesta de {masajista.nombre}:</span>
+                        <p>{r.respuesta_masajista}</p>
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="perfil-columna-lateral">
@@ -158,7 +306,7 @@ function PerfilPublico() {
             <p className="perfil-precio-detalle">por sesión de 60 min</p>
 
             {masajista.whatsapp ? (
-              <a
+              
                 href={generarLinkWhatsapp(masajista.whatsapp)}
                 target="_blank"
                 rel="noreferrer"

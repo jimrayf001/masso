@@ -414,3 +414,34 @@
   position: relative;
   z-index: 1;
 }
+.perfil-contenido-unico {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.perfil-accion-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(232,200,118,0.3);
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.perfil-accion-box .btn-whatsapp {
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .perfil-accion-box {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+}

@@ -117,11 +117,8 @@ function PerfilPublico() {
     }
   }
 
-  const abrirGaleria = (indiceInicial) => {
-    const fotos = [
-      ...(masajista.foto_perfil ? [masajista.foto_perfil] : []),
-      ...(masajista.fotos_local || [])
-    ]
+const abrirGaleria = (indiceInicial) => {
+    const fotos = masajista.fotos_local || []
     setGaleriaAbierta(fotos)
     setGaleriaIndice(indiceInicial)
   }

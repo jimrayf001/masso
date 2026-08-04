@@ -174,7 +174,7 @@ const abrirGaleria = (indiceInicial) => {
             src={masajista.foto_perfil}
             alt={masajista.nombre}
             className="perfil-hero-img"
-            onClick={() => abrirGaleria(0)}
+            onClick={() => masajista.fotos_local && masajista.fotos_local.length > 0 && abrirGaleria(0)}
           />
         ) : (
           <div className="avatar-placeholder perfil-hero-img">

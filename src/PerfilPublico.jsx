@@ -231,7 +231,7 @@ const abrirGaleria = (indiceInicial) => {
                   src={url}
                   alt={`Foto ${i + 1}`}
                   className="perfil-galeria-item"
-                  onClick={() => abrirGaleria((masajista.foto_perfil ? 1 : 0) + i)}
+                  onClick={() => abrirGaleria(i)}
                 />
               ))}
             </div>

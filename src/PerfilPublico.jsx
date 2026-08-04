@@ -13,9 +13,9 @@ function iniciales(nombre) {
     .toUpperCase()
 }
 
-function generarLinkWhatsapp(numero) {
+function generarLinkWhatsapp(numero, nombre) {
   const soloNumeros = numero.replace(/\D/g, "")
-  const mensaje = "Hola! Vi tu perfil en Masso y me gustaria agendar una sesion"
+  const mensaje = "Hola " + nombre + "! Vi tu perfil en Masso y me gustaria agendar una sesion"
   return "https://wa.me/" + soloNumeros + "?text=" + encodeURIComponent(mensaje)
 }
 
@@ -305,8 +305,8 @@ function PerfilPublico() {
             <p className="perfil-precio-numero">$ {masajista.precio?.toLocaleString("es-CL")}</p>
             <p className="perfil-precio-detalle">por sesión de 60 min</p>
 
-{masajista.whatsapp ? (
-              <a href={generarLinkWhatsapp(masajista.whatsapp)} target="_blank" rel="noreferrer" className="btn-primary large full btn-whatsapp">Contactar por WhatsApp</a>
+            {masajista.whatsapp ? (
+              <a href={generarLinkWhatsapp(masajista.whatsapp, masajista.nombre)} target="_blank" rel="noreferrer" className="btn-primary large full btn-whatsapp">Contactar por WhatsApp</a>
             ) : (
               <button className="btn-primary large full" disabled>WhatsApp no disponible</button>
             )}

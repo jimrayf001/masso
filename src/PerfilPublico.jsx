@@ -153,7 +153,7 @@ function PerfilPublico() {
 
   const puedeComentar = usuario && perfilUsuario?.rol === "cliente"
 
-return (
+  return (
     <div className="perfil-publico-page">
       {masajista.foto_perfil && (
         <div
@@ -161,6 +161,7 @@ return (
           style={{ backgroundImage: `url(${masajista.foto_perfil})` }}
         />
       )}
+
       <nav className="perfil-navbar">
         <div className="logo-lineas" onClick={() => navigate("/")}>
           <span className="linea-logo small" />
@@ -199,122 +200,126 @@ return (
         </div>
       </div>
 
-      <div className="perfil-contenido">
-        <div className="perfil-columna-principal">
-          {masajista.promocion_activa && (
-            <div className="perfil-promo-box">🔥 {masajista.promocion_activa}</div>
-          )}
+      <div className="perfil-contenido-unico">
 
-          {masajista.descripcion && (
-            <div className="perfil-seccion">
-              <h3 className="perfil-seccion-titulo">Sobre mí</h3>
-              <p className="perfil-descripcion-texto">{masajista.descripcion}</p>
-            </div>
+        {/* PRECIO + WHATSAPP DESTACADO */}
+        <div className="perfil-accion-box">
+          <div>
+            <p className="perfil-precio-numero">$ {masajista.precio?.toLocaleString("es-CL")}</p>
+            <p className="perfil-precio-detalle">por sesión de 60 min</p>
+          </div>
+          {masajista.whatsapp ? (
+            <a href={generarLinkWhatsapp(masajista.whatsapp, masajista.nombre)} target="_blank" rel="noreferrer" className="btn-primary large btn-whatsapp">Contactar por WhatsApp</a>
+          ) : (
+            <button className="btn-primary large" disabled>WhatsApp no disponible</button>
           )}
+        </div>
 
+        {/* SOBRE MÍ */}
+        {masajista.descripcion && (
           <div className="perfil-seccion">
-            <h3 className="perfil-seccion-titulo">Servicios</h3>
-            <div className="perfil-servicios-tags">
-              {masajista.servicios && masajista.servicios.length > 0 ? (
-                masajista.servicios.map((s, i) => (
-                  <span key={i} className="perfil-tag">{s}</span>
-                ))
-              ) : (
-                <p className="perfil-descripcion-texto">{masajista.servicio}</p>
-              )}
+            <h3 className="perfil-seccion-titulo">Sobre mí</h3>
+            <p className="perfil-descripcion-texto">{masajista.descripcion}</p>
+          </div>
+        )}
+
+        {/* GALERÍA */}
+        {masajista.fotos_local && masajista.fotos_local.length > 0 && (
+          <div className="perfil-seccion">
+            <h3 className="perfil-seccion-titulo">Galería</h3>
+            <div className="perfil-galeria-grid">
+              {masajista.fotos_local.map((url, i) => (
+                <img
+                  key={i}
+                  src={url}
+                  alt={`Foto ${i + 1}`}
+                  className="perfil-galeria-item"
+                  onClick={() => abrirGaleria((masajista.foto_perfil ? 1 : 0) + i)}
+                />
+              ))}
             </div>
           </div>
+        )}
 
-          {masajista.fotos_local && masajista.fotos_local.length > 0 && (
-            <div className="perfil-seccion">
-              <h3 className="perfil-seccion-titulo">Galería</h3>
-              <div className="perfil-galeria-grid">
-                {masajista.fotos_local.map((url, i) => (
-                  <img
-                    key={i}
-                    src={url}
-                    alt={`Foto ${i + 1}`}
-                    className="perfil-galeria-item"
-                    onClick={() => abrirGaleria((masajista.foto_perfil ? 1 : 0) + i)}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="perfil-seccion">
-            <h3 className="perfil-seccion-titulo">
-              Reseñas {resenas.length > 0 && `(${resenas.length})`}
-            </h3>
-
-            {puedeComentar && (
-              <form onSubmit={enviarResena} className="resena-form">
-                <p className="resena-form-label">Tu calificación</p>
-                <div className="estrellas-input">
-                  {[1, 2, 3, 4, 5].map(n => (
-                    <button
-                      type="button"
-                      key={n}
-                      className={n <= nuevaCalificacion ? "estrella-btn-llena" : "estrella-btn-vacia"}
-                      onClick={() => setNuevaCalificacion(n)}
-                    >
-                      ★
-                    </button>
-                  ))}
-                </div>
-                <textarea
-                  value={nuevoComentario}
-                  onChange={(e) => setNuevoComentario(e.target.value)}
-                  placeholder="Cuéntale a otros cómo fue tu experiencia (opcional)"
-                  rows={3}
-                  maxLength={300}
-                />
-                {mensajeResena && <p className="resena-mensaje">{mensajeResena}</p>}
-                <button type="submit" className="btn-primary" disabled={enviandoResena}>
-                  {enviandoResena ? "Enviando..." : "Publicar reseña"}
-                </button>
-              </form>
+        {/* SERVICIOS */}
+        <div className="perfil-seccion">
+          <h3 className="perfil-seccion-titulo">Servicios</h3>
+          <div className="perfil-servicios-tags">
+            {masajista.servicios && masajista.servicios.length > 0 ? (
+              masajista.servicios.map((s, i) => (
+                <span key={i} className="perfil-tag">{s}</span>
+              ))
+            ) : (
+              <p className="perfil-descripcion-texto">{masajista.servicio}</p>
             )}
-
-            {!usuario && (
-              <p className="resena-aviso">
-                <span onClick={() => navigate("/login")} className="resena-link">Inicia sesión</span> como cliente para dejar una reseña.
-              </p>
-            )}
-
-            <div className="resenas-lista">
-              {resenas.length === 0 ? (
-                <p className="perfil-descripcion-texto">Aún no hay reseñas para este perfil.</p>
-              ) : (
-                resenas.map((r) => (
-                  <div key={r.id} className="resena-item">
-                    <div className="resena-item-header">
-                      <span className="resena-item-nombre">{r.cliente_nombre}</span>
-                      <Estrellas calificacion={r.calificacion} />
-                    </div>
-                    {r.comentario && <p className="resena-item-comentario">{r.comentario}</p>}
-                    {r.respuesta_masajista && (
-                      <div className="resena-respuesta">
-                        <span className="resena-respuesta-label">Respuesta de {masajista.nombre}:</span>
-                        <p>{r.respuesta_masajista}</p>
-                      </div>
-                    )}
-                  </div>
-                ))
-              )}
-            </div>
           </div>
         </div>
 
-        <div className="perfil-columna-lateral">
-          <div className="perfil-card-precio">
-            <p className="perfil-precio-numero">$ {masajista.precio?.toLocaleString("es-CL")}</p>
-            <p className="perfil-precio-detalle">por sesión de 60 min</p>
+        {/* PROMOCIÓN */}
+        {masajista.promocion_activa && (
+          <div className="perfil-promo-box">🔥 {masajista.promocion_activa}</div>
+        )}
 
-            {masajista.whatsapp ? (
-              <a href={generarLinkWhatsapp(masajista.whatsapp, masajista.nombre)} target="_blank" rel="noreferrer" className="btn-primary large full btn-whatsapp">Contactar por WhatsApp</a>
+        {/* RESEÑAS */}
+        <div className="perfil-seccion">
+          <h3 className="perfil-seccion-titulo">
+            Reseñas {resenas.length > 0 && `(${resenas.length})`}
+          </h3>
+
+          {puedeComentar && (
+            <form onSubmit={enviarResena} className="resena-form">
+              <p className="resena-form-label">Tu calificación</p>
+              <div className="estrellas-input">
+                {[1, 2, 3, 4, 5].map(n => (
+                  <button
+                    type="button"
+                    key={n}
+                    className={n <= nuevaCalificacion ? "estrella-btn-llena" : "estrella-btn-vacia"}
+                    onClick={() => setNuevaCalificacion(n)}
+                  >
+                    ★
+                  </button>
+                ))}
+              </div>
+              <textarea
+                value={nuevoComentario}
+                onChange={(e) => setNuevoComentario(e.target.value)}
+                placeholder="Cuéntale a otros cómo fue tu experiencia (opcional)"
+                rows={3}
+                maxLength={300}
+              />
+              {mensajeResena && <p className="resena-mensaje">{mensajeResena}</p>}
+              <button type="submit" className="btn-primary" disabled={enviandoResena}>
+                {enviandoResena ? "Enviando..." : "Publicar reseña"}
+              </button>
+            </form>
+          )}
+
+          {!usuario && (
+            <p className="resena-aviso">
+              <span onClick={() => navigate("/login")} className="resena-link">Inicia sesión</span> como cliente para dejar una reseña.
+            </p>
+          )}
+
+          <div className="resenas-lista">
+            {resenas.length === 0 ? (
+              <p className="perfil-descripcion-texto">Aún no hay reseñas para este perfil.</p>
             ) : (
-              <button className="btn-primary large full" disabled>WhatsApp no disponible</button>
+              resenas.map((r) => (
+                <div key={r.id} className="resena-item">
+                  <div className="resena-item-header">
+                    <span className="resena-item-nombre">{r.cliente_nombre}</span>
+                    <Estrellas calificacion={r.calificacion} />
+                  </div>
+                  {r.comentario && <p className="resena-item-comentario">{r.comentario}</p>}
+                  {r.respuesta_masajista && (
+                    <div className="resena-respuesta">
+                      <span className="resena-respuesta-label">Respuesta de {masajista.nombre}:</span>
+                      <p>{r.respuesta_masajista}</p>
+                    </div>
+                  )}
+                </div>
+              ))
             )}
           </div>
         </div>

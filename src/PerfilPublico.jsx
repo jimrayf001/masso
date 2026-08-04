@@ -153,8 +153,14 @@ function PerfilPublico() {
 
   const puedeComentar = usuario && perfilUsuario?.rol === "cliente"
 
-  return (
+return (
     <div className="perfil-publico-page">
+      {masajista.foto_perfil && (
+        <div
+          className="perfil-fondo-blur"
+          style={{ backgroundImage: `url(${masajista.foto_perfil})` }}
+        />
+      )}
       <nav className="perfil-navbar">
         <div className="logo-lineas" onClick={() => navigate("/")}>
           <span className="linea-logo small" />

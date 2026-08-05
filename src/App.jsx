@@ -787,7 +787,63 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+{/* BOTÓN FLOTANTE DE CONTACTO */}
+      <button className="btn-contacto-flotante" onClick={() => setContactoAbierto(true)}>
+        💬
+      </button>
 
+      {/* MODAL DE CONTACTO */}
+      <AnimatePresence>
+        {contactoAbierto && (
+          <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setContactoAbierto(false)}
+          >
+            <motion.div
+              className="modal-registro"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="modal-cerrar" onClick={() => setContactoAbierto(false)}>✕</button>
+              <h3 className="modal-titulo">Contáctanos</h3>
+              <p className="modal-sub">¿Tienes una pregunta o sugerencia? Escríbenos.</p>
+              <form onSubmit={enviarContacto} className="form-registro">
+                <input
+                  type="text"
+                  placeholder="Tu nombre"
+                  value={contactoNombre}
+                  onChange={(e) => setContactoNombre(e.target.value)}
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Tu correo"
+                  value={contactoCorreo}
+                  onChange={(e) => setContactoCorreo(e.target.value)}
+                  required
+                />
+                <textarea
+                  placeholder="Tu mensaje"
+                  value={contactoMensaje}
+                  onChange={(e) => setContactoMensaje(e.target.value)}
+                  rows={3}
+                  required
+                  className="contacto-textarea"
+                />
+                {mensajeContactoEstado && <p className="contacto-mini-estado">{mensajeContactoEstado}</p>}
+                <button type="submit" className="btn-primary large full" disabled={enviandoContacto}>
+                  {enviandoContacto ? "Enviando..." : "Enviar mensaje"}
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* MODAL: REGISTRO (rápido, opcional — el registro real está en /login) */}
       <AnimatePresence>
         {registroAbierto && (

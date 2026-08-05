@@ -205,6 +205,29 @@ function App() {
       setRegistroEnviado(false)
     }, 2000)
   }
+  const enviarContacto = async (e) => {
+    e.preventDefault()
+    setEnviandoContacto(true)
+    setMensajeContactoEstado("")
+
+    const { error } = await supabase.from("mensajes_contacto").insert({
+      nombre: contactoNombre,
+      correo: contactoCorreo,
+      mensaje: contactoMensaje,
+      leido: false,
+    })
+
+    setEnviandoContacto(false)
+
+    if (error) {
+      setMensajeContactoEstado("Error al enviar: " + error.message)
+    } else {
+      setContactoNombre("")
+      setContactoCorreo("")
+      setContactoMensaje("")
+      setMensajeContactoEstado("¡Mensaje enviado! Te responderemos pronto.")
+    }
+  }
 
   const abrirHistoria = (m, i) => {
     setHistoriaIndice(0)

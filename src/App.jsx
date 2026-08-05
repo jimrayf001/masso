@@ -140,6 +140,11 @@ function App() {
   const [quizAbierto, setQuizAbierto] = useState(false)
   const [quizPaso, setQuizPaso] = useState(0)
   const [quizRespuestas, setQuizRespuestas] = useState({ servicio: "Cualquiera", comuna: "Todas", promo: "no-importa" })
+  const [contactoNombre, setContactoNombre] = useState("")
+  const [contactoCorreo, setContactoCorreo] = useState("")
+  const [contactoMensaje, setContactoMensaje] = useState("")
+  const [enviandoContacto, setEnviandoContacto] = useState(false)
+  const [mensajeContactoEstado, setMensajeContactoEstado] = useState("")
   const masajistasRef = useRef(null)
 
   useEffect(() => {

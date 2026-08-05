@@ -31,9 +31,9 @@ const comunasDisponibles = ["Todas", "Santiago Centro", "Providencia", "Las Cond
 const serviciosDisponibles = ["Cualquiera", "Relajación", "Descontracturante", "Piedras calientes", "Deportivo", "Facial", "Aromática", "Reductivo", "Circulatorio", "Prenatal", "Sueco"]
 
 const categoriasInfo = {
-  vip: { titulo: "👑 Icónica", clase: "seccion-vip" },
-  "super-premium": { titulo: "✨ Prestige", clase: "seccion-super" },
-  premium: { titulo: "⭐ Signature", clase: "seccion-premium" },
+  vip: { titulo: "👑 Élite", clase: "seccion-vip" },
+  "super-premium": { titulo: "✨ Exclusiva", clase: "seccion-super" },
+  premium: { titulo: "⭐ Selecta", clase: "seccion-premium" },
   basica: { titulo: "Perfiles disponibles", clase: "seccion-basica" },
 }
 

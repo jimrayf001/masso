@@ -289,10 +289,10 @@ const datos = {
           {masajista && (
             <div className={`categoria-actual categoria-actual-${masajista.categoria || "basica"}`}>
 <span className="categoria-actual-nombre">
-                {masajista.categoria === "vip" && "👑 Plan Icónica"}
-                {masajista.categoria === "super-premium" && "✨ Plan Prestige"}
-                {masajista.categoria === "premium" && "⭐ Plan Signature"}
-                {(!masajista.categoria || masajista.categoria === "basica") && "Plan Clásica"}
+                {masajista.categoria === "vip" && "👑 Plan Élite"}
+                {masajista.categoria === "super-premium" && "✨ Plan Exclusiva"}
+                {masajista.categoria === "premium" && "⭐ Plan Selecta"}
+                {(!masajista.categoria || masajista.categoria === "basica") && "Plan Esencial"}
               </span>
               <span className="categoria-actual-limites">
                 {limitesPorCategoria[masajista.categoria || "basica"].fotos} fotos de ficha · {limitesPorCategoria[masajista.categoria || "basica"].historias} imágenes de historia

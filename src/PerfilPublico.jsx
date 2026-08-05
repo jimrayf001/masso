@@ -165,7 +165,7 @@ const abrirGaleria = (indiceInicial) => {
           <span className="logo-texto small">MASSO</span>
           <span className="linea-logo small" />
         </div>
-        <button className="btn-volver-perfil" onClick={() => navigate("/")}>← Volver</button>
+        <button className="btn-volver-perfil" onClick={() => navigate("/?entrar=true")}>← Volver</button>
       </nav>
 
       <div className="perfil-hero">

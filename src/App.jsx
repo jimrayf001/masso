@@ -496,7 +496,38 @@ function App() {
             )}
           </section>
 
-          <footer className="footer">
+<footer className="footer">
+            <div className="contacto-mini">
+              <h4 className="contacto-mini-titulo">Contáctanos</h4>
+              <form onSubmit={enviarContacto} className="contacto-mini-form">
+                <input
+                  type="text"
+                  placeholder="Tu nombre"
+                  value={contactoNombre}
+                  onChange={(e) => setContactoNombre(e.target.value)}
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Tu correo"
+                  value={contactoCorreo}
+                  onChange={(e) => setContactoCorreo(e.target.value)}
+                  required
+                />
+                <textarea
+                  placeholder="Tu mensaje"
+                  value={contactoMensaje}
+                  onChange={(e) => setContactoMensaje(e.target.value)}
+                  rows={3}
+                  required
+                />
+                {mensajeContactoEstado && <p className="contacto-mini-estado">{mensajeContactoEstado}</p>}
+                <button type="submit" className="btn-primary" disabled={enviandoContacto}>
+                  {enviandoContacto ? "Enviando..." : "Enviar mensaje"}
+                </button>
+              </form>
+            </div>
+
             <RedesSociales />
             <p className="footer-texto">© 2026 Masso · Santiago, Chile</p>
           </footer>

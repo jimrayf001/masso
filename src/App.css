@@ -1451,3 +1451,40 @@ body {
     font-size: 19px;
   }
 }
+.contacto-mini {
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.contacto-mini-titulo {
+  font-size: 16px;
+  font-family: 'Playfair Display', serif;
+  color: #e8c876;
+  margin-bottom: 16px;
+}
+
+.contacto-mini-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contacto-mini-form input,
+.contacto-mini-form textarea {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(232,200,118,0.25);
+  padding: 10px 12px;
+  color: #f0ebe3;
+  font-size: 13px;
+  font-family: sans-serif;
+  outline: none;
+  resize: vertical;
+}
+
+.contacto-mini-estado {
+  font-size: 12px;
+  color: #4ade80;
+  font-family: sans-serif;
+}

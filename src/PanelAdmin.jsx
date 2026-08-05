@@ -354,10 +354,10 @@ function PanelAdmin() {
                               value={m.categoria || "basica"}
                               onChange={(e) => cambiarCategoria(m.id, e.target.value)}
                             >
-                              <option value="basica">Clásica</option>
-                              <option value="premium">⭐ Signature</option>
-                              <option value="super-premium">✨ Prestige</option>
-                              <option value="vip">👑 Icónica</option>
+                              <option value="basica">Esencial</option>
+                              <option value="premium">⭐ Selecta</option>
+                              <option value="super-premium">✨ Exclusiva</option>
+                              <option value="vip">👑 Élite</option>
                             </select>
                           </td>
                           <td>

@@ -143,7 +143,7 @@ const abrirGaleria = (indiceInicial) => {
     return (
       <div className="perfil-loading">
         <p>No se encontró este perfil.</p>
-        <button className="btn-volver-perfil" onClick={() => navigate("/")}>← Volver al inicio</button>
+        <button className="btn-volver-perfil" onClick={() => navigate("/?entrar=true")}>← Volver al inicio</button>
       </div>
     )
   }

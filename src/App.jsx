@@ -122,7 +122,8 @@ function TarjetaMasajista({ m, i, navigate }) {
 
 function App() {
   const navigate = useNavigate()
-  const [entro, setEntro] = useState(false)
+  const entrarDirecto = new URLSearchParams(window.location.search).get("entrar") === "true"
+  const [entro, setEntro] = useState(entrarDirecto)
   const [comuna, setComuna] = useState("Santiago")
   const [perfilAbierto, setPerfilAbierto] = useState(null)
   const [registroAbierto, setRegistroAbierto] = useState(false)

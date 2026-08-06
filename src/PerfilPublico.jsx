@@ -191,19 +191,19 @@ const abrirGaleriaDesdeGaleria = (indiceInicial) => {
           </div>
         )}
         <div className="perfil-hero-overlay" />
-        <div className="perfil-hero-info">
+<div className="perfil-hero-info">
+          <h1 className="perfil-hero-nombre">{masajista.nombre}</h1>
+          <p className="perfil-hero-comuna">📍 {masajista.comuna}</p>
           <span className={`badge ${masajista.disponible ? "badge-on" : "badge-off"}`}>
             {masajista.disponible ? "● En línea" : "● Ocupada"}
           </span>
-          <h1 className="perfil-hero-nombre">{masajista.nombre}</h1>
-          <p className="perfil-hero-comuna">📍 {masajista.comuna}</p>
-          {promedioEstrellas && (
-            <div className="perfil-hero-rating">
-              <Estrellas calificacion={Math.round(promedioEstrellas)} />
-              <span className="perfil-hero-rating-numero">{promedioEstrellas} ({resenas.length})</span>
-            </div>
-          )}
         </div>
+        {promedioEstrellas && (
+          <div className="perfil-hero-rating-fuera">
+            <Estrellas calificacion={Math.round(promedioEstrellas)} />
+            <span className="perfil-hero-rating-numero">{promedioEstrellas} ({resenas.length})</span>
+          </div>
+        )}
       </div>
 
       <div className="perfil-contenido-unico">

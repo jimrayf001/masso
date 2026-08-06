@@ -540,7 +540,50 @@ const enviarRespuesta = async (resenaId) => {
               </label>
             )}
 
-            <p className="panel-nota">Recuerda hacer clic en "Guardar cambios" arriba después de subir tus fotos.</p>
+<p className="panel-nota">Recuerda hacer clic en "Guardar cambios" arriba después de subir tus fotos.</p>
+          </div>
+
+          <div className="panel-card panel-card-full">
+            <h3 className="panel-card-titulo">Reseñas de clientes ({resenas.length})</h3>
+
+            {resenas.length === 0 ? (
+              <p className="panel-card-desc">Aún no has recibido reseñas.</p>
+            ) : (
+              <div className="resenas-panel-lista">
+                {resenas.map((r) => (
+                  <div key={r.id} className="resena-panel-item">
+                    <div className="resena-panel-header">
+                      <span className="resena-panel-nombre">{r.cliente_nombre}</span>
+                      <span className="resena-panel-estrellas">{"★".repeat(r.calificacion)}{"☆".repeat(5 - r.calificacion)}</span>
+                    </div>
+                    {r.comentario && <p className="resena-panel-comentario">{r.comentario}</p>}
+
+                    {r.respuesta_masajista ? (
+                      <div className="resena-panel-respuesta-existente">
+                        <span className="resena-panel-respuesta-label">Tu respuesta:</span>
+                        <p>{r.respuesta_masajista}</p>
+                      </div>
+                    ) : (
+                      <div className="resena-panel-responder">
+                        <textarea
+                          placeholder="Responder a esta reseña..."
+                          value={respuestas[r.id] || ""}
+                          onChange={(e) => setRespuestas(rs => ({ ...rs, [r.id]: e.target.value }))}
+                          rows={2}
+                        />
+                        <button
+                          className="btn-upload"
+                          onClick={() => enviarRespuesta(r.id)}
+                          disabled={enviandoRespuesta === r.id}
+                        >
+                          {enviandoRespuesta === r.id ? "Enviando..." : "Responder"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

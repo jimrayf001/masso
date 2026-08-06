@@ -240,7 +240,7 @@ const abrirGaleriaDesdeGaleria = (indiceInicial) => {
                   src={url}
                   alt={`Foto ${i + 1}`}
                   className="perfil-galeria-item"
-                  onClick={() => abrirGaleria(i)}
+                  onClick={() => abrirGaleriaDesdeGaleria(i)}
                 />
               ))}
             </div>

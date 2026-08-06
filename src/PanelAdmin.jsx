@@ -51,7 +51,7 @@ const [mensajesContacto, setMensajesContacto] = useState([])
     cargarTodo()
   }
 
-  const cargarTodo = async () => {
+const cargarTodo = async () => {
     const { data: masajistasData } = await supabase
       .from("masajistas")
       .select("*")
@@ -64,8 +64,14 @@ const [mensajesContacto, setMensajesContacto] = useState([])
       .in("estado_verificacion", ["pendiente", "en_revision", "rechazado"])
       .order("created_at", { ascending: false })
 
+    const { data: mensajesData } = await supabase
+      .from("mensajes_contacto")
+      .select("*")
+      .order("created_at", { ascending: false })
+
     setMasajistas(masajistasData || [])
     setPendientes(pendientesData || [])
+    setMensajesContacto(mensajesData || [])
     setCargando(false)
   }
 

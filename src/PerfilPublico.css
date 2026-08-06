@@ -451,3 +451,28 @@
     text-align: center;
   }
 }
+.perfil-hero-rating-fuera {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: absolute;
+  bottom: 8px;
+  left: 60px;
+  z-index: 2;
+}
+
+@media (max-width: 800px) {
+  .perfil-hero-info {
+    left: 24px;
+    right: 24px;
+    bottom: 34px;
+  }
+
+  .perfil-hero-rating-fuera {
+    left: 24px;
+  }
+
+  .perfil-hero-nombre {
+    font-size: 20px;
+  }
+}

@@ -1451,35 +1451,27 @@ body {
     font-size: 19px;
   }
 }
-.contacto-mini {
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 10px;
+.btn-contacto-flotante {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f5d585, #d4a93a);
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(212,169,58,0.4);
+  z-index: 150;
+  transition: transform 0.3s;
 }
 
-.contacto-mini-titulo {
-  font-size: 16px;
-  font-family: 'Playfair Display', serif;
-  color: #e8c876;
-  margin-bottom: 16px;
+.btn-contacto-flotante:hover {
+  transform: scale(1.08);
 }
 
-.contacto-mini-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.contacto-mini-form input,
-.contacto-mini-form textarea {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(232,200,118,0.25);
-  padding: 10px 12px;
-  color: #f0ebe3;
-  font-size: 13px;
-  font-family: sans-serif;
-  outline: none;
+.contacto-textarea {
   resize: vertical;
 }
 
@@ -1487,4 +1479,14 @@ body {
   font-size: 12px;
   color: #4ade80;
   font-family: sans-serif;
+}
+
+@media (max-width: 768px) {
+  .btn-contacto-flotante {
+    bottom: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
 }

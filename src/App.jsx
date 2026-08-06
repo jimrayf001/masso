@@ -788,10 +788,12 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-{/* BOTÓN FLOTANTE DE CONTACTO */}
-      <button className="btn-contacto-flotante" onClick={() => setContactoAbierto(true)}>
-        💬
-      </button>
+{/* BOTÓN FLOTANTE DE CONTACTO - solo en pantalla de entrada */}
+      {!entro && (
+        <button className="btn-contacto-flotante" onClick={() => setContactoAbierto(true)}>
+          💬
+        </button>
+      )}
 
       {/* MODAL DE CONTACTO */}
       <AnimatePresence>

@@ -454,3 +454,15 @@
 .select-categoria option {
   background: #1a1a1a;
 }
+.mensaje-no-leido {
+  border-color: rgba(232,200,118,0.4);
+}
+
+.mensaje-contacto-texto {
+  font-size: 13px;
+  color: #f0ebe3;
+  opacity: 0.8;
+  font-family: sans-serif;
+  line-height: 1.6;
+  margin-top: 6px;
+}

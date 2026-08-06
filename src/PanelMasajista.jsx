@@ -28,10 +28,11 @@ function PanelMasajista() {
   const [subiendoLocal, setSubiendoLocal] = useState(false)
   const [subiendoHistoria, setSubiendoHistoria] = useState(false)
   const [tienePromo, setTienePromo] = useState(false)
-const [resenas, setResenas] = useState([])
+  const [resenas, setResenas] = useState([])
   const [respuestas, setRespuestas] = useState({})
   const [enviandoRespuesta, setEnviandoRespuesta] = useState(null)
-const [form, setForm] = useState({
+
+  const [form, setForm] = useState({
     nombre: "",
     comuna: "Santiago",
     servicio: "",
@@ -81,7 +82,7 @@ const [form, setForm] = useState({
 
     if (masajistaData) {
       setMasajista(masajistaData)
-setForm({
+      setForm({
         nombre: masajistaData.nombre || "",
         comuna: masajistaData.comuna || "Santiago",
         servicio: masajistaData.servicio || "",
@@ -96,6 +97,14 @@ setForm({
         whatsapp: masajistaData.whatsapp || "",
       })
       setTienePromo(!!masajistaData.promocion_activa)
+
+      const { data: resenasData } = await supabase
+        .from("resenas")
+        .select("*")
+        .eq("masajista_id", masajistaData.id)
+        .order("created_at", { ascending: false })
+
+      setResenas(resenasData || [])
     } else if (perfilData) {
       setForm(f => ({ ...f, nombre: perfilData.nombre || "" }))
     }
@@ -214,7 +223,7 @@ setForm({
 
     const historiaCambio = JSON.stringify(form.foto_historia) !== JSON.stringify(masajista?.foto_historia || [])
 
-const datos = {
+    const datos = {
       user_id: usuario.id,
       nombre: form.nombre,
       comuna: form.comuna,
@@ -254,7 +263,8 @@ const datos = {
     await supabase.auth.signOut()
     navigate("/login")
   }
-const enviarRespuesta = async (resenaId) => {
+
+  const enviarRespuesta = async (resenaId) => {
     const texto = respuestas[resenaId]
     if (!texto || texto.trim() === "") return
 
@@ -271,6 +281,7 @@ const enviarRespuesta = async (resenaId) => {
       setResenas(rs => rs.map(r => r.id === resenaId ? { ...r, respuesta_masajista: texto } : r))
     }
   }
+
   if (cargando) {
     return (
       <div className="panel-loading">
@@ -306,7 +317,7 @@ const enviarRespuesta = async (resenaId) => {
 
           {masajista && (
             <div className={`categoria-actual categoria-actual-${masajista.categoria || "basica"}`}>
-<span className="categoria-actual-nombre">
+              <span className="categoria-actual-nombre">
                 {masajista.categoria === "vip" && "👑 Plan Élite"}
                 {masajista.categoria === "super-premium" && "✨ Plan Exclusiva"}
                 {masajista.categoria === "premium" && "⭐ Plan Selecta"}
@@ -378,7 +389,8 @@ const enviarRespuesta = async (resenaId) => {
                   rows={4}
                   maxLength={500}
                 />
-<label>Número de WhatsApp</label>
+
+                <label>Número de WhatsApp</label>
                 <input
                   type="tel"
                   name="whatsapp"
@@ -386,6 +398,7 @@ const enviarRespuesta = async (resenaId) => {
                   onChange={manejarCambio}
                   placeholder="Ej: +56912345678"
                 />
+
                 <label>Precio por sesión (CLP)</label>
                 <input
                   type="number"
@@ -540,7 +553,7 @@ const enviarRespuesta = async (resenaId) => {
               </label>
             )}
 
-<p className="panel-nota">Recuerda hacer clic en "Guardar cambios" arriba después de subir tus fotos.</p>
+            <p className="panel-nota">Recuerda hacer clic en "Guardar cambios" arriba después de subir tus fotos.</p>
           </div>
 
           <div className="panel-card panel-card-full">

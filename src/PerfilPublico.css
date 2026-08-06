@@ -3,6 +3,8 @@
   background: #0a0a0a;
   color: #f0ebe3;
   font-family: 'Georgia', serif;
+  position: relative;
+  overflow: hidden;
 }
 
 .perfil-loading {

@@ -456,8 +456,8 @@
   align-items: center;
   gap: 6px;
   position: absolute;
-  bottom: 8px;
-  left: 60px;
+  bottom: 16px;
+  left: 44px;
   z-index: 2;
 }
 

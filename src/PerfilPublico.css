@@ -76,17 +76,17 @@
   position: absolute;
   bottom: 24px; left: 24px;
   width: calc(100% - 48px);
-  height: 30%;
-  background: linear-gradient(to top, rgba(10,10,10,0.75) 0%, transparent 100%);
+  height: 25%;
+  background: linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 100%);
   pointer-events: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 5px 5px;
 }
 
 .perfil-hero-info {
   position: absolute;
-  bottom: 44px;
-  left: 60px;
-  right: 60px;
+  bottom: 36px;
+  left: 44px;
+  right: 44px;
   display: flex;
   align-items: baseline;
   gap: 14px;

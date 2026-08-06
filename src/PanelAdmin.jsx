@@ -18,12 +18,13 @@ function PanelAdmin() {
   const [perfil, setPerfil] = useState(null)
   const [masajistas, setMasajistas] = useState([])
   const [pendientes, setPendientes] = useState([])
+  const [mensajesContacto, setMensajesContacto] = useState([])
   const [cargando, setCargando] = useState(true)
   const [filtro, setFiltro] = useState("todas")
   const [busqueda, setBusqueda] = useState("")
   const [vista, setVista] = useState("verificaciones")
   const [cargandoDoc, setCargandoDoc] = useState(null)
-const [mensajesContacto, setMensajesContacto] = useState([])
+
   useEffect(() => {
     verificarAcceso()
   }, [])
@@ -51,7 +52,7 @@ const [mensajesContacto, setMensajesContacto] = useState([])
     cargarTodo()
   }
 
-const cargarTodo = async () => {
+  const cargarTodo = async () => {
     const { data: masajistasData } = await supabase
       .from("masajistas")
       .select("*")
@@ -142,10 +143,12 @@ const cargarTodo = async () => {
     await supabase.from("masajistas").delete().eq("id", id)
     cargarTodo()
   }
-const marcarLeido = async (mensajeId) => {
+
+  const marcarLeido = async (mensajeId) => {
     await supabase.from("mensajes_contacto").update({ leido: true }).eq("id", mensajeId)
     cargarTodo()
   }
+
   const cerrarSesion = async () => {
     await supabase.auth.signOut()
     navigate("/login")
@@ -221,7 +224,7 @@ const marcarLeido = async (mensajeId) => {
             </div>
           </div>
 
-<div className="admin-tabs-vista">
+          <div className="admin-tabs-vista">
             <button
               className={vista === "verificaciones" ? "tab-vista-activo" : ""}
               onClick={() => setVista("verificaciones")}
@@ -364,7 +367,7 @@ const marcarLeido = async (mensajeId) => {
                           <td className="tabla-servicio">{m.servicio}</td>
                           <td>$ {m.precio?.toLocaleString("es-CL")}</td>
                           <td>
-<select
+                            <select
                               className="select-categoria"
                               value={m.categoria || "basica"}
                               onChange={(e) => cambiarCategoria(m.id, e.target.value)}
@@ -395,6 +398,37 @@ const marcarLeido = async (mensajeId) => {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              )}
+            </div>
+          )}
+
+          {vista === "mensajes" && (
+            <div>
+              {mensajesContacto.length === 0 ? (
+                <p className="admin-vacio">No hay mensajes de contacto.</p>
+              ) : (
+                <div className="verif-lista">
+                  {mensajesContacto.map((m) => (
+                    <div key={m.id} className={`verif-item ${!m.leido ? "mensaje-no-leido" : ""}`}>
+                      <div className="verif-item-info">
+                        <div className="tabla-avatar">{iniciales(m.nombre || "?")}</div>
+                        <div>
+                          <p className="verif-item-nombre">{m.nombre}</p>
+                          <p className="verif-item-tel">{m.correo}</p>
+                        </div>
+                        {!m.leido && <span className="estado-pill estado-revision">Nuevo</span>}
+                      </div>
+                      <p className="mensaje-contacto-texto">{m.mensaje}</p>
+                      {!m.leido && (
+                        <div className="verif-item-acciones">
+                          <button className="btn-aprobar" onClick={() => marcarLeido(m.id)}>
+                            Marcar como leído
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

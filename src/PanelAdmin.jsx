@@ -142,7 +142,10 @@ const cargarTodo = async () => {
     await supabase.from("masajistas").delete().eq("id", id)
     cargarTodo()
   }
-
+const marcarLeido = async (mensajeId) => {
+    await supabase.from("mensajes_contacto").update({ leido: true }).eq("id", mensajeId)
+    cargarTodo()
+  }
   const cerrarSesion = async () => {
     await supabase.auth.signOut()
     navigate("/login")

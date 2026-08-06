@@ -221,7 +221,7 @@ const marcarLeido = async (mensajeId) => {
             </div>
           </div>
 
-          <div className="admin-tabs-vista">
+<div className="admin-tabs-vista">
             <button
               className={vista === "verificaciones" ? "tab-vista-activo" : ""}
               onClick={() => setVista("verificaciones")}
@@ -233,6 +233,12 @@ const marcarLeido = async (mensajeId) => {
               onClick={() => setVista("masajistas")}
             >
               📋 Fichas activas
+            </button>
+            <button
+              className={vista === "mensajes" ? "tab-vista-activo" : ""}
+              onClick={() => setVista("mensajes")}
+            >
+              💬 Mensajes {mensajesContacto.filter(m => !m.leido).length > 0 && `(${mensajesContacto.filter(m => !m.leido).length})`}
             </button>
           </div>
 

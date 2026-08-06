@@ -28,7 +28,9 @@ function PanelMasajista() {
   const [subiendoLocal, setSubiendoLocal] = useState(false)
   const [subiendoHistoria, setSubiendoHistoria] = useState(false)
   const [tienePromo, setTienePromo] = useState(false)
-
+const [resenas, setResenas] = useState([])
+  const [respuestas, setRespuestas] = useState({})
+  const [enviandoRespuesta, setEnviandoRespuesta] = useState(null)
 const [form, setForm] = useState({
     nombre: "",
     comuna: "Santiago",

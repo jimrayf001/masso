@@ -452,10 +452,12 @@
 .perfil-hero-rating-fuera {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   position: absolute;
-  bottom: 16px;
-  left: 44px;
+  bottom: 8px;
+  left: 24px;
+  right: 24px;
   z-index: 2;
 }
 

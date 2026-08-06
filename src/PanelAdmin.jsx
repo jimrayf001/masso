@@ -23,7 +23,7 @@ function PanelAdmin() {
   const [busqueda, setBusqueda] = useState("")
   const [vista, setVista] = useState("verificaciones")
   const [cargandoDoc, setCargandoDoc] = useState(null)
-
+const [mensajesContacto, setMensajesContacto] = useState([])
   useEffect(() => {
     verificarAcceso()
   }, [])

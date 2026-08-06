@@ -555,3 +555,82 @@
   resize: vertical;
   min-height: 80px;
 }
+.resenas-panel-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.resena-panel-item {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 16px;
+}
+
+.resena-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.resena-panel-nombre {
+  font-size: 13px;
+  font-family: sans-serif;
+  color: #f0ebe3;
+}
+
+.resena-panel-estrellas {
+  color: #e8c876;
+  font-size: 14px;
+}
+
+.resena-panel-comentario {
+  font-size: 13px;
+  opacity: 0.75;
+  font-family: sans-serif;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.resena-panel-respuesta-existente {
+  background: rgba(232,200,118,0.06);
+  border-left: 2px solid #e8c876;
+  padding: 10px 14px;
+  margin-top: 8px;
+}
+
+.resena-panel-respuesta-label {
+  font-size: 11px;
+  color: #e8c876;
+  font-family: sans-serif;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.resena-panel-respuesta-existente p {
+  font-size: 13px;
+  opacity: 0.8;
+  font-family: sans-serif;
+}
+
+.resena-panel-responder {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.resena-panel-responder textarea {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(232,200,118,0.3);
+  padding: 10px 12px;
+  color: #f0ebe3;
+  font-size: 13px;
+  font-family: sans-serif;
+  outline: none;
+  resize: vertical;
+}
+
+.resena-panel-responder button {
+  align-self: flex-start;
+}

@@ -254,7 +254,23 @@ const datos = {
     await supabase.auth.signOut()
     navigate("/login")
   }
+const enviarRespuesta = async (resenaId) => {
+    const texto = respuestas[resenaId]
+    if (!texto || texto.trim() === "") return
 
+    setEnviandoRespuesta(resenaId)
+
+    const { error } = await supabase
+      .from("resenas")
+      .update({ respuesta_masajista: texto })
+      .eq("id", resenaId)
+
+    setEnviandoRespuesta(null)
+
+    if (!error) {
+      setResenas(rs => rs.map(r => r.id === resenaId ? { ...r, respuesta_masajista: texto } : r))
+    }
+  }
   if (cargando) {
     return (
       <div className="panel-loading">

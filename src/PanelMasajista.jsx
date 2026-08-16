@@ -5,8 +5,8 @@ import { supabase } from "./supabaseClient"
 import "./PanelMasajista.css"
 
 const serviciosDisponibles = [
-  "Relajación", "Descontracturante", "Piedras calientes", "Deportivo",
-  "Facial", "Aromática", "Reductivo", "Circulatorio", "Prenatal", "Sueco"
+  "Oral natural", "Oral mutuo", "Americana", "Americana real", "Anal",
+  "Besos en la boca", "Trios", "Fuckface", "Lencería sexy", "Garganta Profunda"
 ]
 
 const limitesPorCategoria = {

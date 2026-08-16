@@ -28,8 +28,9 @@ const promosDemo = [
 ]
 
 const comunasDisponibles = ["Todas", "Santiago Centro", "Providencia", "Las Condes", "Ñuñoa", "Vitacura", "Maipú", "La Florida"]
-const serviciosDisponibles = ["Cualquiera", "Relajación", "Descontracturante", "Piedras calientes", "Deportivo", "Facial", "Aromática", "Reductivo", "Circulatorio", "Prenatal", "Sueco"]
-
+const serviciosDisponibles = ["Oral natural", "Oral mutuo", "Americana", "Americana real", "Anal",
+  "Besos en la boca", "Trios", "Fuckface", "Lencería sexy", "Garganta Profunda"
+]
 const categoriasInfo = {
   vip: { titulo: "👑 Élite", clase: "seccion-vip" },
   "super-premium": { titulo: "✨ Exclusiva", clase: "seccion-super" },

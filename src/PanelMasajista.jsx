@@ -127,11 +127,66 @@ function PanelMasajista() {
     })
   }
 
+const aplicarMarcaAgua = (file) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      const url = URL.createObjectURL(file)
+
+      img.onload = () => {
+        const canvas = document.createElement("canvas")
+        canvas.width = img.width
+        canvas.height = img.height
+        const ctx = canvas.getContext("2d")
+
+        ctx.drawImage(img, 0, 0)
+
+        ctx.save()
+        ctx.translate(canvas.width / 2, canvas.height / 2)
+        ctx.rotate(-Math.PI / 8)
+        ctx.font = `bold ${Math.round(canvas.width / 8)}px sans-serif`
+        ctx.fillStyle = "rgba(255, 255, 255, 0.28)"
+        ctx.strokeStyle = "rgba(0, 0, 0, 0.15)"
+        ctx.lineWidth = 2
+        ctx.textAlign = "center"
+        ctx.textBaseline = "middle"
+        ctx.strokeText("MASSO", 0, 0)
+        ctx.fillText("MASSO", 0, 0)
+        ctx.restore()
+
+        canvas.toBlob((blob) => {
+          URL.revokeObjectURL(url)
+          if (blob) {
+            resolve(new File([blob], file.name, { type: file.type }))
+          } else {
+            reject(new Error("No se pudo procesar la imagen"))
+          }
+        }, file.type)
+      }
+
+      img.onerror = () => {
+        URL.revokeObjectURL(url)
+        reject(new Error("No se pudo cargar la imagen"))
+      }
+
+      img.src = url
+    })
+  }
+
   const subirArchivo = async (file, carpeta) => {
+    let archivoFinal = file
+
+    if (carpeta === "local") {
+      try {
+        archivoFinal = await aplicarMarcaAgua(file)
+      } catch (err) {
+        console.error("Error al aplicar marca de agua:", err)
+      }
+    }
+
     const nombreArchivo = `${usuario.id}/${carpeta}/${Date.now()}-${file.name}`
     const { error } = await supabase.storage
       .from("fotos-masajistas")
-      .upload(nombreArchivo, file)
+      .upload(nombreArchivo, archivoFinal)
 
     if (error) throw error
 

@@ -313,7 +313,7 @@ function App() {
                   <span className="logo-texto">MASSO</span>
                   <span className="linea-logo" />
                 </div>
-                <p className="logo-sub">MASAJES · PREMIUM</p>
+               <p className="logo-sub">ESCORT · PREMIUM</p>
               </div>
 
               <p className="entrada-aviso">Al entrar declaras ser mayor de 18 años.</p>

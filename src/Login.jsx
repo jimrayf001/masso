@@ -7,6 +7,7 @@ import "./Login.css"
 function Login() {
   const [modo, setModo] = useState("login")
   const [email, setEmail] = useState("")
+  const [confirmarEmail, setConfirmarEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmarPassword, setConfirmarPassword] = useState("")
   const [mostrarPassword, setMostrarPassword] = useState(false)
@@ -58,6 +59,11 @@ function Login() {
   const manejarRegistro = async (e) => {
     e.preventDefault()
     setError("")
+
+    if (email !== confirmarEmail) {
+      setError("Los correos electrónicos no coinciden")
+      return
+    }
 
     if (password !== confirmarPassword) {
       setError("Las contraseñas no coinciden")
@@ -177,6 +183,13 @@ function Login() {
               required
             />
             <input
+              type="email"
+              placeholder="Confirmar correo electrónico"
+              value={confirmarEmail}
+              onChange={(e) => setConfirmarEmail(e.target.value)}
+              required
+            />
+            <input
               type="tel"
               placeholder="Teléfono"
               value={telefono}
@@ -210,7 +223,7 @@ function Login() {
             />
             <select value={rol} onChange={(e) => setRol(e.target.value)}>
               <option value="cliente">Soy cliente</option>
-              <option value="masajista">Soy Escort</option>
+              <option value="masajista">Soy quiropráctica premium</option>
             </select>
             {error && <p className="login-error">{error}</p>}
             <button type="submit" className="btn-primary large full" disabled={cargando}>

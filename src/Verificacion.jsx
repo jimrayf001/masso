@@ -190,9 +190,9 @@ function Verificacion() {
                 </label>
               </div>
 
-              <div className="verif-campo">
-                <label>Video del local</label>
-                <p className="verif-desc">Un video corto mostrando el espacio donde atenderás a tus clientes.</p>
+                        <div className="verif-campo">
+                <label>Video</label>
+                <p className="verif-desc">Un video corto de tu rostro con tu carnet al lado visible, diciendo tu nombre en voz alta y la siguiente frase: Massochile.cl es solo un intermediario entre los servicios que presto y los clientes finales.</p>
                 {videoUrl && <p className="verif-archivo-ok">✓ Video cargado</p>}
                 <label className="btn-upload-verif">
                   {subiendoVideo ? "Subiendo..." : videoUrl ? "Cambiar video" : "Subir video"}

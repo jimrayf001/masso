@@ -111,3 +111,24 @@
 }
 
 .login-volver:hover { color: #c9a84c; }
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 60px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #e8c876;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+}

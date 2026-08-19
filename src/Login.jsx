@@ -8,6 +8,8 @@ function Login() {
   const [modo, setModo] = useState("login")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmarPassword, setConfirmarPassword] = useState("")
+  const [mostrarPassword, setMostrarPassword] = useState(false)
   const [nombre, setNombre] = useState("")
   const [telefono, setTelefono] = useState("")
   const [rol, setRol] = useState("cliente")
@@ -56,6 +58,12 @@ function Login() {
   const manejarRegistro = async (e) => {
     e.preventDefault()
     setError("")
+
+    if (password !== confirmarPassword) {
+      setError("Las contraseñas no coinciden")
+      return
+    }
+
     setCargando(true)
 
     const { data, error } = await supabase.auth.signUp({
@@ -131,13 +139,22 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <input
-              type="password"
-              placeholder="Contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="password-wrapper">
+              <input
+                type={mostrarPassword ? "text" : "password"}
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setMostrarPassword(!mostrarPassword)}
+              >
+                {mostrarPassword ? "Ocultar" : "Ver"}
+              </button>
+            </div>
             {error && <p className="login-error">{error}</p>}
             <button type="submit" className="btn-primary large full" disabled={cargando}>
               {cargando ? "Ingresando..." : "Ingresar"}
@@ -166,11 +183,28 @@ function Login() {
               onChange={(e) => setTelefono(e.target.value)}
               required
             />
+            <div className="password-wrapper">
+              <input
+                type={mostrarPassword ? "text" : "password"}
+                placeholder="Contraseña (mín. 6 caracteres)"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                minLength={6}
+                required
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setMostrarPassword(!mostrarPassword)}
+              >
+                {mostrarPassword ? "Ocultar" : "Ver"}
+              </button>
+            </div>
             <input
-              type="password"
-              placeholder="Contraseña (mín. 6 caracteres)"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type={mostrarPassword ? "text" : "password"}
+              placeholder="Confirmar contraseña"
+              value={confirmarPassword}
+              onChange={(e) => setConfirmarPassword(e.target.value)}
               minLength={6}
               required
             />

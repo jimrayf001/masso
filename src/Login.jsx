@@ -85,7 +85,7 @@ function Login() {
     }
 
     setCargando(false)
-    setMensaje("¡Cuenta creada! Revisa tu correo para confirmar antes de iniciar sesión.")
+    setMensaje("¡Cuenta creada! Ya puedes iniciar sesión con los datos ingresados.")
   }
 
   return (

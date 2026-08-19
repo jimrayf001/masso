@@ -222,8 +222,8 @@ function Login() {
               required
             />
             <select value={rol} onChange={(e) => setRol(e.target.value)}>
-              <option value="cliente">Soy cliente</option>
-              <option value="masajista">Soy quiropráctica premium</option>
+              <option value="cliente">Soy Cliente</option>
+              <option value="masajista">Soy Escort</option>
             </select>
             {error && <p className="login-error">{error}</p>}
             <button type="submit" className="btn-primary large full" disabled={cargando}>

@@ -56,7 +56,7 @@ function PerfilPublico() {
   const [mensajeResena, setMensajeResena] = useState("")
   const [pestana, setPestana] = useState("galeria")
   const [descripcionAbierta, setDescripcionAbierta] = useState(false)
-
+  const [filtroGaleria, setFiltroGaleria] = useState("todo")
   useEffect(() => {
     cargarMasajista()
     cargarResenas()

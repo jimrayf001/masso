@@ -251,7 +251,7 @@ function PerfilPublico() {
                   <p className="perfil-precio-unidad">/ 1 h</p>
                 </div>
                 {masajista.whatsapp && (
-                  <a href={generarLinkWhatsapp(masajista.whatsapp, masajista.nombre)} target="_blank" rel="noreferrer" className="perfil-wsp-circulo" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.8"><path d="M20 12a8 8 0 1 1-3.5-6.6" /><path d="M20 12a8 8 0 0 1-11.5 7.2L4 20l1-4.2A8 8 0 0 1 20 12Z" /><path d="M9 9.5c0 3.5 2.5 5.5 5.5 5.5" /></svg></a>
+                                    <a href={generarLinkWhatsapp(masajista.whatsapp, masajista.nombre)} target="_blank" rel="noreferrer" className="perfil-wsp-circulo" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp"><img src="/icono-whatsapp.png" alt="" className="perfil-wsp-icono" /></a>
                 )}
               </div>
             </div>

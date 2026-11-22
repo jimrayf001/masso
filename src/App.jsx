@@ -373,11 +373,7 @@ function App() {
               className="logo-nav logo-nav-clicable"
               onClick={() => { setEntro(false); setSoloOportunidades(false) }}
             >
-              <div className="logo-lineas">
-                <span className="linea-logo small" />
-                <span className="logo-texto small">MASSO</span>
-                <span className="linea-logo small" />
-              </div>
+              <img src="/logo-masso.png" alt="Masso" className="logo-imagen-nav" />
             </div>
             <div className="nav-links">
               <button className="nav-link-btn" onClick={irAOportunidades}>

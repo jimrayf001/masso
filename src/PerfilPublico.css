@@ -581,3 +581,14 @@
 .perfil-publico-page .visor-contador {
   z-index: 2001;
 }
+.perfil-wsp-circulo {
+  background: transparent;
+  box-shadow: none;
+}
+
+.perfil-wsp-icono {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  display: block;
+}

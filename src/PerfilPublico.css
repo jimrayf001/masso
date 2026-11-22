@@ -661,3 +661,32 @@
     padding: 6px 6px;
   }
 }
+.perfil-publico-page .visor-cerrar {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #9c7c52;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+  transition: background 0.3s, transform 0.2s;
+}
+
+.perfil-publico-page .visor-cerrar:hover {
+  background: #b08f61;
+  transform: scale(1.05);
+}
+
+@media (max-width: 800px) {
+  .perfil-publico-page .visor-cerrar {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-size: 20px;
+  }
+}

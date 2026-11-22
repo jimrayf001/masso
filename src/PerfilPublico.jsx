@@ -170,4 +170,280 @@ function PerfilPublico() {
   }
 
   if (!masajista) {
-    return (
+    
+  return (
+    <div className="perfil-publico-page">
+      {masajista.foto_perfil && (
+        <div
+          className="perfil-fondo-blur"
+          style={{ backgroundImage: `url(${masajista.foto_perfil})` }}
+        />
+      )}
+
+      <nav className="perfil-navbar">
+        <img
+          src="/logo-masso.png"
+          alt="Masso"
+          className="logo-imagen-nav"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/?entrar=true")}
+        />
+        <button className="btn-volver-perfil" onClick={() => navigate("/?entrar=true")}>← Volver</button>
+      </nav>
+
+      <div className="perfil-wrap">
+        <div className="perfil-header">
+          {masajista.foto_perfil ? (
+            <img
+              src={masajista.foto_perfil}
+              alt={masajista.nombre}
+              className="perfil-avatar"
+              onClick={abrirGaleriaDesdePerfil}
+            />
+          ) : (
+            <div className="perfil-avatar perfil-avatar-vacio">
+              <span>{iniciales(masajista.nombre)}</span>
+            </div>
+          )}
+
+          <div className="perfil-datos">
+            <div className="perfil-cabecera">
+              <div>
+                <div className="perfil-nombre-fila">
+                  <h1 className="perfil-nombre">{masajista.nombre}</h1>
+                  <span className="perfil-badge-categoria">
+                    {nombresCategoria[masajista.categoria || "basica"]}
+                  </span>
+                  <span className={`perfil-estado ${masajista.disponible ? "perfil-estado-on" : "perfil-estado-off"}`}>
+                    {masajista.disponible ? "● En línea" : "● Ocupada"}
+                  </span>
+                </div>
+                <p className="perfil-ubicacion">📍 Santiago, {masajista.comuna}</p>
+                {promedioEstrellas && (
+                  <div className="perfil-rating-linea">
+                    <Estrellas calificacion={Math.round(promedioEstrellas)} />
+                    <span className="perfil-rating-numero">{promedioEstrellas} ({resenas.length})</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="perfil-precio-bloque">
+                <div className="perfil-precio-texto">
+                  <p className="perfil-precio-valor">$ {masajista.precio?.toLocaleString("es-CL")}</p>
+                  <p className="perfil-precio-unidad">/ 1 h</p>
+                </div>
+                {masajista.whatsapp && (
+                  <a href={generarLinkWhatsapp(masajista.whatsapp, masajista.nombre)} target="_blank" rel="noreferrer" className="perfil-wsp-circulo" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.8"><path d="M20 12a8 8 0 1 1-3.5-6.6" /><path d="M20 12a8 8 0 0 1-11.5 7.2L4 20l1-4.2A8 8 0 0 1 20 12Z" /><path d="M9 9.5c0 3.5 2.5 5.5 5.5 5.5" /></svg></a>
+                )}
+              </div>
+            </div>
+
+            {servicios.length > 0 && (
+              <div className="perfil-pills">
+                {servicios.map((s, i) => (
+                  <span key={i} className="perfil-pill">{s}</span>
+                ))}
+              </div>
+            )}
+
+            {masajista.promocion_activa && (
+              <p className="perfil-promo-linea">🎁 {masajista.promocion_activa}</p>
+            )}
+
+            {descripcion && (
+              <p className="perfil-descripcion">
+                {descripcionVisible}{" "}
+                {descripcionLarga && (
+                  <button className="perfil-leer-mas" onClick={() => setDescripcionAbierta(!descripcionAbierta)}>
+                    {descripcionAbierta ? "Mostrar menos" : "Continuar leyendo"}
+                  </button>
+                )}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="perfil-tabs">
+          <button
+            className={pestana === "galeria" ? "perfil-tab perfil-tab-activa" : "perfil-tab"}
+            onClick={() => setPestana("galeria")}
+          >
+            Galería
+          </button>
+          <button
+            className={pestana === "comentarios" ? "perfil-tab perfil-tab-activa" : "perfil-tab"}
+            onClick={() => setPestana("comentarios")}
+          >
+            Comentarios {resenas.length > 0 && `(${resenas.length})`}
+          </button>
+          <button
+            className={pestana === "info" ? "perfil-tab perfil-tab-activa" : "perfil-tab"}
+            onClick={() => setPestana("info")}
+          >
+            Info
+          </button>
+        </div>
+
+        {pestana === "galeria" && (
+          <div className="perfil-panel">
+            <span className="perfil-contador">▦ Todo ({fotosGaleria.length})</span>
+            {fotosGaleria.length === 0 ? (
+              <p className="perfil-vacio">Aún no hay fotos en la galería.</p>
+            ) : (
+              <div className="perfil-galeria-grid">
+                {fotosGaleria.map((url, i) => (
+                  <img
+                    key={i}
+                    src={url}
+                    alt={`Foto ${i + 1}`}
+                    className="perfil-galeria-item"
+                    onClick={() => abrirGaleriaDesdeGaleria(i)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {pestana === "comentarios" && (
+          <div className="perfil-panel">
+            {puedeComentar && (
+              <form onSubmit={enviarResena} className="resena-form">
+                <p className="resena-form-label">Tu calificación</p>
+                <div className="estrellas-input">
+                  {[1, 2, 3, 4, 5].map(n => (
+                    <button
+                      type="button"
+                      key={n}
+                      className={n <= nuevaCalificacion ? "estrella-btn-llena" : "estrella-btn-vacia"}
+                      onClick={() => setNuevaCalificacion(n)}
+                    >
+                      ★
+                    </button>
+                  ))}
+                </div>
+                <textarea
+                  value={nuevoComentario}
+                  onChange={(e) => setNuevoComentario(e.target.value)}
+                  placeholder="Cuéntale a otros cómo fue tu experiencia (opcional)"
+                  rows={3}
+                  maxLength={300}
+                />
+                {mensajeResena && <p className="resena-mensaje">{mensajeResena}</p>}
+                <button type="submit" className="btn-primary" disabled={enviandoResena}>
+                  {enviandoResena ? "Enviando..." : "Publicar reseña"}
+                </button>
+              </form>
+            )}
+
+            {!usuario && (
+              <p className="resena-aviso">
+                <span onClick={() => navigate("/login")} className="resena-link">Inicia sesión</span> como cliente para dejar una reseña.
+              </p>
+            )}
+
+            <div className="resenas-lista">
+              {resenas.length === 0 ? (
+                <p className="perfil-vacio">Aún no hay reseñas para este perfil.</p>
+              ) : (
+                resenas.map((r) => (
+                  <div key={r.id} className="resena-item">
+                    <div className="resena-item-header">
+                      <span className="resena-item-nombre">{r.cliente_nombre}</span>
+                      <Estrellas calificacion={r.calificacion} />
+                    </div>
+                    {r.comentario && <p className="resena-item-comentario">{r.comentario}</p>}
+                    {r.respuesta_masajista && (
+                      <div className="resena-respuesta">
+                        <span className="resena-respuesta-label">Respuesta de {masajista.nombre}:</span>
+                        <p>{r.respuesta_masajista}</p>
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        )}
+
+        {pestana === "info" && (
+          <div className="perfil-panel">
+            <div className="perfil-info-lista">
+              <div className="perfil-info-fila">
+                <span className="perfil-info-etiqueta">Ubicación</span>
+                <span className="perfil-info-valor">Santiago, {masajista.comuna}</span>
+              </div>
+              <div className="perfil-info-fila">
+                <span className="perfil-info-etiqueta">Disponibilidad</span>
+                <span className="perfil-info-valor">{masajista.disponible ? "En línea" : "Ocupada"}</span>
+              </div>
+              <div className="perfil-info-fila">
+                <span className="perfil-info-etiqueta">Valor</span>
+                <span className="perfil-info-valor">$ {masajista.precio?.toLocaleString("es-CL")} / 1 h</span>
+              </div>
+              <div className="perfil-info-fila">
+                <span className="perfil-info-etiqueta">Categoría</span>
+                <span className="perfil-info-valor">{nombresCategoria[masajista.categoria || "basica"]}</span>
+              </div>
+              {masajista.promocion_activa && (
+                <div className="perfil-info-fila">
+                  <span className="perfil-info-etiqueta">Promoción</span>
+                  <span className="perfil-info-valor">{masajista.promocion_activa}</span>
+                </div>
+              )}
+              {servicios.length > 0 && (
+                <div className="perfil-info-fila perfil-info-fila-columna">
+                  <span className="perfil-info-etiqueta">Servicios</span>
+                  <div className="perfil-pills">
+                    {servicios.map((s, i) => (
+                      <span key={i} className="perfil-pill">{s}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <AnimatePresence>
+        {galeriaAbierta && visorAbierto && (
+          <motion.div
+            className="visor-imagen-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={cerrarGaleria}
+          >
+            <button className="modal-cerrar visor-cerrar" onClick={(e) => { e.stopPropagation(); cerrarGaleria() }}>✕</button>
+
+            {galeriaAbierta.length > 1 && (
+              <button className="historia-flecha visor-flecha-izq" onClick={(e) => { e.stopPropagation(); anteriorFoto() }}>‹</button>
+            )}
+
+            <motion.img
+              key={galeriaIndice}
+              src={galeriaAbierta[galeriaIndice]}
+              alt="Vista ampliada"
+              className="visor-imagen-real"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {galeriaAbierta.length > 1 && (
+              <button className="historia-flecha visor-flecha-der" onClick={(e) => { e.stopPropagation(); siguienteFoto() }}>›</button>
+            )}
+
+            {galeriaAbierta.length > 1 && (
+              <div className="visor-contador">{galeriaIndice + 1} / {galeriaAbierta.length}</div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+export default PerfilPublico

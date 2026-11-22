@@ -335,7 +335,7 @@ function App() {
                 <div
                   className="bloque"
                   onClick={irAOportunidades}
-                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400')" }}
+                style={{ backgroundImage: "url('/bloque-oportunidades.jpg')" }}
                 >
                   <span>OPORTUNIDADES</span>
                 </div>

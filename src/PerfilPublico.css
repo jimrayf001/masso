@@ -571,3 +571,13 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+.perfil-publico-page .visor-imagen-overlay {
+  z-index: 2000;
+}
+
+.perfil-publico-page .visor-cerrar,
+.perfil-publico-page .visor-flecha-izq,
+.perfil-publico-page .visor-flecha-der,
+.perfil-publico-page .visor-contador {
+  z-index: 2001;
+}

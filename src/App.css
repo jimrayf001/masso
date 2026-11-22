@@ -1490,3 +1490,26 @@ body {
     font-size: 20px;
   }
 }
+.logo-imagen-entrada {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.logo-imagen-nav {
+  display: block;
+  height: 34px;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .logo-imagen-entrada {
+    max-width: 240px;
+  }
+
+  .logo-imagen-nav {
+    height: 26px;
+  }
+}

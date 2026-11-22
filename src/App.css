@@ -1525,18 +1525,19 @@ body {
   .entrada-content {
     margin: auto;
     max-height: none;
-    gap: clamp(8px, 2vh, 22px);
+    gap: clamp(10px, 3vh, 30px);
   }
 
   .logo-imagen-entrada {
-    max-height: clamp(40px, 8vh, 70px);
+    max-width: 340px;
+    max-height: clamp(48px, 12vh, 100px);
   }
 
   .bloque {
-    height: clamp(40px, 7.5vh, 72px);
+    height: clamp(44px, 10vh, 84px);
   }
 
   .btn-entrar {
-    padding: clamp(9px, 1.5vh, 13px);
+    padding: clamp(10px, 2vh, 16px);
   }
 }

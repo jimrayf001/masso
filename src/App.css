@@ -1516,3 +1516,27 @@ body {
     height: 26px;
   }
 }
+@media (min-width: 769px) {
+  .entrada {
+    overflow-y: auto;
+    padding: 12px 0;
+  }
+
+  .entrada-content {
+    margin: auto;
+    max-height: none;
+    gap: clamp(8px, 2vh, 22px);
+  }
+
+  .logo-imagen-entrada {
+    max-height: clamp(40px, 8vh, 70px);
+  }
+
+  .bloque {
+    height: clamp(40px, 7.5vh, 72px);
+  }
+
+  .btn-entrar {
+    padding: clamp(9px, 1.5vh, 13px);
+  }
+}

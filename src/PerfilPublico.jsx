@@ -170,7 +170,25 @@ function PerfilPublico() {
   }
 
   if (!masajista) {
-    
+    return (
+      <div className="perfil-loading">
+        <p>No se encontró este perfil.</p>
+        <button className="btn-volver-perfil" onClick={() => navigate("/?entrar=true")}>← Volver al inicio</button>
+      </div>
+    )
+  }
+
+  const puedeComentar = usuario && perfilUsuario?.rol === "cliente"
+  const fotosGaleria = masajista.fotos_local || []
+  const servicios = masajista.servicios && masajista.servicios.length > 0
+    ? masajista.servicios
+    : (masajista.servicio ? masajista.servicio.split(" · ").filter(Boolean) : [])
+  const descripcion = masajista.descripcion || ""
+  const descripcionLarga = descripcion.length > LIMITE_DESCRIPCION
+  const descripcionVisible = descripcionLarga && !descripcionAbierta
+    ? descripcion.slice(0, LIMITE_DESCRIPCION).trim() + "..."
+    : descripcion
+  
   return (
     <div className="perfil-publico-page">
       {masajista.foto_perfil && (

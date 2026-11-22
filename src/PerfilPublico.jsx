@@ -303,10 +303,36 @@ function PerfilPublico() {
         </div>
 
         {pestana === "galeria" && (
-          <div className="perfil-panel">
-            <span className="perfil-contador">▦ Todo ({fotosGaleria.length})</span>
-            {fotosGaleria.length === 0 ? (
-              <p className="perfil-vacio">Aún no hay fotos en la galería.</p>
+          <div className="perfil-panel perfil-galeria-zona">
+            <div className="perfil-divisor">
+              <span className="perfil-divisor-linea" />
+              <div className="perfil-divisor-filtros">
+                <button
+                  className={filtroGaleria === "todo" ? "perfil-filtro perfil-filtro-activo" : "perfil-filtro"}
+                  onClick={() => setFiltroGaleria("todo")}
+                >
+                  Todo ({fotosGaleria.length})
+                </button>
+                <button
+                  className={filtroGaleria === "fotos" ? "perfil-filtro perfil-filtro-activo" : "perfil-filtro"}
+                  onClick={() => setFiltroGaleria("fotos")}
+                >
+                  Fotos ({fotosGaleria.length})
+                </button>
+                <button
+                  className={filtroGaleria === "videos" ? "perfil-filtro perfil-filtro-activo" : "perfil-filtro"}
+                  onClick={() => setFiltroGaleria("videos")}
+                >
+                  Videos (0)
+                </button>
+              </div>
+              <span className="perfil-divisor-linea" />
+            </div>
+
+            {filtroGaleria === "videos" ? (
+              <p className="perfil-vacio perfil-vacio-centro">Aún no hay videos.</p>
+            ) : fotosGaleria.length === 0 ? (
+              <p className="perfil-vacio perfil-vacio-centro">Aún no hay fotos en la galería.</p>
             ) : (
               <div className="perfil-galeria-grid">
                 {fotosGaleria.map((url, i) => (

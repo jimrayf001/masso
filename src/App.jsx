@@ -307,13 +307,9 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="logo-entrada">
-                <div className="logo-lineas">
-                  <span className="linea-logo" />
-                  <span className="logo-texto">MASSO</span>
-                  <span className="linea-logo" />
-                </div>
-               <p className="logo-sub">ESCORT · PREMIUM</p>
+                          <div className="logo-entrada">
+                <img src="/logo-masso.png" alt="Masso" className="logo-imagen-entrada" />
+                <p className="logo-sub">ESCORT · PREMIUM</p>
               </div>
 
               <p className="entrada-aviso">Al entrar declaras ser mayor de 18 años.</p>

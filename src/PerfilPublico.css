@@ -592,3 +592,72 @@
   object-fit: contain;
   display: block;
 }
+.perfil-galeria-zona {
+  background: #000000;
+  border: 1px solid rgba(232,200,118,0.12);
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.perfil-divisor {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.perfil-divisor-linea {
+  flex: 1;
+  height: 1px;
+  background: rgba(232,200,118,0.45);
+}
+
+.perfil-divisor-filtros {
+  display: flex;
+  gap: 6px;
+}
+
+.perfil-filtro {
+  background: transparent;
+  border: none;
+  color: rgba(240,235,227,0.6);
+  font-size: 12px;
+  font-family: sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.perfil-filtro:hover {
+  color: #f0ebe3;
+}
+
+.perfil-filtro-activo {
+  color: #e8c876;
+  border-bottom-color: #e8c876;
+  font-weight: 700;
+}
+
+.perfil-vacio-centro {
+  text-align: center;
+  padding: 30px 0;
+}
+
+@media (max-width: 800px) {
+  .perfil-galeria-zona {
+    padding: 14px;
+  }
+
+  .perfil-divisor {
+    gap: 8px;
+  }
+
+  .perfil-filtro {
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 6px 6px;
+  }
+}

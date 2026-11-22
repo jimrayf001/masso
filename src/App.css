@@ -1553,3 +1553,20 @@ body {
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(232, 200, 118, 0.12);
 }
+@media (min-width: 769px) {
+  .navbar {
+    padding: 8px 32px;
+  }
+
+  .logo-imagen-nav {
+    height: 28px;
+  }
+
+  .nav-link-btn {
+    padding: 6px 14px;
+  }
+
+  .navbar .btn-primary {
+    padding: 8px 22px;
+  }
+}

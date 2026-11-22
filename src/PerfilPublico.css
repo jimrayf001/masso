@@ -19,26 +19,39 @@
   font-family: sans-serif;
 }
 
+.perfil-fondo-blur {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(18px) brightness(0.45) saturate(1.15);
+  transform: scale(1.15);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* NAVBAR */
 .perfil-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 10px 32px;
   position: fixed;
-  top: 0; width: 100%;
-  z-index: 100;
-  background: linear-gradient(to bottom, rgba(5,3,2,0.9), transparent);
-}
-
-.perfil-navbar .logo-lineas {
-  cursor: pointer;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(5, 3, 2, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(232, 200, 118, 0.12);
 }
 
 .btn-volver-perfil {
   background: rgba(0,0,0,0.4);
   border: 1px solid rgba(232,200,118,0.3);
   color: #f0ebe3;
-  padding: 8px 18px;
+  padding: 7px 16px;
   font-size: 12px;
   font-family: sans-serif;
   cursor: pointer;
@@ -50,220 +63,315 @@
   color: #e8c876;
 }
 
-.perfil-hero {
+/* CONTENEDOR */
+.perfil-wrap {
   position: relative;
   z-index: 1;
-  height: 55vh;
-  min-height: 400px;
-  max-height: 550px;
-  padding: 24px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
 }
 
-.perfil-hero-img {
-  height: 100%;
-  width: auto;
-  max-width: 100%;
+/* CABECERA */
+.perfil-header {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 44px;
+  align-items: start;
+}
+
+.perfil-avatar {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
   object-fit: cover;
-  object-position: center;
-  border: 3px solid rgba(232,200,118,0.5);
-  border-radius: 8px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  object-position: top;
+  border: 3px solid rgba(232,200,118,0.6);
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
+  cursor: pointer;
   display: block;
 }
 
-.perfil-hero-overlay {
-  position: absolute;
-  bottom: 24px; left: 24px;
-  width: calc(100% - 48px);
-  height: 30%;
-  background: linear-gradient(to top, rgba(10,10,10,0.75) 0%, transparent 100%);
-  pointer-events: none;
-  border-radius: 0 0 5px 5px;
-}
-
-.perfil-hero-info {
-  position: absolute;
-  bottom: 32px;
-  left: 24px;
-  right: 24px;
+.perfil-avatar-vacio {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  text-align: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2a2419, #1a1611);
+  cursor: default;
 }
 
-.perfil-hero-info .badge {
-  position: static;
-  display: inline-block;
-  font-size: 10px;
-  padding: 3px 9px;
+.perfil-avatar-vacio span {
+  font-size: 56px;
+  color: #e8c876;
 }
 
-.perfil-hero-nombre {
-  font-size: 24px;
+.perfil-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.perfil-nombre-fila {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.perfil-nombre {
   font-family: 'Playfair Display', serif;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 700;
   color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  line-height: 1.1;
 }
 
-.perfil-hero-comuna {
+.perfil-badge-categoria {
+  background: #e8c876;
+  color: #0a0a0a;
   font-size: 12px;
+  font-weight: 700;
+  font-family: sans-serif;
+  padding: 5px 11px;
+  border-radius: 6px;
+}
+
+.perfil-estado {
+  font-size: 12px;
+  font-family: sans-serif;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.perfil-estado-on {
+  background: rgba(0,200,100,0.15);
+  color: #4ade80;
+  border: 1px solid rgba(74,222,128,0.3);
+}
+
+.perfil-estado-off {
+  background: rgba(255,255,255,0.08);
+  color: rgba(240,235,227,0.6);
+  border: 1px solid rgba(240,235,227,0.15);
+}
+
+.perfil-ubicacion {
+  margin-top: 8px;
+  font-size: 15px;
   color: #e8c876;
   font-family: sans-serif;
+}
+
+.perfil-rating-linea {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.perfil-rating-numero {
+  font-size: 13px;
+  font-family: sans-serif;
+  opacity: 0.8;
+}
+
+/* PRECIO + WHATSAPP */
+.perfil-precio-bloque {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.perfil-precio-texto {
+  text-align: right;
+}
+
+.perfil-precio-valor {
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: sans-serif;
+}
+
+.perfil-precio-unidad {
+  font-size: 13px;
+  opacity: 0.6;
+  font-family: sans-serif;
+}
+
+.perfil-wsp-circulo {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+  transition: transform 0.3s;
+}
+
+.perfil-wsp-circulo:hover {
+  transform: scale(1.08);
+}
+
+.perfil-wsp-circulo svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* ETIQUETAS */
+.perfil-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.perfil-pill {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(232,200,118,0.2);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-family: sans-serif;
+  color: #f0ebe3;
+}
+
+.perfil-promo-linea {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e8c876;
+  font-family: sans-serif;
+}
+
+.perfil-descripcion {
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  font-family: sans-serif;
+  color: #f0ebe3;
   opacity: 0.9;
 }
 
-.perfil-contenido {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 50px 40px 80px;
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 50px;
-}
-
-.perfil-promo-box {
-  background: rgba(232,200,118,0.1);
-  border: 1px solid rgba(232,200,118,0.3);
+.perfil-leer-mas {
+  background: none;
+  border: none;
   color: #e8c876;
-  padding: 16px 20px;
+  font-size: 15px;
   font-family: sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 30px;
+  cursor: pointer;
+  padding: 0;
 }
 
-.perfil-seccion {
-  margin-bottom: 36px;
-}
-
-.perfil-seccion-titulo {
-  font-size: 20px;
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  color: #e8c876;
-  margin-bottom: 14px;
-}
-
-.perfil-descripcion-texto {
-  font-size: 14px;
-  line-height: 1.8;
-  color: #f0ebe3;
-  opacity: 0.85;
-  font-family: sans-serif;
-}
-
-.perfil-servicios-tags {
+/* PESTAÑAS */
+.perfil-tabs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  gap: 4px;
+  margin: 44px auto 28px;
+  width: fit-content;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(232,200,118,0.15);
+  border-radius: 30px;
+  padding: 5px;
 }
 
-.perfil-tag {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(232,200,118,0.25);
+.perfil-tab {
+  background: transparent;
+  border: none;
   color: #f0ebe3;
-  padding: 8px 16px;
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-size: 15px;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.perfil-tab-activa {
+  background: #e8c876;
+  color: #0a0a0a;
+  font-weight: 700;
+}
+
+.perfil-panel {
+  min-height: 200px;
+}
+
+.perfil-contador {
+  display: inline-block;
+  background: rgba(255,255,255,0.07);
+  border-radius: 20px;
+  padding: 7px 16px;
   font-size: 13px;
   font-family: sans-serif;
+  margin-bottom: 18px;
 }
 
+.perfil-vacio {
+  font-size: 14px;
+  opacity: 0.6;
+  font-family: sans-serif;
+}
+
+/* GALERÍA */
 .perfil-galeria-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
 .perfil-galeria-item {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 3/4;
   object-fit: cover;
+  border-radius: 8px;
   cursor: pointer;
   transition: opacity 0.3s;
 }
 
 .perfil-galeria-item:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-.perfil-columna-lateral {
-  position: relative;
+/* INFO */
+.perfil-info-lista {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.perfil-card-precio {
-  position: sticky;
-  top: 100px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(232,200,118,0.2);
-  padding: 30px;
-  text-align: center;
-}
-
-.perfil-precio-numero {
-  font-size: 32px;
-  color: #e8c876;
-  font-family: sans-serif;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.perfil-precio-detalle {
-  font-size: 12px;
-  opacity: 0.5;
-  font-family: sans-serif;
-  margin-bottom: 24px;
-}
-
-.btn-whatsapp {
-  background: linear-gradient(135deg, #25D366, #128C7E) !important;
-  color: #ffffff !important;
-}
-
-.btn-whatsapp:hover {
-  background: linear-gradient(135deg, #2ee673, #15a085) !important;
-}
-
-@media (max-width: 800px) {
-  .perfil-contenido {
-    grid-template-columns: 1fr;
-    padding: 30px 20px 60px;
-    gap: 30px;
-  }
-
-  .perfil-hero {
-    height: 45vh;
-    min-height: 320px;
-  }
-
-  .perfil-hero-info {
-    left: 20px;
-    right: 20px;
-  }
-
-  .perfil-hero-nombre {
-    font-size: 28px;
-  }
-
-  .perfil-navbar {
-    padding: 14px 20px;
-  }
-
-  .perfil-card-precio {
-    position: static;
-  }
-}
-.perfil-hero-rating {
+.perfil-info-fila {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-family: sans-serif;
+  font-size: 14px;
 }
 
+.perfil-info-fila-columna {
+  flex-direction: column;
+}
+
+.perfil-info-fila-columna .perfil-pills {
+  margin-top: 4px;
+}
+
+.perfil-info-etiqueta {
+  opacity: 0.6;
+}
+
+.perfil-info-valor {
+  color: #f0ebe3;
+  text-align: right;
+}
+
+/* RESEÑAS */
 .estrellas-visual {
   display: flex;
   gap: 2px;
@@ -279,15 +387,8 @@
   font-size: 15px;
 }
 
-.perfil-hero-rating-numero {
-  font-size: 13px;
-  color: #f0ebe3;
-  font-family: sans-serif;
-  opacity: 0.8;
-}
-
 .resena-form {
-  background: rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.04);
   border: 1px solid rgba(232,200,118,0.2);
   padding: 20px;
   margin-bottom: 24px;
@@ -339,7 +440,7 @@
 
 .resena-aviso {
   font-size: 13px;
-  opacity: 0.6;
+  opacity: 0.7;
   font-family: sans-serif;
   margin-bottom: 24px;
 }
@@ -376,7 +477,7 @@
 
 .resena-item-comentario {
   font-size: 13px;
-  opacity: 0.75;
+  opacity: 0.8;
   font-family: sans-serif;
   line-height: 1.6;
 }
@@ -399,83 +500,74 @@
 
 .resena-respuesta p {
   font-size: 13px;
-  opacity: 0.8;
+  opacity: 0.85;
   font-family: sans-serif;
 }
-.perfil-fondo-blur {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  filter: blur(18px) brightness(0.7) saturate(1.15);
-  transform: scale(1.15);
-  z-index: 0;
-  pointer-events: none;
-}
 
-.perfil-navbar,
-.perfil-hero,
-.perfil-contenido {
-  position: relative;
-  z-index: 1;
-}
-.perfil-contenido-unico {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 40px 24px 80px;
-  position: relative;
-  z-index: 1;
-}
+/* MÓVIL */
+@media (max-width: 800px) {
+  .perfil-navbar {
+    padding: 10px 16px;
+  }
 
-.perfil-accion-box {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(232,200,118,0.3);
-  padding: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 36px;
-  flex-wrap: wrap;
-}
+  .perfil-wrap {
+    padding: 80px 16px 60px;
+  }
 
-.perfil-accion-box .btn-whatsapp {
-  flex-shrink: 0;
-}
-
-@media (max-width: 600px) {
-  .perfil-accion-box {
-    flex-direction: column;
-    align-items: stretch;
+  .perfil-header {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
     text-align: center;
   }
-}
-.perfil-hero-rating-fuera {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  position: absolute;
-  bottom: 8px;
-  left: 24px;
-  right: 24px;
-  z-index: 2;
-}
 
-@media (max-width: 800px) {
-  .perfil-hero-info {
-    left: 24px;
-    right: 24px;
-    bottom: 34px;
+  .perfil-avatar {
+    width: 180px;
+    height: 180px;
   }
 
-  .perfil-hero-rating-fuera {
-    left: 24px;
+  .perfil-cabecera {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
 
-  .perfil-hero-nombre {
-    font-size: 20px;
+  .perfil-nombre-fila {
+    justify-content: center;
+  }
+
+  .perfil-nombre {
+    font-size: 30px;
+  }
+
+  .perfil-rating-linea {
+    justify-content: center;
+  }
+
+  .perfil-precio-texto {
+    text-align: center;
+  }
+
+  .perfil-pills {
+    justify-content: center;
+  }
+
+  .perfil-descripcion {
+    text-align: left;
+  }
+
+  .perfil-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .perfil-tab {
+    flex: 1;
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .perfil-galeria-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

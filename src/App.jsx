@@ -349,7 +349,7 @@ function App() {
                 <div
                   className="bloque"
                   onClick={() => window.location.href = "/login"}
-                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=400')" }}
+               style={{ backgroundImage: "url('/bloque-publicate.jpg')" }}
                 >
                   <span>PUBLÍCATE</span>
                 </div>

@@ -201,6 +201,19 @@ function App() {
 
   useEffect(() => {
     cargarMasajistas()
+
+    const cargarSesion = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+      const { data: perfilData } = await supabase
+        .from("perfiles")
+        .select("rol")
+        .eq("user_id", user.id)
+        .single()
+      setEsCliente(perfilData?.rol === "cliente")
+    }
+
+    cargarSesion()
   }, [])
 
   const cargarMasajistas = async () => {

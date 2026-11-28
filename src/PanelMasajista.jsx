@@ -45,6 +45,9 @@ function PanelMasajista() {
     promocion_activa: "",
     descripcion: "",
     whatsapp: "",
+    foto_pos_x: 50,
+    foto_pos_y: 0,
+    foto_zoom: 1,
   })
 
   useEffect(() => {

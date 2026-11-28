@@ -249,7 +249,7 @@ function PerfilPublico() {
     : descripcion
   
   return (
-    <div className="perfil-publico-page">
+    <div className={saliendo ? "perfil-publico-page perfil-saliendo" : "perfil-publico-page"}>
       {masajista.foto_perfil && (
         <div
           className="perfil-fondo-blur"

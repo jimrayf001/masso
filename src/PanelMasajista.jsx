@@ -562,32 +562,57 @@ const aplicarMarcaAgua = (file) => {
 
             <div className="panel-card panel-preview">
               <h3 className="panel-card-titulo">Así te ven los clientes</h3>
-              <div className="preview-card">
-                <div className="preview-img">
-                  {form.foto_perfil ? (
-                    <img src={form.foto_perfil} alt="preview" className="preview-img-real" />
-                  ) : (
-                    <span>{form.nombre.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase()}</span>
-                  )}
-                  <span className={`badge ${form.disponible ? "badge-on" : "badge-off"}`}>
-                    {form.disponible ? "● En línea" : "● Ocupada"}
+
+              <p className="preview-etiqueta">Tu tarjeta en el listado</p>
+              <div className={`card card-poster preview-poster ${form.disponible ? "neon-verde" : "neon-rojo"}`}>
+                {form.foto_perfil ? (
+                  <img src={form.foto_perfil} alt="Vista previa" className="card-poster-img" />
+                ) : (
+                  <div className="avatar-placeholder card-poster-img">
+                    <span>{(form.nombre || "?").split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase()}</span>
+                  </div>
+                )}
+                <div className="card-poster-overlay" />
+                {tienePromo && form.promocion_activa && (
+                  <span className="badge-promo-icono">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="8" width="18" height="4" rx="1"/>
+                      <path d="M12 8v13"/>
+                      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
+                      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>
+                    </svg>
                   </span>
-                  {tienePromo && form.promocion_activa && (
-                    <span className="badge-promo">🔥 Promo</span>
-                  )}
-                </div>
-                <div className="preview-body">
-                  <h4>{form.nombre || "Tu nombre"}</h4>
-                  <p className="preview-comuna">📍 {form.comuna}</p>
-                  <p className="preview-servicio">{form.servicio || "Tus servicios"}</p>
-                  <p className="preview-precio">
-                    $ {form.precio ? parseInt(form.precio).toLocaleString("es-CL") : "0"}
-                  </p>
-                  {tienePromo && form.promocion_activa && (
-                    <p className="preview-promo-texto">{form.promocion_activa}</p>
-                  )}
+                )}
+                <div className="card-poster-info">
+                  <h3 className="card-poster-nombre">{form.nombre || "Tu nombre"}</h3>
+                  <p className="card-poster-comuna">📍 {form.comuna}</p>
                 </div>
               </div>
+              <p className="preview-nota">
+                {form.disponible ? "Borde verde: apareces en línea" : "Borde rojo: apareces ocupada"}
+              </p>
+
+              {form.foto_perfil && (
+                <>
+                  <p className="preview-etiqueta">Tu foto en la ficha</p>
+                  <div className="encuadre-circulo preview-circulo">
+                    <img
+                      src={form.foto_perfil}
+                      alt="Vista previa del círculo"
+                      style={{
+                        objectPosition: `${form.foto_pos_x}% ${form.foto_pos_y}%`,
+                        transform: `scale(${form.foto_zoom})`,
+                        transformOrigin: `${form.foto_pos_x}% ${form.foto_pos_y}%`,
+                      }}
+                    />
+                  </div>
+                </>
+              )}
+
+              <p className="preview-etiqueta">Tu precio</p>
+              <p className="preview-precio-grande">
+                $ {form.precio ? parseInt(form.precio).toLocaleString("es-CL") : "0"} <span>/ 1 h</span>
+              </p>
             </div>
           </div>
 

@@ -287,13 +287,22 @@ function PerfilPublico() {
       <div className="perfil-wrap">
         <div className="perfil-header">
           {masajista.foto_perfil ? (
-            <motion.img
-              src={masajista.foto_perfil}
-              alt={masajista.nombre}
-              className="perfil-avatar"
+            <motion.div
+              className="perfil-avatar perfil-avatar-marco"
               onClick={abrirGaleriaDesdePerfil}
               style={{ scale: avatarEscala, opacity: avatarOpacidad }}
-            />
+            >
+              <img
+                src={masajista.foto_perfil}
+                alt={masajista.nombre}
+                className="perfil-avatar-img"
+                style={{
+                  objectPosition: encuadrePosicion,
+                  transform: `scale(${encuadreZoom})`,
+                  transformOrigin: encuadrePosicion,
+                }}
+              />
+            </motion.div>
           ) : (
             <div className="perfil-avatar perfil-avatar-vacio">
               <span>{iniciales(masajista.nombre)}</span>

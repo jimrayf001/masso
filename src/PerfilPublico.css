@@ -949,3 +949,13 @@
     height: 250px;
   }
 }
+.perfil-avatar-marco {
+  overflow: hidden;
+}
+
+.perfil-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

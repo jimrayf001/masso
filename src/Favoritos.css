@@ -1,0 +1,136 @@
+.fav-page {
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #f0ebe3;
+  font-family: 'Georgia', serif;
+}
+
+.fav-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+  color: #e8c876;
+  font-family: sans-serif;
+}
+
+.fav-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 32px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(5, 3, 2, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(232, 200, 118, 0.12);
+}
+
+.fav-btn-volver {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(232,200,118,0.3);
+  color: #f0ebe3;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.fav-btn-volver:hover {
+  border-color: #e8c876;
+  color: #e8c876;
+}
+
+.fav-contenido {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
+}
+
+.fav-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  font-weight: 700;
+  color: #e8c876;
+  margin-bottom: 6px;
+}
+
+.fav-sub {
+  font-size: 14px;
+  font-family: sans-serif;
+  opacity: 0.6;
+  margin-bottom: 30px;
+}
+
+.fav-vacio {
+  text-align: center;
+  padding: 60px 20px;
+  border: 1px dashed rgba(232,200,118,0.25);
+  border-radius: 10px;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.fav-vacio p {
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.fav-quitar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(232,200,118,0.5);
+  color: #e8c876;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.3s;
+}
+
+.fav-quitar:hover {
+  background: rgba(0,0,0,0.8);
+  transform: scale(1.08);
+}
+
+.fav-quitar svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 768px) {
+  .fav-navbar {
+    padding: 10px 16px;
+  }
+
+  .fav-contenido {
+    padding: 80px 12px 50px;
+  }
+
+  .fav-titulo {
+    font-size: 26px;
+  }
+
+  .fav-quitar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .fav-quitar svg {
+    width: 16px;
+    height: 16px;
+  }
+}

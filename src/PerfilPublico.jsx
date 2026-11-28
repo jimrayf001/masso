@@ -171,6 +171,17 @@ function PerfilPublico() {
     navigate(-1)
   }
   
+  const volverAlListado = () => {
+    if (saliendo) return
+    setSaliendo(true)
+    setTimeout(() => {
+      if (window.history.state && window.history.state.idx > 0) {
+        navigate(-1)
+      } else {
+        navigate("/?entrar=true")
+      }
+    }, 180)
+  }
   const toggleFavorito = async () => {
     if (!usuario) {
       navigate("/login")

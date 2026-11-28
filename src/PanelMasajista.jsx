@@ -298,6 +298,9 @@ const aplicarMarcaAgua = (file) => {
       promocion_activa: tienePromo ? form.promocion_activa : null,
       descripcion: form.descripcion,
       whatsapp: form.whatsapp,
+      foto_pos_x: Number(form.foto_pos_x),
+      foto_pos_y: Number(form.foto_pos_y),
+      foto_zoom: Number(form.foto_zoom),
       ...(historiaCambio && form.foto_historia.length > 0 ? { historia_actualizada_en: new Date().toISOString() } : {}),
     }
 

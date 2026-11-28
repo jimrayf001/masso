@@ -447,7 +447,7 @@ const aplicarMarcaAgua = (file) => {
                     </button>
                   </div>
                 )}
-                <label>Nombre a mostrar</label>
+                <label>Nombre a mostrar <span className="campo-ejemplo">Colocar nombre y edad.</span></label>
                 <input
                   type="text"
                   name="nombre"

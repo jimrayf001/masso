@@ -105,6 +105,15 @@ function PerfilPublico() {
       .single()
 
     setPerfilUsuario(perfilData)
+
+    const { data: favoritoData } = await supabase
+      .from("favoritos")
+      .select("id")
+      .eq("cliente_id", user.id)
+      .eq("masajista_id", parseInt(id))
+      .maybeSingle()
+
+    setEsFavorito(!!favoritoData)
   }
 
   const enviarResena = async (e) => {

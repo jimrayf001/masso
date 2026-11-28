@@ -121,7 +121,12 @@ function TarjetaMasajista({ m, i, navigate }) {
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.35, ease: "easeOut", delay: (i % 2) * 0.06 }}
       whileHover={{ y: -6 }}
-      onClick={() => navigate(`/perfil/${m.id}`)}
+      animate={abriendo ? { scale: 1.08, opacity: 0 } : undefined}
+      onClick={() => {
+        if (abriendo) return
+        setAbriendo(true)
+        setTimeout(() => navigate(`/perfil/${m.id}`), 250)
+      }}
     >
       {fotos.length > 0 ? (
         <AnimatePresence initial={false}>

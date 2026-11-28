@@ -88,6 +88,7 @@ function TarjetaMasajista({ m, i, navigate }) {
   const ref = useRef(null)
   const visible = useInView(ref, { amount: 0.4 })
   const [indiceFoto, setIndiceFoto] = useState(0)
+  const [abriendo, setAbriendo] = useState(false)
 
   useEffect(() => {
     if (!visible || fotos.length < 2) return

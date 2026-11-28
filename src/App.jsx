@@ -445,7 +445,11 @@ function App() {
               <button className="nav-link-btn" onClick={abrirQuiz}>
                 <span className="nav-link-icon">✨</span> Ubica tu servicio ideal
               </button>
-              <button className="btn-primary" onClick={() => window.location.href = "/login"}>Registrarse</button>
+                           {esCliente ? (
+                <button className="btn-primary" onClick={() => navigate("/favoritos")}>♡ Favoritos</button>
+              ) : (
+                <button className="btn-primary" onClick={() => window.location.href = "/login"}>Registrarse</button>
+              )}
             </div>
           </nav>
 

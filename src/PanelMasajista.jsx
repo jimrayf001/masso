@@ -210,7 +210,7 @@ const aplicarMarcaAgua = (file) => {
     setSubiendoFoto(true)
     try {
       const url = await subirArchivo(file, "perfil")
-      setForm(f => ({ ...f, foto_perfil: url }))
+      setForm(f => ({ ...f, foto_perfil: url, foto_pos_x: 50, foto_pos_y: 0, foto_zoom: 1 }))
     } catch (err) {
       alert("Error al subir la foto: " + err.message)
     }

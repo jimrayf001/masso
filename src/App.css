@@ -1570,3 +1570,25 @@ body {
     padding: 8px 22px;
   }
 }
+.card-puntos {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+
+.card-punto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.card-punto-activo {
+  background: #e8c876;
+  transform: scale(1.3);
+}

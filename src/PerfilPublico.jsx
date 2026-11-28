@@ -279,7 +279,7 @@ function PerfilPublico() {
           </motion.div>
         </div>
 
-        <button className="btn-volver-perfil" onClick={() => navigate("/?entrar=true")}>← Volver</button>
+        <button className="btn-volver-perfil" onClick={volverAlListado}>← Volver</button>
       </nav>
 
       <div className="perfil-wrap">

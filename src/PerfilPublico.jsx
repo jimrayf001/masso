@@ -238,6 +238,8 @@ function PerfilPublico() {
   }
 
   const puedeComentar = usuario && perfilUsuario?.rol === "cliente"
+  const encuadrePosicion = `${masajista.foto_pos_x ?? 50}% ${masajista.foto_pos_y ?? 0}%`
+  const encuadreZoom = masajista.foto_zoom ?? 1
   const fotosGaleria = masajista.fotos_local || []
   const servicios = masajista.servicios && masajista.servicios.length > 0
     ? masajista.servicios

@@ -196,6 +196,7 @@ function App() {
   const [enviandoContacto, setEnviandoContacto] = useState(false)
   const [mensajeContactoEstado, setMensajeContactoEstado] = useState("")
   const [contactoAbierto, setContactoAbierto] = useState(false)
+  const [esCliente, setEsCliente] = useState(false)
   const masajistasRef = useRef(null)
 
   useEffect(() => {

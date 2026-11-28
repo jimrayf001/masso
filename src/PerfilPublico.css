@@ -817,3 +817,25 @@
     height: 46px;
   }
 }
+.perfil-favorito {
+  position: absolute;
+  top: 60px;
+  right: 32px;
+  width: 42px;
+  height: 42px;
+  z-index: 2;
+}
+
+.perfil-favorito svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 800px) {
+  .perfil-favorito {
+    top: 62px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}

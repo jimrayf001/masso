@@ -646,7 +646,7 @@ const aplicarMarcaAgua = (file) => {
 
           <div className="panel-card panel-card-full">
             <h3 className="panel-card-titulo">Fotos de la ficha ({form.fotos_local.length}/10)</h3>
-            <p className="panel-card-desc">Muestra el espacio donde atiendes para dar más confianza a tus clientes.</p>
+            <p className="panel-card-desc">Carga tus fotos mas sensuales:</p>
 
             <div className="fotos-local-grid">
               {form.fotos_local.map((url, i) => (

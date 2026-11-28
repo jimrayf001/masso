@@ -222,7 +222,18 @@ function App() {
 
     cargarSesion()
   }, [])
+  useEffect(() => {
+    navigate(entro ? "/?entrar=true" : "/", { replace: true })
+  }, [entro])
 
+  useEffect(() => {
+    if (cargandoMasajistas || !entro) return
+    const guardado = sessionStorage.getItem("masso-scroll")
+    if (guardado) {
+      sessionStorage.removeItem("masso-scroll")
+      requestAnimationFrame(() => window.scrollTo(0, parseInt(guardado)))
+    }
+  }, [cargandoMasajistas, entro])
   const cargarMasajistas = async () => {
     const { data, error } = await supabase
       .from("masajistas")

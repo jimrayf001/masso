@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams, useNavigate, useSearchParams } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { supabase } from "./supabaseClient"
 import "./PerfilPublico.css"
 
@@ -43,6 +43,11 @@ function PerfilPublico() {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const visorAbierto = searchParams.get("visor") === "1"
+    const { scrollY } = useScroll()
+  const avatarEscala = useTransform(scrollY, [0, 220], [1, 0.75])
+  const avatarOpacidad = useTransform(scrollY, [0, 220], [1, 0.2])
+  const miniOpacidad = useTransform(scrollY, [160, 240], [0, 1])
+  const miniY = useTransform(scrollY, [160, 240], [-10, 0])
   const [masajista, setMasajista] = useState(null)
   const [cargando, setCargando] = useState(true)
   const [galeriaAbierta, setGaleriaAbierta] = useState(null)
@@ -206,6 +211,20 @@ function PerfilPublico() {
           style={{ cursor: "pointer" }}
           onClick={() => navigate("/?entrar=true")}
         />
+
+        <div className="perfil-mini-wrap">
+          <motion.div
+            className="perfil-mini"
+            style={{ opacity: miniOpacidad, y: miniY }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            {masajista.foto_perfil && (
+              <img src={masajista.foto_perfil} alt="" className="perfil-mini-foto" />
+            )}
+            <span className="perfil-mini-nombre">{masajista.nombre}</span>
+          </motion.div>
+        </div>
+
         <button className="btn-volver-perfil" onClick={() => navigate("/?entrar=true")}>← Volver</button>
       </nav>
 

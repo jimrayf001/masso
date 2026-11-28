@@ -10,6 +10,7 @@ import PanelMasajista from './PanelMasajista.jsx'
 import PanelAdmin from './PanelAdmin.jsx'
 import Verificacion from './Verificacion.jsx'
 import PerfilPublico from './PerfilPublico.jsx'
+import Favoritos from './Favoritos.jsx'
 
 const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 

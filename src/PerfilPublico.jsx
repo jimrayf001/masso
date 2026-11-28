@@ -62,6 +62,8 @@ function PerfilPublico() {
   const [pestana, setPestana] = useState("galeria")
   const [descripcionAbierta, setDescripcionAbierta] = useState(false)
   const [filtroGaleria, setFiltroGaleria] = useState("todo")
+    const [esFavorito, setEsFavorito] = useState(false)
+  const [guardandoFavorito, setGuardandoFavorito] = useState(false)
   useEffect(() => {
     cargarMasajista()
     cargarResenas()

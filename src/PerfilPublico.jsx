@@ -168,6 +168,36 @@ function PerfilPublico() {
   const cerrarGaleria = () => {
     navigate(-1)
   }
+  
+  const toggleFavorito = async () => {
+    if (!usuario) {
+      navigate("/login")
+      return
+    }
+
+    if (perfilUsuario?.rol !== "cliente") {
+      alert("Solo las cuentas de cliente pueden guardar favoritos.")
+      return
+    }
+
+    setGuardandoFavorito(true)
+
+    if (esFavorito) {
+      const { error } = await supabase
+        .from("favoritos")
+        .delete()
+        .eq("cliente_id", usuario.id)
+        .eq("masajista_id", parseInt(id))
+      if (!error) setEsFavorito(false)
+    } else {
+      const { error } = await supabase
+        .from("favoritos")
+        .insert({ cliente_id: usuario.id, masajista_id: parseInt(id) })
+      if (!error) setEsFavorito(true)
+    }
+
+    setGuardandoFavorito(false)
+  }
 
   const siguienteFoto = () => {
     setGaleriaIndice(idx => (idx + 1) % galeriaAbierta.length)

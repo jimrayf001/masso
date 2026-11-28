@@ -557,15 +557,6 @@ const aplicarMarcaAgua = (file) => {
                   </>
                 )}
 
-                {mensaje && (
-                  <p className={mensaje.includes("Error") ? "panel-error" : "panel-exito"}>
-                    {mensaje}
-                  </p>
-                )}
-
-                <button type="submit" className="btn-primary large full" disabled={guardando}>
-                  {guardando ? "Guardando..." : "Guardar cambios"}
-                </button>
               </form>
             </div>
 

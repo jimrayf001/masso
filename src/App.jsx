@@ -81,8 +81,39 @@ function RedesSociales() {
 }
 
 function TarjetaMasajista({ m, i, navigate }) {
+  const fotos = [
+    ...(m.foto_perfil ? [m.foto_perfil] : []),
+    ...(m.fotos_local || []),
+  ].slice(0, 5)
+  const ref = useRef(null)
+  const visible = useInView(ref, { amount: 0.4 })
+  const [indiceFoto, setIndiceFoto] = useState(0)
+
+  useEffect(() => {
+    if (!visible || fotos.length < 2) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+    fotos.forEach(src => {
+      const img = new Image()
+      img.src = src
+    })
+
+    let intervalo
+    const inicio = setTimeout(() => {
+      intervalo = setInterval(() => {
+        setIndiceFoto(idx => (idx + 1) % fotos.length)
+      }, 2500)
+    }, (i % 4) * 600)
+
+    return () => {
+      clearTimeout(inicio)
+      clearInterval(intervalo)
+    }
+  }, [visible, fotos.length, i])
+
   return (
     <motion.div
+      ref={ref}
       className={`card card-poster card-${m.categoria || "basica"} ${m.disponible ? "neon-verde" : "neon-rojo"}`}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -91,8 +122,19 @@ function TarjetaMasajista({ m, i, navigate }) {
       whileHover={{ y: -6 }}
       onClick={() => navigate(`/perfil/${m.id}`)}
     >
-      {m.foto_perfil ? (
-        <img src={m.foto_perfil} alt={m.nombre} className="card-poster-img" />
+      {fotos.length > 0 ? (
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={indiceFoto}
+            src={fotos[indiceFoto]}
+            alt={m.nombre}
+            className="card-poster-img"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          />
+        </AnimatePresence>
       ) : (
         <div className="avatar-placeholder card-poster-img">
           <span>{iniciales(m.nombre)}</span>
@@ -100,6 +142,14 @@ function TarjetaMasajista({ m, i, navigate }) {
       )}
 
       <div className="card-poster-overlay" />
+
+      {fotos.length > 1 && (
+        <div className="card-puntos">
+          {fotos.map((_, n) => (
+            <span key={n} className={n === indiceFoto ? "card-punto card-punto-activo" : "card-punto"} />
+          ))}
+        </div>
+      )}
 
       {m.promocion_activa && (
         <span className="badge-promo-icono" title="Tiene promoción activa">
@@ -111,8 +161,6 @@ function TarjetaMasajista({ m, i, navigate }) {
           </svg>
         </span>
       )}
-
-
 
       <div className="card-poster-info">
         <h3 className="card-poster-nombre">{m.nombre}</h3>

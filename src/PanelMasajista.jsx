@@ -501,7 +501,7 @@ const aplicarMarcaAgua = (file) => {
                   placeholder="Ej: +56912345678"
                 />
 
-                <label>Precio por sesión (CLP)</label>
+                <label>Precio por hora en pesos chilenos (CLP)</label>
                 <input
                   type="number"
                   name="precio"

@@ -723,3 +723,52 @@
     font-size: 36px;
   }
 }
+.perfil-mini-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.perfil-mini {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.perfil-mini-foto {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 2px solid rgba(232,200,118,0.7);
+}
+
+.perfil-mini-nombre {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.perfil-avatar {
+  transform-origin: center top;
+}
+
+@media (max-width: 800px) {
+  .perfil-mini-foto {
+    width: 30px;
+    height: 30px;
+  }
+
+  .perfil-mini-nombre {
+    font-size: 14px;
+    max-width: 120px;
+  }
+}

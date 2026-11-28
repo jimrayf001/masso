@@ -634,3 +634,75 @@
 .resena-panel-responder button {
   align-self: flex-start;
 }
+.encuadre-box {
+  margin: 14px 0 6px;
+  padding: 18px;
+  border: 1px solid rgba(232,200,118,0.2);
+  background: rgba(255,255,255,0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.encuadre-titulo {
+  font-size: 13px;
+  font-family: sans-serif;
+  color: #e8c876;
+}
+
+.encuadre-circulo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(232,200,118,0.6);
+}
+
+.encuadre-circulo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.panel-form .encuadre-control {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 0;
+  opacity: 1;
+  font-size: 12px;
+  color: #f0ebe3;
+}
+
+.encuadre-control span {
+  width: 80px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.panel-form .encuadre-control input[type="range"] {
+  flex: 1;
+  padding: 0;
+  border: none;
+  background: transparent;
+  accent-color: #e8c876;
+  cursor: pointer;
+}
+
+.encuadre-reset {
+  background: transparent;
+  border: 1px solid rgba(240,235,227,0.25);
+  color: #f0ebe3;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.encuadre-reset:hover {
+  border-color: #e8c876;
+  color: #e8c876;
+}

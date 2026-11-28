@@ -646,7 +646,17 @@ const aplicarMarcaAgua = (file) => {
               </label>
             )}
 
-            <p className="panel-nota">Recuerda hacer clic en "Guardar cambios" arriba después de subir tus fotos.</p>
+          </div>
+
+          <div className="panel-guardar-final">
+            {mensaje && (
+              <p className={mensaje.includes("Error") ? "panel-error" : "panel-exito"}>
+                {mensaje}
+              </p>
+            )}
+            <button type="submit" form="form-perfil" className="btn-primary large full" disabled={guardando}>
+              {guardando ? "Guardando..." : "Guardar cambios"}
+            </button>
           </div>
 
           <div className="panel-card panel-card-full">

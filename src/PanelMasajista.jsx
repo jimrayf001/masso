@@ -408,7 +408,45 @@ const aplicarMarcaAgua = (file) => {
                     <input type="file" accept="image/*" onChange={manejarFotoPerfil} hidden disabled={subiendoFoto} />
                   </label>
                 </div>
+                {form.foto_perfil && (
+                  <div className="encuadre-box">
+                    <p className="encuadre-titulo">Ajusta cómo se ve tu foto en el círculo</p>
+                    <div className="encuadre-circulo">
+                      <img
+                        src={form.foto_perfil}
+                        alt="Vista previa"
+                        style={{
+                          objectPosition: `${form.foto_pos_x}% ${form.foto_pos_y}%`,
+                          transform: `scale(${form.foto_zoom})`,
+                          transformOrigin: `${form.foto_pos_x}% ${form.foto_pos_y}%`,
+                        }}
+                      />
+                    </div>
 
+                    <label className="encuadre-control">
+                      <span>Horizontal</span>
+                      <input type="range" name="foto_pos_x" min="0" max="100" value={form.foto_pos_x} onChange={manejarCambio} />
+                    </label>
+
+                    <label className="encuadre-control">
+                      <span>Vertical</span>
+                      <input type="range" name="foto_pos_y" min="0" max="100" value={form.foto_pos_y} onChange={manejarCambio} />
+                    </label>
+
+                    <label className="encuadre-control">
+                      <span>Zoom</span>
+                      <input type="range" name="foto_zoom" min="1" max="2.5" step="0.05" value={form.foto_zoom} onChange={manejarCambio} />
+                    </label>
+
+                    <button
+                      type="button"
+                      className="encuadre-reset"
+                      onClick={() => setForm(f => ({ ...f, foto_pos_x: 50, foto_pos_y: 0, foto_zoom: 1 }))}
+                    >
+                      Restablecer
+                    </button>
+                  </div>
+                )}
                 <label>Nombre a mostrar</label>
                 <input
                   type="text"

@@ -62,8 +62,9 @@ function PerfilPublico() {
   const [pestana, setPestana] = useState("galeria")
   const [descripcionAbierta, setDescripcionAbierta] = useState(false)
   const [filtroGaleria, setFiltroGaleria] = useState("todo")
-    const [esFavorito, setEsFavorito] = useState(false)
+  const [esFavorito, setEsFavorito] = useState(false)
   const [guardandoFavorito, setGuardandoFavorito] = useState(false)
+  const [saliendo, setSaliendo] = useState(false)
   useEffect(() => {
     window.scrollTo(0, 0)
     cargarMasajista()

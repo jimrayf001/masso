@@ -98,6 +98,9 @@ function PanelMasajista() {
         promocion_activa: masajistaData.promocion_activa || "",
         descripcion: masajistaData.descripcion || "",
         whatsapp: masajistaData.whatsapp || "",
+        foto_pos_x: masajistaData.foto_pos_x ?? 50,
+        foto_pos_y: masajistaData.foto_pos_y ?? 0,
+        foto_zoom: masajistaData.foto_zoom ?? 1,
       })
       setTienePromo(!!masajistaData.promocion_activa)
 

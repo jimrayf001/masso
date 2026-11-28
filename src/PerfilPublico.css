@@ -845,3 +845,22 @@
     height: 220px;
   }
 }
+@media (min-width: 801px) {
+  .perfil-header {
+    grid-template-columns: 290px 1fr;
+  }
+
+  .perfil-avatar {
+    width: 290px;
+    height: 290px;
+  }
+
+  .perfil-favorito {
+    top: 100px;
+    right: 32px;
+  }
+
+  .perfil-precio-bloque {
+    margin-top: 64px;
+  }
+}

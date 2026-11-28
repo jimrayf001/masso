@@ -311,8 +311,17 @@ function PerfilPublico() {
                   <p className="perfil-precio-valor">$ {masajista.precio?.toLocaleString("es-CL")}</p>
                   <p className="perfil-precio-unidad">/ 1 h</p>
                 </div>
+                <button
+                  className={esFavorito ? "perfil-favorito perfil-favorito-activo" : "perfil-favorito"}
+                  onClick={toggleFavorito}
+                  disabled={guardandoFavorito}
+                  title={esFavorito ? "Quitar de favoritos" : "Guardar en favoritos"}
+                  aria-label={esFavorito ? "Quitar de favoritos" : "Guardar en favoritos"}
+                >
+                  <svg viewBox="0 0 24 24" fill={esFavorito ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z" /></svg>
+                </button>
                 {masajista.whatsapp && (
-                                    <a href={generarLinkWhatsapp(masajista.whatsapp, masajista.nombre)} target="_blank" rel="noreferrer" className="perfil-wsp-circulo" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp"><img src="/icono-whatsapp.png" alt="" className="perfil-wsp-icono" /></a>
+                  <a href={generarLinkWhatsapp(masajista.whatsapp, masajista.nombre)} target="_blank" rel="noreferrer" className="perfil-wsp-circulo" title="Contactar por WhatsApp" aria-label="Contactar por WhatsApp"><img src="/icono-whatsapp.png" alt="" className="perfil-wsp-icono" /></a>
                 )}
               </div>
             </div>

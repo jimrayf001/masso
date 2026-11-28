@@ -482,7 +482,7 @@ const aplicarMarcaAgua = (file) => {
                   ))}
                 </div>
 
-                <label>Descripción de tu servicio</label>
+                <label>Descripción de tu servicio <span className="campo-ejemplo">texto a colocar: Años: 00; Altura: 000 CM; Peso: 00 KG; Medidas: 90-60-90; Nacionalidad: xxx; Cabello (color); Ojos (color); Piel (color); Depilación (ejemplo full o con vellos); Cuerpo: Delgada, XL, Atletica; Busto: Mediano, grande, chico; Cola: Mediana, grande, chica; Estilo: Milf, Teen, Natural; Descripción de tu servicio, ejemplo: Soy xxx, una joven hermosa, elegante y muy relajada, amante del buen sexo, de mente abierta... Si buscas una experiencia realmente sensual, llena de pasión, conexión y placer sin prisas... Estoy aquí para cumplir tus fantasías</span></label>
                 <textarea
                   name="descripcion"
                   value={form.descripcion}

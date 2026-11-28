@@ -102,7 +102,7 @@ function TarjetaMasajista({ m, i, navigate }) {
     const inicio = setTimeout(() => {
       intervalo = setInterval(() => {
         setIndiceFoto(idx => (idx + 1) % fotos.length)
-      }, 2500)
+      }, 3000)
     }, (i % 4) * 600)
 
     return () => {

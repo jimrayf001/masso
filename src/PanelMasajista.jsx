@@ -397,7 +397,7 @@ const aplicarMarcaAgua = (file) => {
             <div className="panel-card">
               <h3 className="panel-card-titulo">Información pública</h3>
 
-              <form onSubmit={guardarPerfil} className="panel-form">
+              <form id="form-perfil" onSubmit={guardarPerfil} className="panel-form">
                 <label>Foto de perfil</label>
                 <div className="upload-foto-perfil">
                   {form.foto_perfil && (

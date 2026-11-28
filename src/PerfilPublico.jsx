@@ -275,7 +275,7 @@ function PerfilPublico() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             {masajista.foto_perfil && (
-              <img src={masajista.foto_perfil} alt="" className="perfil-mini-foto" />
+              <img src={masajista.foto_perfil} alt="" className="perfil-mini-foto" style={{ objectPosition: encuadrePosicion }} />
             )}
             <span className="perfil-mini-nombre">{masajista.nombre}</span>
           </motion.div>

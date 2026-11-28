@@ -492,7 +492,7 @@ const aplicarMarcaAgua = (file) => {
                   maxLength={500}
                 />
 
-                <label>Número de WhatsApp</label>
+                <label>Número de WhatsApp con el +569:</label>
                 <input
                   type="tel"
                   name="whatsapp"

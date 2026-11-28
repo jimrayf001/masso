@@ -932,3 +932,20 @@
     animation: none;
   }
 }
+@media (min-width: 801px) {
+  .perfil-header {
+    grid-template-columns: 330px 1fr;
+  }
+
+  .perfil-avatar {
+    width: 330px;
+    height: 330px;
+  }
+}
+
+@media (max-width: 800px) {
+  .perfil-avatar {
+    width: 250px;
+    height: 250px;
+  }
+}

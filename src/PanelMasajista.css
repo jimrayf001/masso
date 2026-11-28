@@ -755,3 +755,54 @@
     letter-spacing: 2px;
   }
 }
+.panel-form label .campo-ejemplo {
+  display: block;
+  font-size: 11px;
+  color: #e8c876;
+  font-style: italic;
+  margin-top: 3px;
+  letter-spacing: 0;
+}
+
+.preview-etiqueta {
+  font-size: 11px;
+  font-family: sans-serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin: 18px 0 10px;
+}
+
+.preview-etiqueta:first-of-type {
+  margin-top: 0;
+}
+
+.preview-poster {
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+.preview-nota {
+  font-size: 11px;
+  font-family: sans-serif;
+  opacity: 0.55;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.preview-circulo {
+  margin: 0 auto;
+}
+
+.preview-precio-grande {
+  font-size: 26px;
+  font-weight: 700;
+  font-family: sans-serif;
+  color: #ffffff;
+}
+
+.preview-precio-grande span {
+  font-size: 13px;
+  font-weight: 400;
+  opacity: 0.6;
+}

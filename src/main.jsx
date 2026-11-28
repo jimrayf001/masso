@@ -39,6 +39,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/admin" element={<PanelAdmin />} />
           <Route path="/verificacion" element={<Verificacion />} />
           <Route path="/perfil/:id" element={<PerfilPublico />} />
+                    <Route path="/favoritos" element={<Favoritos />} />
         </Routes>
       </BrowserRouter>
     </MotionConfig>

@@ -84,10 +84,10 @@ function TarjetaMasajista({ m, i, navigate }) {
   return (
     <motion.div
       className={`card card-poster card-${m.categoria || "basica"} ${m.disponible ? "neon-verde" : "neon-rojo"}`}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.6, ease: "easeOut", delay: (i % 2) * 0.12 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.35, ease: "easeOut", delay: (i % 2) * 0.06 }}
       whileHover={{ y: -6 }}
       onClick={() => navigate(`/perfil/${m.id}`)}
     >

@@ -121,11 +121,12 @@ function TarjetaMasajista({ m, i, navigate }) {
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.35, ease: "easeOut", delay: (i % 2) * 0.06 }}
       whileHover={{ y: -6 }}
-      animate={abriendo ? { scale: 1.08, opacity: 0 } : undefined}
+      animate={abriendo ? { scale: 1.06, opacity: 0, transition: { duration: 0.15, delay: 0 } } : undefined}
       onClick={() => {
         if (abriendo) return
         setAbriendo(true)
-        setTimeout(() => navigate(`/perfil/${m.id}`), 250)
+        sessionStorage.setItem("masso-scroll", String(window.scrollY))
+        setTimeout(() => navigate(`/perfil/${m.id}`), 150)
       }}
     >
       {fotos.length > 0 ? (

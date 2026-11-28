@@ -65,6 +65,7 @@ function PerfilPublico() {
     const [esFavorito, setEsFavorito] = useState(false)
   const [guardandoFavorito, setGuardandoFavorito] = useState(false)
   useEffect(() => {
+    window.scrollTo(0, 0)
     cargarMasajista()
     cargarResenas()
     cargarUsuario()

@@ -772,3 +772,48 @@
     max-width: 120px;
   }
 }
+.perfil-favorito {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(232,200,118,0.45);
+  color: #e8c876;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.perfil-favorito svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s;
+}
+
+.perfil-favorito:hover {
+  background: rgba(232,200,118,0.12);
+}
+
+.perfil-favorito-activo {
+  background: rgba(232,200,118,0.15);
+  border-color: #e8c876;
+}
+
+.perfil-favorito-activo svg {
+  transform: scale(1.12);
+}
+
+.perfil-favorito:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@media (max-width: 800px) {
+  .perfil-favorito {
+    width: 46px;
+    height: 46px;
+  }
+}

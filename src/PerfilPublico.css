@@ -839,3 +839,9 @@
     height: 40px;
   }
 }
+@media (max-width: 800px) {
+  .perfil-avatar {
+    width: 220px;
+    height: 220px;
+  }
+}
